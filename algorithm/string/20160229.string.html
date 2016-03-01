@@ -9,10 +9,16 @@
 </html>
 <script type="text/javascript">
 //找出字符串中第一个出现一次的字符
-	function findFirst(str){
-		if(typeof str !='string'){
-			return null;
+	function find(str){
+		var arr = [];
+		for(var i=0,len = str.length;i<len;i++){
+			if(str.indexOf(str[i]) == str.lastIndexOf(str[i])){
+				break;
+			}
 		}
+		return str[i];
+	}
+	function findFirst(str){
 		var obj = {};
 		for(var i=0,len = str.length;i<len;i++){
 			if(obj[str[i]]){
@@ -21,7 +27,6 @@
 				obj[str[i]] = 1;
 			}
 		}
-		console.log(obj);
 		for(i=0;i<len;i++){
 			if(obj[str[i]]==1){
 				break;
