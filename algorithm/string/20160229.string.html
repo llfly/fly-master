@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>sort</title>
+</head>
+<body>
+</body>
+</html>
+<script type="text/javascript">
+//找出字符串中第一个出现一次的字符
+	function findFirst(str){
+		if(typeof str !='string'){
+			return null;
+		}
+		var obj = {};
+		for(var i=0,len = str.length;i<len;i++){
+			if(obj[str[i]]){
+				obj[str[i]]++;
+			}else{
+				obj[str[i]] = 1;
+			}
+		}
+		console.log(obj);
+		for(i=0;i<len;i++){
+			if(obj[str[i]]==1){
+				break;
+			}
+		}
+		return str[i];
+	}
+	function doubleFor(str){
+		var i=0,len = str.length;
+		var arr = [];
+		for(;i<len;i++){
+			if(!contains(arr,arr[i])){
+				for(var j=i+1;j<len;j++){
+					if(str[i]==str[j]){
+						arr.push(str[i]);
+					}
+				}
+			}else{
+				break;
+			}
+		}
+		return str[i];
+		function contains(a, obj) {
+        	for (var j = 0; i < a.length; i++) {
+            	if (a[i] === obj) {return true;}
+        	}
+        	return false;
+    	}
+	}
+	//console.log(findFirst('abcdeffsadfsagaf;lksdj;fksajdf'));
+	//console.log(doubleFor('abcdeffsadfsagaf;lksdj;fksajdf'));
+</script>

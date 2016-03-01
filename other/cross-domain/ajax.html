@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+</html>
+<script type="text/javascript">
+	(function ajax(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			var status = xhr.status;
+			if(xhr.readyState ==4){
+				if(status>=200&& status<300){
+					console.log('success');
+				}else{
+					console.log('fail')
+				}
+			}
+		}
+		xhr.open('get','http://localhost:3000'+'?hello=TEST',true);
+		xhr.send();
+	})();
+</script>

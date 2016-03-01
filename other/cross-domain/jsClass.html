@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+</html>
+<script type="text/javascript">
+function jsClass2(src, callback, time, failback) {
+    var script = document.createElement('script'),
+        cb = "callback_" + (new Date()).getMilliseconds() + parseInt(Math.random() * 1000);
+    var tl = null;
+    //整理cb参数
+    if (callback) {
+        if (src.indexOf("?") != -1) {
+            src += "&cb=" + cb;
+        } else {
+            src += "?cb=" + cb;
+        }
+    }
+    //回调
+    window[cb] = function(a) {
+        clearTimeout(tl);
+        tl = null;
+        callback(a);
+        window[cb] = null;
+        return;
+    }
+    time && (tl = setTimeout(function() {
+        window[cb] = null;
+        failback && failback();
+    }, time));
+    //写入
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', src);
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+function jsClass(src,callback)
+{
+	var script = document.createElement('script'),cb="callback_"+(new Date()).getMilliseconds()+parseInt(Math.random()*1000);
+	//整理cb参数
+	if(callback){
+		if(src.indexOf("?")!=-1){src+="&cb="+cb;}
+		else{src+="?cb="+cb;}
+	}
+	//回调
+	window[cb]=function(a){
+		callback(a);
+		window[cb]=null;
+		return;
+	}
+	//写入
+	script.setAttribute('type', 'text/javascript');
+	script.setAttribute('src', src);
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+</script>

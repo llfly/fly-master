@@ -1,0 +1,19 @@
+{
+  "name": "shouji4",
+  "version": "1.0.0",
+  "description": "just for activity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shouji4"
+  ],
+  "author": "llfly",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-sass": "^2.0.4"
+  }
+}

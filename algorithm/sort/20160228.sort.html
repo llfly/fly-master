@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>sort</title>
+</head>
+<body>
+</body>
+</html>
+<script type="text/javascript">
+Function.prototype.Method = function(name,func){
+	this.prototype[name] = func;
+	return this;
+}
+var test = [8,7,5,2,9,0,1,4,3];//测试用例
+
+//--------------------------------------------------------------------------------------//
+//1.冒泡排序
+//8, 7, 5, 2, 9, 0, 1, 4, 3
+//7, 5, 2, 8, 0, 1, 4, 3, 9
+//5, 2, 7, 0, 1, 4, 3, 8, 9
+//2, 5, 0, 1, 4, 3, 7, 8, 9
+//2, 0, 1, 4, 3, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//...
+Array.Method('bubbleSort',function(){
+	var i=0,j,len = this.length,temp;
+	for(;i<len;i++){//外层控制迭代次数
+		console.log(this);
+		for(j = 0;j<this.length-1;j++){//内层控制冒泡
+			if(this[j]>this[j+1]){
+				temp = this[j];
+				this[j] = this[j+1];
+				this[j+1] = temp;
+			}
+		}
+	}
+	return this;
+});
+//console.log('bubbleSort',test.bubbleSort());
+
+
+//--------------------------------------------------------------------------------------//
+//2. 选择排序
+//8, 7, 5, 2, 9, 0, 1, 4, 3
+//0, 7, 5, 2, 9, 8, 1, 4, 3
+//0, 1, 5, 2, 9, 8, 7, 4, 3
+//0, 1, 2, 5, 9, 8, 7, 4, 3
+//0, 1, 2, 3, 9, 8, 7, 4, 5
+//0, 1, 2, 3, 4, 8, 7, 9, 5
+//0, 1, 2, 3, 4, 5, 7, 9, 8
+//0, 1, 2, 3, 4, 5, 7, 9, 8
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+Array.Method('selectSort',function(){
+	var i=0,j,len = this.length,temp;
+	for(;i<len;i++){
+		k = i;
+		for(j=i+1;j<len;j++)(this[k]>this[j])&&(k=j);
+		if(k!=i){
+			temp = this[k];
+			this[k] = this[i];
+			this[i] = temp;
+		}
+	}
+	return this;
+});
+//console.log('selectSort',test.selectSort());
+
+//--------------------------------------------------------------------------------------//
+//3. 插入排序
+
+//1.从第一个元素开始，该元素可以认为已经被排序
+//2.取出下一个元素，在已经排序的元素序列中从后向前扫描
+//3.如果该元素（已排序）大于新元素，将该元素移到下一位置
+//4.重复步骤3，直到找到已排序的元素小于或者等于新元素的位置
+//5.将新元素插入到该位置后
+//6.重复步骤2~5
+
+//8, 7, 5, 2, 9, 0, 1, 4, 3
+//7, 8, 5, 2, 9, 0, 1, 4, 3
+//5, 7, 8, 2, 9, 0, 1, 4, 3
+//2, 5, 7, 8, 9, 0, 1, 4, 3
+//2, 5, 7, 8, 9, 0, 1, 4, 3
+//0, 2, 5, 7, 8, 9, 1, 4, 3
+//0, 1, 2, 5, 7, 8, 9, 4, 3
+//0, 1, 2, 4, 5, 7, 8, 9, 3
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+Array.Method('insertSort',function(){
+	var i=1,len = this.length,j,temp;
+	for(;i<len;i++){
+		temp = this[i];
+		j = i - 1;
+		while(j>=0&&this[j]>temp){
+			this[j+1] = this[j];
+			this[j] = temp;
+			j--;
+		}
+	}
+	return this;
+});
+//console.log('insertSort',test.insertSort());
+
+
+
+
+//--------------------------------------------------------------------------------------//
+//4. 快速排序
+// 采用分治的策略，通常称其为分治法
+// 基本思想是：将原问题分解为若干个规模更小但结构与原问题相似的子问题。递归地解这些子问题，然后将这些子问题的解组合为原问题的解。
+// 具体过程：
+// 第一步，在待排序的n个记录中任取一个记录，以该记录的排序码为准，将所有记录分成两组，第1组各记录的排序码都小于等于该排序码，第2组各记录的排序码都大于该排序码，并把该记录排在这两组中间。
+// 第二步，采用同样的方法进行递归调用，对左边的组和右边的组进行排序，直到所有记录都排到相应的位置为止。
+
+//3, 7, 5, 2, 4, 0, 1, 8, 9
+//1, 0, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+//0, 1, 2, 3, 4, 5, 7, 8, 9
+Array.Method('quickSort',function(low,high){
+	var i = low, j = high -1,temp;
+	if(low<high){
+		temp = this[low];
+		while(i<j){
+			for(;i<j;j--){
+				if(this[j]<temp){
+					this[i++] = this[j];
+					break;
+				}
+			}
+			for(;i<j;i++){
+				if(this[i]>temp){
+					this[j--] = this[i];
+					break;
+				}
+			}
+		}
+		this[i] = temp;
+		this.quickSort(low,i);
+		this.quickSort(i+1,high);
+	}
+	return this;
+})
+console.log('quickSort',test.quickSort(0,test.length));
+
+//--------------------------------------------------------------------------------------//
+
+//1) 归并
+//从两个有序表R[low...mid]和R[mid+1...high]每次从左边依次取出一个数进行比较，将较小者放入temp数组中，最后将两段中剩下的部分直接复制到temp中。
+//这样temp是一个有序表，再将它复制加R中。(其中要考虑最后一个子表的长度不足length的情况)
+
+
+//将两个有序数组归并成一个数组
+function merge1(arr1,arr2){
+	var i=0,j=0,k,len1 = arr1.length,len2 = arr2.length;
+	while(i<)
+}
+
+
+
+//2) 排序
+//自底向上的归并，第一回：length=1；第二回：length=2*length ...
+
+
+
+/*
+
+Array.Method('mergeSort',function(){
+	var merge = function(arr,low,mid,high){
+		var tmp =[],i=low,j=mid+1,k=0,len;
+		while(i<=mid&&j<=high){
+			if(arr[i]<this[j]){
+				tmp[k++] = arr[i++];
+			}else{
+				tmp[k++] = arr[j++];
+			}
+		}
+		while(i<=mid){
+			tmp[k++] = arr[i++];
+		}
+		while(j<=high){
+			tmp[k++] = arr[j++];
+		}
+		for (k = 0, len = tmp.length; k < len; k++) {
+            arr[low + k] = tmp[k];
+        }
+	};
+	var sort = function (array, i, j) {
+        if (i < j) {
+            var mid = Math.floor((i + j) / 2);
+            sort(array, i, mid);
+            sort(array, mid + 1, j);
+            merge(array, i, mid, j);
+        }
+    };
+    sort(this, 0, this.length - 1);
+  	return this;
+});
+*/
+
+
+
+Array.Method('mergeSort',function(){
+ var merge = function (arr, low, mid, high) {
+        var tmp = [];
+        var i = low;
+        var j = mid + 1;
+        var k =0;
+        var len;
+        while (i <= mid && j <= high) {
+            if (arr[i] < arr[j]) {
+              tmp[k++] = arr[i++];
+            } else {
+              tmp[k++] = arr[j++];
+            }
+        }
+        while (i <= mid) {
+           tmp[k++] = arr[i++];
+        }
+        while (j <= high) {
+           tmp[k++] = arr[j++];
+        }
+        for (k = 0, len = tmp.length; k < len; k++) {
+            arr[low + k] = tmp[k];
+        }
+    };
+    var sort = function (array, i, j) {
+        if (i < j) {
+            var mid = Math.floor((i + j) / 2);
+            sort(array, i, mid);
+            sort(array, mid + 1, j);
+            merge(array, i, mid, j);
+        }
+    };
+    sort(this, 0, this.length - 1);
+  	return this;
+});
+
+/*
+function mergeSort(arr) {
+  var len = arr.length;
+  if(len > 1) {
+    var index = Math.floor(len / 2);
+    left = arr.slice(0,index); //得到下标从0~index-1的数组
+    right = arr.slice(index);  //得到下标从index开始到末尾的数组
+    return merge(mergeSort(left) , mergeSort(right));  里面采用递归
+  }else {
+    return arr;
+  }
+}
+
+function merge(left , right) {   //该函数与快排类似，但是仔细发现，每次left或者right都是要shift掉第一个元素，表示left或者right是会变化的，最后arr.concat，因为不知道left或者right其中一个哪个剩下元素，所以要将剩下的元素给加上
+  var arr = [];
+  while(left.length && right.length) {
+    if(left[0] < right[0]) {
+      arr.push(left.shift());
+    }else {
+      arr.push(right.shift())
+    }
+  }
+  return arr.concat(left , right);
+}
+*/
+/*
+
+
+Array.Method('mergePass', function(length, n){
+    var i;
+    for(i=0; i+2*length-1<n; i=i+2*length) this.merge(i, i+length-1, i+2*length-1);
+    if(i+length-1 < n) this.merge(i, i+length-1, n-1); //考虑到最后一个子表的长度可能小于length，所以要特殊处理一下
+    return this;
+});
+
+Array.Method('mergeSort', function(){
+    var len = this.length,length;
+    for(length=1; length<len; length=2*length) this.mergePass(length, len);
+    return this;
+});
+*/
+
+/*
+堆排序(不稳定)
+    堆排序是一种树形选择排序，是对直接选择排序的有效改进。n个关键字序列
+K1,K2,...,Kn称为堆，当且仅当该序列满足(Ki<=K2i且Ki<=K2i+1)或(Ki>=K2i且Ki>=K2i+1),(1<=i<=n/2)。根结点(堆顶)的关键字是堆里所有结点关键字中最小者，称为小根堆；根结点的关键字是堆里所有结点关键字中最大者，称为大根堆。
+    若将此序列所存储的向量R[1..n]看作是一棵完全二叉树的存储结构，则堆实质上是满足如下性质的完全二叉树：树中任一非叶结点的关键字均不大于(或不小于)其左右孩子(若存在)结点的关键字。
+    堆排序的关键步骤有两个：一是如何建立初始堆；二是当堆的根结点与堆的最后一个结点交换后，如何对少了一个结点后的结点序列做调整，使之重新成为堆。堆排序的最坏时间复杂度为O(nlog2n),堆排序的平均性能较接近于最坏性能。由于建初始堆所需的比较 次数较多，所以堆排序不适宜于记录较少的文件。堆排序是就地排序，辅助空间为O(1)，它是不稳定的排序方法。
+ */
+</script>
