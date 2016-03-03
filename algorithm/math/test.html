@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+function log(start,end){
+	var arr =[];
+	for(var i=start;i<=end;i++){
+		arr.push(i);
+	}
+	console.log(arr);
+}
+//求连续自然数之和为n的连续自然数并输出
+//1. 暴利破解，限定值为n/2+1，超过则回溯
+function add(n){
+	if(n<3) return;
+	var num;
+	for(var i=0;i<=n/2+1;i++){
+		num = 0;
+		for(var j=i;j<=n/2+1;j++){
+			num += j;
+			if(num == n){
+				log(i,j);
+				break;
+			}else if(num>n){
+				break;
+			}
+		}
+	}
+}
+//add(15);
+//2. 通过两个指针去控制位置
+// 用两个数small和big分别表示序列的最小值和最大值。首先把small初始化为1，big初始化为2，如果从small到big的序列的和大于n的话，我们向右移动small，相当于从序列中去掉较小的数字。
+// 如果从small到big的序列的和小于n的话，我们向右移动big，相当于向序列中添加big的下一个数字，一直到small等于(1+n)/2，因为序列中至少要有两个数字。
+
+function add2(n){
+	if(n<3) return;
+	var small = 1;
+	var big = 2;
+	var mid = n/2;
+	var sum = small + big;
+	while(small<mid){
+		if(sum ==n){
+			log(small,big);
+			sum-=small;
+			small++;
+		}else if(sum > n){
+			sum-=samll;
+			small++;
+		}else{
+			big++;
+			sum +=big;
+		}
+	}
+}
+//add2(15);
+
+//3. 等差数列  m,m+1,...,m+i-1:  n = (2m+i-1)*i/2;
+//解得m = (2n/i-i+1)/2， m>0并且i为整数，2n/i为整数，所以i在[2,sqrt(2*n)]之间，(2n/i-i+1)/2为整数
+
+
+
+function add3(n){
+	if(n<3)return;
+	var num = 2*n;
+	for(var i=2;i<Math.sqrt(num);i++){
+		if(num%i==0&&(num/i-i+1)%2==0){
+			log((num/i-i+1)/2,(num/i-i+1)/2+i-1);
+		}
+	}
+}
+add3(15);
+
+
+
+
+
+
+
+
+
+
+
+
+function add2(n){
+	if(n<3)return;
+	var small = 1;
+	var big = 2;
+	var mid = n/2;
+	var sum = small + big;
+	while(small<mid){
+		if(sum == n){
+			log(small,big);
+			sum-=small;
+			small++;
+		}
+		else if(sum >n){
+			sum-=small;
+			small++;
+		}else{
+			big++;
+			sum +=big;
+		}
+	}
+}
+
+
+</script>

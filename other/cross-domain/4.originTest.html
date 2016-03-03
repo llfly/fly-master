@@ -11,11 +11,6 @@
 	var windowObj = window; // 可以是其他的 Window 对象的引用
 	var data = null;
 
-	addEventListener('message', function(e){
-	    //if(e.origin == 'http://jasonkid.github.io/fezone') {
-	        data = e.data;
+	window.postMessage('hello,world','http://10.146.20.172/dev/fy/4.originTest.html');
 
-	        e.source.postMessage('Got it!', '*');
-	    //}
-	});
 </script>

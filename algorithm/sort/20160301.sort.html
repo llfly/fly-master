@@ -53,7 +53,7 @@
 		}
 		return newArr;
 	}
-	console.log(swingSort([1,5,1,2,3,1,1,6,4,8]));
+	//console.log(swingSort([1,5,1,2,3,1,1,6,4,8]));
 //事件复杂度 O(NlongN)
 
 //思路二：找中位数，分奇偶按大小随机插入
@@ -72,18 +72,18 @@ Array.prototype.findMid = function(low,high,rank){
 				}
 			}
 			for(;i<j;i++){
-				if(this[i]>=temp){
+				if(this[i]>temp){
 					this[j--] = this[i];
 					break;
 				}
 			}
 		}
 		temp = this[i];
-
-		if(i-low == rank){
+		console.log(i,rank);
+		if(i == rank){
 			return temp;
 		}else if(i-low<rank){
-			
+
 		}
 	}
 	// 	if(i-low === rank){
@@ -115,3 +115,4 @@ var quickSort2 = function(arr) {
 　　return quickSort2(left).concat([pivot], quickSort(right));
 };
 </script>
+
