@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+	<style type="text/css">
+		.title{
+			width:100px;
+			height: 30px;
+			border:1px solid red;
+		}
+		.content{
+			width:100px;
+			height: 200px;
+			border:1px solid green;
+		}
+	</style>
+</head>
+<body>
+	<openers>
+		<opener title="这是第一个标题">这是第一个内容</opener>
+		<opener title="这是第二个标题">这是第一个内容</opener>
+		<opener title="这是第三个标题">这是第一个内容</opener>
+	</openers>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[])
+	.directive('openers',function(){
+		return {
+			restrict:'E',
+			controller:function($scope){
+				var openScopes = [];
+				this.add = function(openScope){
+					openScopes.push(openScope);
+				};
+				this.open = function(openScope){
+					openScopes.forEach(function(current){
+						if(current == openScope){
+							current.open = !current.open;
+						}else{
+							current.open = false;
+						}
+					})
+				}
+			}
+		}
+	})
+	.directive('opener',function(){
+		return{
+			scope:{
+				title:'@'
+			},
+			restrict:'E',
+			require:'^openers',
+			transclude:true,
+			template:'<div class="title" ng-click="toggle()">{{title}}</div><div class="content" ng-show="open" ng-transclude></div>',
+			link:function(scope,element,attrs,openersCtrl){
+				//scope.title = attrs.title;
+				scope.toggle = function(){
+					openersCtrl.open(scope);
+				}
+				openersCtrl.add(scope);
+			}
+		}
+	})
+</script>

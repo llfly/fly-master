@@ -70,3 +70,16 @@ gulp.task('server',function(){
 //npm install generator-gulp-webapp -g
 //yo gulp-webapp 项目名
 //yo gulp-angular
+//gulp-babel
+//browser-sync
+//gulp-notify
+//gulp-plumber
+//----------------------------------------------------------------
+
+gulp.task('server',['babel'],() =>{
+	browserSync.init({
+		server:{
+			baseDir:'/'
+		}
+	})
+})

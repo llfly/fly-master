@@ -30,8 +30,8 @@
 	<div ng-init="click=false"><button ng-click="click= !click">隐藏/显示</button>
 	    <div ng-hide="click">
 	        请输入一个名字：<input type="text" ng-model="name">
-	        Hello <span ng-bind="name"></span>
-	        PS：ng-hide="true"，设置HTML元素不可见。
+	        Hello <span ng-bind="name">test</span>
+	        PS：ng-hide="true"，设置HTML元素不可见。ng-bind标签内的文本不会显示
 	    </div>
 	</div>
 
@@ -83,6 +83,9 @@
 //通过ng-指令将html转变成特定领域语言 常见的有：ng-app、ng-init、ng-model、ng-bind、ng-repeat等等。
 
 
+//module
+//routes(路由),config(配置),run(启动方法),服务，filter(过滤器),directive(指令)
+//factory(服务工厂),service(服务),provider(配方),
 
 //ng-app指令来标明一个AngularJS应用程序，并通过AngularJS完成自动初始化应用和标记应用根作用域，同时载入和指令内容相关的模块，并通过拥有ng-app指令的标签为根节点开始编译其中的DOM。
 

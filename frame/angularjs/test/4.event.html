@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
+</head>
+<body ng-controller="CartController">
+	<p>总金额</p><input type="text" ng-model="totel" ng-change="change()"/>
+	<div ng-controller="DetailController">
+		<table class="table table-responsive">
+			<tr>
+				<td>商品名称</td>
+				<td>商品价格</td>
+				<td>数量</td>
+			</tr>
+			<tr ng-repeat="item in items">
+				<td>{{item.name}}</td>
+				<td>{{item.price}}</td>
+				<td><input type="text" ng-model="item.amount" ng-change="change()"/></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[]);
+	angular.module('llTest').controller('CartController',function($scope){
+		$scope.totel=8600;
+		$scope.$on('to-parent',function(event,data){
+			$scope.totel = data.price * data.amount;
+		});
+		$scope.change = function(){
+			$scope.$broadcast('to-child',$scope.totel)
+		};
+	});
+	angular.module('llTest').controller('DetailController',function($scope){
+		$scope.items = [{name:'iphone',price:6000,amount:1}];
+		$scope.change = function(){
+			$scope.$emit('to-parent',$scope.items[0]);
+		}
+		$scope.$on('to-child',function(event,data){
+			$scope.items[0].amount = data/$scope.items[0].price;
+		})
+	})
+</script>
+<script>
+//$on、$emit和$broadcast使得event、data在controller之间的传递变的简单。
+//$emit只能向parent controller传递event与data
+//$broadcast只能向child controller传递event与data $on用于接收event与data
+</script>

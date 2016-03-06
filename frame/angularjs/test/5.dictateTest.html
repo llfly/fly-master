@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app='llTest'>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="bootstrap.css">
+	<style type="text/css">
+		body{
+			padding: 70px
+		}
+	</style>
+</head>
+<body ng-controller='llCtrl'>
+时间的格式：<input type="text" ng-model='format'/><br/>
+当前时间：<span current-time='format'></span>
+
+<hr/>指令与指令之间的交互：
+<div class="container">
+	<div class="jumbotron text-center">
+		<girl beautiful gender></girl>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[])
+			.controller('llCtrl',function($scope){
+				$scope.format = 'M/d/yy h:mm:ss a';
+			})
+			.directive('currentTime',function($interval,dateFilter){
+				return {
+					link: function(scope,element,attrs){
+						function updataTime(){
+								element.text(dateFilter(new Date(),scope.format));
+						}
+						$interval(function(){
+							updataTime();
+						},1000)
+					}
+				}
+			})
+			.directive('girl',function(){
+				return{
+					restrict:'E',
+					scope:true,//独立scope,只暴露add方法
+					controller:function($scope,$element,$attrs){
+						console.log($scope);
+						var desc = $scope.desc = [];
+						this.add = function(char){
+							desc.push(char)
+						}
+					},
+					template:'<h1>Crest</h1>{{desc}}'
+				}
+			})
+			.directive('beautiful',function(){
+				return{
+					restrict:'A',
+					require:'girl',//通过require来制定需要依赖的指令，link上就多了第四个属性
+					//require可以有前缀，如果为空，找同级dom指令 ，^向上找dom指令
+					link:function(scope,element,attrs,controller){
+						controller.add('beautiful');
+					}
+				}
+			})
+			.directive('gender',function(){
+				return{
+					restrict:'A',
+					require:'girl',
+					link:function(scope,element,attrs,controller){
+						controller.add('gender');
+					}
+				}
+			})
+</script>

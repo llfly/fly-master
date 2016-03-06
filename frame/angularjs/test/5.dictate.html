@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body ng-controller="llfly2Conotroller">
+	<span ng-Hoverable>hello</span>
+
+	<hr/>
+
+	<llfly></llfly>
+	<div llfly></div>
+	<div class="llfly"></div>
+	<!-- directive:llfly -->
+	
+	<hr/>
+
+	<llfly2></llfly2>
+	<llfly2></llfly2>
+	<llfly2></llfly2>
+	
+	<hr/>
+
+	<person namex='{{zhangsan}}' agex='age' sayx="say(name,word)"></person>
+	控制器上的值：{{zhangsan}}{{age}}
+	<person namex='{{lisi}}' agex='age' sayx="say(name,word)"></person>
+	控制器上的值：{{lisi}}{{age}}
+	<person namex='{{wangwu}}' agex='age' sayx="say(name,word)"></person>
+	控制器上的值：{{wangwu}}{{age}}
+
+	<hr/>
+
+	<div times="3" ng-init="username='llfly'">
+		<p>hello , {{username}}</p>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[])
+		.directive('ngHoverable',function(){
+			return {
+				//link 在指令中操作DOM
+				//注意link函数的参数，angularjs在编译时负责传入正确的值
+				//scope 指令对应的scope对象，如果指令没有定义自己的本地作用域，那么传入的就是外部的作用域对象
+				//iElement 指令所在DOM对象的jQLite封装。如果使用了template属性，那么iElement对应变换后的DOM对象的jQLite封装
+				//iAttrs 指令所在DOM对象的属性集。这是一个Hash对象，每个键是驼峰规范化后的属性名
+				//controller 控制器的实例，在所有指令间共享，可以作为指令交流的通道
+				//function类型，一个函数
+				link:function(scope,element,attrs){
+					element.on('mouseover',function(){
+						element.css({outline:'#f00 dotted thick'});
+					}).on('mouseout',function(){
+						element.css({outline:'none'});
+					})
+				}
+
+
+				//template：定义替换模版 string类型
+				//指明一个HTML片段，可以用来替换指令内容
+				//如果replace = true，html片段替换指令本身
+				//如果transclude属性为true则包裹指令的内容
+
+				// template:'<h1>world <span ng-transclude></span></h1>',
+				// replace:true,
+				// transclude:true
+			}
+		})
+		.directive('llfly',function(){
+			return {
+				//restrict
+				//E元素 A属性 C样式 M注释
+				//推荐使用元素和属性的方式使用指令
+				//组件式指令使用元素名称的方式创建指令
+				//装饰型指令使用属性的方式创建指令
+				
+				//replace:true,
+				restrict:'ECMA',
+ 				template:'<h1>llfly</h1>'
+
+ 				//replace
+ 				//replace属性指明使用template时，如何替换指令元素：
+ 				//true表示编译时，将使用template替换指令元素
+ 				//false表示编译时，将使用template替换指令元素的内容
+ 				//replace为true时，要求模版必须有一个根节点
+ 				
+ 				//transclude
+ 				//有些指令需要能够包含其他未知的元素
+ 				//transclude属性可以告诉编译器，利用所在DOM元素的内容，替换template中包含ng-transclude指令的元素的内容
+ 				//使用transclude有两个要点：
+ 				//需要首先声明transclude属性值为true,这将告诉编译器，使用我们这个指令的dom元素，其内容需要被复制并插入到编译后的dom树的某个点
+ 				//需要在template属性值中使用ng-transclude指明插入点
+ 				
+ 				//scope的绑定策略
+ 				//@ 把当前属性作为字符串传递，还可以绑定来自外层scope上的 值，在属性中插入{{}}即可
+ 				//＝ 与父scope中的属性进行双向绑定
+ 				//& 传递一个来自父scope中的函数，稍后调用
+ 			}
+		})
+		.directive('llfly2',function(){
+			return {
+				scope:true,//为true的话，创建独立scope
+				restrict:'E',
+				template:'<input ng-model="name">'
+			}
+		})
+		.directive('person',function(){
+			return {
+				replace:true,
+				//通过scope属性来完成指令和控制器的交互。既能独立，又能获得控制器上的属性
+				//scope的绑定策略
+				//@ 把当前属性作为字符串传递，还可以绑定来自外层scope上的值，在属性中插入{{}}即可
+				//＝ 与父scope中的属性进行双向绑定
+				//& 传递一个来自父scope中的函数，稍后调用
+				scope:{
+					namey:'@namex',
+					agey:'=agex',
+					sayy:'&sayx'
+
+				},
+				restrict:"E",
+				// template:'<div>姓名：{{namey}}<input ng-model="namey"/>年龄：{{agey}}<input ng-model="agey"/><input ng-model="word"><div ng-click="sayy({name:namey,word:word})">点击我</div></div>'
+				templateUrl:'5.dicatate.tras.html'
+			}
+		})
+		.controller('llfly2Conotroller',function($scope){
+			$scope.zhangsan = '张三';
+			$scope.lisi = '李四';
+			$scope.wangwu = '王五';
+			$scope.age = '23';
+			$scope.say = function(name,age){
+				alert(name + ':' + age);
+			}
+		})
+		.directive('times',function(){
+			return {
+				//compile
+				//编译函数用于实现对模版自身的转换，此时无法访问scope对象
+				//适合修改节点，插入子模版，最后返回postLink函数
+				//参数
+				//element 未link过的原始DOM节点
+				//attrs 原始DOM节点上的属性
+				//会返回一个link函数
+				compile : function(element,attrs){
+					var ele = element.children();
+					//如果compile中返回link函数，会忽略外部定义的link
+					for(var i=0;i<attrs.times -1 ;i++){
+						element.append(ele.clone());
+					}
+					return function(scope,element,attrs){
+						console.log('complile内部的link')
+					}
+				},
+				link : function(scope,element,attrs){
+					console.log('complile外部的link')
+				}
+
+				//compile函数用来对模版自身进行转换，而link函数负责在模型和视图之间进行动态关联
+				//scope在链接阶段才会被绑定到编译之后的link函数上
+				//compile函数仅在编译阶段运行一次，而对于指令的每个实例，link函数都会执行一次
+				//compile函数可以返回prelink和postlink函数，而link函数只会返回postlink函数（link分为两个阶段，在父子关系中，先调用父prelink,子prelink，子postlink,父postlink）
+				//如果需要修改dom结构，应该在postlink中做这件事情，如果在prelink中做这件事会导致错误
+				//不成功时会保留原样，并在model上增加一个$error对象
+			}
+			
+		})
+</script>
+<script type="text/javascript">
+// 创建指令
+// 指令也是一种服务，只是这种服务的定义有几个特殊要求：
+// 1. 必须使用模块的directive()方法注册服务
+// 2. 对象工厂必须返回一个指令定义对象
+// 指令在注入器中的登记名称是：指令名＋Directive，如ng-app : ngAppDirective
+
+//指令定义对象
+//每个指令定义的工厂函数，需要返回一个指令定义对象
+//指令定义对象就是一个具有约束属性的js对象，编译器$compile在编译时就根据这个定义对象对指令进行展开。
+//指令定义对象的常用属性如下：
+//template restrict replace transclude scope link
+
+
+//指令的原理
+//1. 加载 加载angular.js，找到ng-app指令，确定应用的边界
+//2. 编译 遍历DOM，找到所有指令，根据指令的template、replace和transclude转换DOM结构，如果存在compile函数就调用
+//3. 链接 对每个指令操作link函数，link函数一般用来操作DOM，绑定事件监听器
+
+</script>

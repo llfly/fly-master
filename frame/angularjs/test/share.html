@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body>
+	<div ng-controller="controller1">
+		{{countService.count}}
+		<input type="button" value="+1" ng-click="add()"/>
+	</div>
+	<div ng-controller="controller2">
+		{{countService.count}}
+		<input type="button" value="+1" ng-click="add()"/>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[]).controller('controller1',function($scope,countService){
+		$scope.countService = countService;
+		//直接使用$scope.count=countService.count 值类型传递，add方法调用后，不再改变
+		$scope.add = function(){
+			countService.add();
+		}
+	}).controller('controller2',function($scope,countService){
+		$scope.countService = countService;
+		$scope.add = function(){
+			countService.add();
+		}
+	}).factory('countService',function(){
+		return {
+			count:0,
+			add:function(){
+				this.count++;
+			}
+		}
+	});
+</script>
+<script type="text/javascript">
+//注册表
+//服务：处理公用逻辑，共享数据。
+	var registry = {
+		$http:{},
+		countService:{
+			count:0,
+			add:function(){
+				this.count++;
+			}
+		}
+	}
+	function great(countService){
+		countService.add();
+		console.log(countService.count);
+	}
+	var inject = function(fun){
+		var src = fun.toString();
+		var match = src.match(/function\s?\w+\((\w+)\)/);
+		var argument = match.slice(1);
+		var args = [];
+		for(var i=0;i<argument.length;i++){
+			var argObj = registry[argument[i]];
+			args.push(argObj);
+		}
+		fun.apply(null,args);
+	}
+	inject(great);
+</script>

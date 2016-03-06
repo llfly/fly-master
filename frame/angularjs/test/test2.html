@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html ng-app="global">
+<html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>module</title>
-<body>
-	<div ng-controller="MyController">
-		<div ng-init="name='test'">
+<body ng-app="global2">
+	<div ng-controller="MyController1">
+		<div ng-init="name='test1'">
 			{{name}}
 		</div>
-		
+	</div>
+	<div ng-init="username='test2'" ng-controller="MyController2">
+		<div>
+			{{username}}
+		</div>
 	</div>
 </body>
 </html>
 <script src="angular.js"></script>
 <script>
-	angular.module('global',[]);
-	angular.module('global').controller('MyController',function($scope){//mg-app相当于一个大作用域，通过控制器来创建子作用域
+	angular.module('global1',[]);
+	angular.module('global1').controller('MyController1',function($scope,$rootScope){//mg-app相当于一个大作用域，通过控制器来创建子作用域
 		console.log($scope);
-		$scope.name = 'llfly2';
+		$scope.name = 'llfly1';
+		//console.log($rootScope);
+	});
+	var global2 = angular.module('global2',['global1']);
+	global2.controller('MyController2',function($scope,$rootScope){
+		console.log($scope.username);
+		$scope.username='llfly2';
+		console.log($scope);
+		console.log($rootScope);
 	});
 </script>
+
 <script type="text/javascript">
 //MVVM模式是Model-View-ViewMode模式的简称。由视图(View)、视图模型(ViewModel)、模型(Model)三部分组成，通过这三部分实现UI逻辑、呈现逻辑和状态控制、数据与业务逻辑的分离。
 
@@ -93,7 +105,17 @@
 
 <script type="text/javascript">
 	//ng-init 和ng-controlle
+	//ng-init声明到当前scope
 	//ng-init为ng-controller前辈时，为controlle值
 	//同辈或晚辈时为ng-init
 	//ng-init="name=asdf" name='asdf'
+
+
+//ng-app只能有一个 代表入口模块
+//ng-module可以有多个，可以通过模块依赖启动其他模块
+//ng-controller指令就是用来定义应用程序控制器的，并且同时创建了一个新的作用域关联到相应的DOM元素上。
+//所谓作用域就是一个指向应用模型的对象，它是表达式的执行环境，作用域有层次结构，这个层次和相应的DOM几乎是一样的，作用域能监控表达式和传递事件并且可以从父作用域继承属性。
+//每一个AngularJS应用都有一个绝对的根作用域。但也可能有多个子作用域。 一个应用可以有多个作用域，因为有一些指令会生成新的子作用域，当新作用域被创建的时候，他们会被当成子作用域添加到父作用域下，这使得作用域会变成一个和相应DOM结构一个的树状结构。
+
+
 </script>
