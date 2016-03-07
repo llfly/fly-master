@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body ng-controller="serverStart">
+<input type="text" name="" id="" ng-model="a">
+<select ng-model="op">
+	<option value="+">+</option>
+	<option value="-">-</option>
+	<option value="*">*</option>
+	<option value="/">/</option>
+</select>
+<input type="text" ng-model="b">
+<button type="button" ng-click="cal()">=</button>
+{{result}}
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	//创建服务组件
+	//在angularjs中创建一个服务组件很简单，只需要定义一个具有$get方法的构造函数，然后使用模块的provider方法进行登记
+	var myServiceProvider = function(){
+		this.$get = function(){
+			return //...
+		}
+	}
+	//可配置的服务
+	//有时我们希望服务在不同的场景下可以有不同的行为，这意味着服务可以进行配置
+	//注意：服务提供者provider对象在注入器中的登记名称是：服务名+Provider
+	//例如:$http的服务提供者实例名称是$httpProvider
+	//在模块中登记
+
+	//语法糖
+	//使用模块的provider方法定义服务组件，在有些场景下显得有些笨重
+	//angularjs友好地提供了一些简化的定义方法，这些方法通常只是对provider方法的封装，分别适用于不同的应用场景：
+	//factory 使用一个对象工厂函数定义服务，调用该工厂函数将返回服务实例
+	//service 使用一个类构造函数定义服务，通过new构造符将创建服务实例
+	//value 使用一个值定义服务，这个值就是服务实例
+	//constant 使用一个常量定义服务，这个常量就是服务实例
+	angular.module('llTest',[])
+			.controller('serverStart',function($scope,llCalculator){
+				$scope.cal = function(){
+					$scope.result = llCalculator($scope.a,$scope.op,$scope.b);
+				}
+			})
+			.provider('llCalculator',function(){//在编译时，angular会进行实例化，调用$get方法，使用时，注入的是返回值
+				var currency = '美元';
+                this.setCurrency = function(cuur){
+                    currency = cuur;
+                };
+                this.$get = function(){
+					return function(a,op,b){
+							return currency + eval(a+op+b);
+					}
+				}
+			})
+			.config(['llCalculatorProvider',function(llCalculatorProvider){
+				 llCalculatorProvider.setCurrency('泰铢');
+			}])
+			//1. 注册 2.配置 3.注入
+			.factory('llCalculator2',function(){//factory无法再调用config进行配置,angularjs会将factory封装成provider
+				return function(prefix,a,op,b){
+					return prefix+eval(a+op+b);
+				}
+			})
+			.service('llCalculator3',function(){
+				this['+'] = function(a,b){return a+b;}
+        		this['-'] = function(a,b){return a-b;}
+        		this['*'] = function(a,b){return a*b;}
+        		this['/'] = function(a,b){return a/b;}
+			})
+			.value('llCalculator4',{
+		        '+' : function(a,b){return a+b;},
+		        '-' :  function(a,b){return a-b;},
+		        '*' :  function(a,b){return a*b;},
+		        '/' :  function(a,b){return a/b;},
+		    })
+		    .constant('llCalculator5',function(){//与value方法不同，angular并没有将constant方法封装成一个provider，而仅仅是在内部登记这个值。这使得常量在angular启动配置阶段就可以使用（创建任何服务之前）：可以将常量注入到模块的config()方法中
+		    	'+' : function(a,b){return a+b;},
+        		'-' : function(a,b){return a-b;},
+        		'*' : function(a,b){return a*b;},
+        		'/' : function(a,b){return a/b;},
+		    }).config(function(llCalculator5){
+		    	llCalculator5['+'](4,5);
+		    })
+		    //decorator 扩展一些angular自身功能，又不能修改源码，此时可以用decorator
+
+
+			//factory可以返回任意值，而service只能返回构造函数
+</script>

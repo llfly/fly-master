@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css"></head>
+<body ng-controller="formCtrl">
+	<div class="container">
+		<form name="userForm" novalidate="novalidate">
+			<div class="form-group"  ng-class="{'has-success':userForm.username.$valid&&userForm.username.$dirty,'has-error':userForm.username.$invalid&&userForm.username.$dirty}">
+				<label for="username">用户名</label>
+				<input ll-unique  ll-errors type="text" ng-minlength="6" id="username" class="form-control" ng-model="username" name="username" ng-required="true">
+			</div>
+			<div class="form-group"  ng-class="{'has-success':userForm.email.$valid&&userForm.email.$dirty,'has-error':userForm.email.$invalid&&userForm.email.$dirty}">
+				<label for="email">邮箱</label>
+				<input ll-errors type="email" ng-minlength="3" id="email" class="form-control" ng-model="email" name="email" ng-required="true">
+			</div>
+			<div class="form-group">
+				<input type="button" class="btn btn-default" value="提交"></div>
+		</form>
+	</div>
+</body>
+	<pre>{{userForm|json}}</pre>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	angular.module('llTest',[])
+			.controller('formCtrl',function($scope){
+
+			})
+			.directive('llErrors',function($compile){
+				return {
+					require:'ngModel',
+					restrict:'A',
+					link:function(scope,element,attrs,ngModelCtrl){
+						//valid 合法 invalid 不合法 dirty pristine viewValue视图值(input.value) modelValue模型值(scope属性上的值)
+						//$setValidity设置合法性 $setViewValue设置视图值 $parsers 从视图到模型中的过滤器 $formatters 从模型到视图的过滤器
+
+						var subScope = scope.$new(true);//true表示为一个独立的scope或将directive scope属性设置为true。防止表单之间方法的共用
+						subScope.hasErrors = function(){
+							return ngModelCtrl.$invalid;
+						};
+						subScope.errors = function(){
+							return ngModelCtrl.$error;
+						};
+						var tmpl = '<p class="help-block" ng-show="hasErrors()" ng-repeat="(key,value) in errors()">{{key|errorsMessage}}</p>'
+						var message = $compile(tmpl)(subScope);//编译模版，和scope进行链接
+						element.after(message);
+					}
+				}
+			})
+			.filter('errorsMessage',function(){
+				return function(input){
+					var message = {
+						'require':'必填',
+						'email':'必须为邮箱',
+						'minlength':'长度不足',
+						'unique':'用户名已被占用'
+					}
+					return message[input];
+				}
+			})
+			.directive('llUnique', function($http,$timeout) {
+				//监听数据变化，当数据变化时到后台校验，用返回值设置字段的有效性
+				return {
+					require: 'ngModel',
+					restrict:'A',
+					link: function(scope, element, attrs, ngModelCtrl) {
+						var timer;
+						// scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+						// 	//$scope[attrs.ngModel],ngModelCtrl.modelValue
+						// 	if(timer){
+						// 		$timeout.cancel(timer);
+						// 	}
+						// 	timer = $timeout(function() {
+						// 		$http({
+						// 			method: 'POST',
+						// 			url: 'http://localhost:8080/check',
+						// 			data: {username: newValue},
+						// 			headers: {'Content-Type': 'application/json'}
+						// 		}).then(function(result) {
+						// 			var data = result.data;
+						// 			ngModelCtrl.$setValidity('unique', data.unique);
+						// 		})
+						// 	}, 500);
+						// })
+
+
+
+
+						// element.on('blur',function(){
+							// 	$http({
+							// 		method:'POST',
+							// 		url:'http://localhost:8080/check',
+							// 		data:{username:scope[attrs.ngModel]}
+							// 		headers:{'Content-Type':'application/json'}
+							// 	}).then(function(result){
+							// 		var data = result.data;// {unique:true}
+							// 		ngModelCtrl.$setValidity('unique',data.unique);
+							// 	});
+							// });
+
+
+						//jsonp
+						scope.$watch(attrs.ngModel,function(newValue,oldValue){
+                        	$http.jsonp('http://localhost:8080/check?callback=JSON_CALLBACK&username='+newValue)//JSON_CALLBACK是定死的，angularjs会替换angular.callbacks._ + num，前台根据这个名字进行回调
+                        	.success(function(result){
+                        		console.log(result);
+                        		ngModelCtrl.$setValidity('unique',result.unique);
+                        	})
+                        	.error(function(status,data){
+                        		console.log(status);
+                        		console.log(data);
+                         	});
+                 		});
+					}
+				}
+			})
+</script>
+<script type="text/javascript">
+//表单验证
+//定义验证规则，验证有效性
+//显示验证结果
+//禁用 h5自带验证，novalidate="novalidate"
+//用户输入后，angular会依次调用验证器进行验证，全部成功时model会变成用户输入的值
+//不成功则保留原值，并在model上增加一个$error对象
+
+//成员变量
+//$dirty 表单中任何一项是否输入过
+//$pristine 表单中任何一项尚未输入过
+//$error 存放错误信息
+//$invalid 表单数据是否无效，只要有一项无效则整个表单无效
+//$valid 与$invalid相反
+//$name 表单的名字
+//email... 表单各个输入框的model
+
+//错误提示
+//输入框加样式 or 字段提示
+</script>
