@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="llTest">
+<head>
+    <meta charset="UTF-8">
+    <title>route</title>
+</head>
+<body>
+<a ui-sref="index">首页</a>
+<a ui-sref="user">用户管理</a>
+<div ui-view></div>
+</body>
+<script src="angular.js"></script>
+<script src="angular-ui-router.js"></script>
+
+<script>
+    angular.module('llTest', ['ui.router']);
+    angular.module('llTest').config(function($stateProvider,$urlRouterProvider) {
+        $urlRouterProvider.otherwise('/state1');
+        $stateProvider.state('index', {
+            url: '/index',
+            template:'index'
+        }).state('user', {
+            url: '/user',
+            views:{
+                "":{
+                    templateUrl:'10.index.html'
+                },
+                "menu@user":{
+                    templateUrl:'10.user.html'
+                }
+            }
+        }).state('user.part1', {
+            url: '/part1',
+            template:'part1'
+        }).state('user.part2', {
+            url: '/part2',
+            template:'part2'
+        })
+    });
+</script>
+</html>

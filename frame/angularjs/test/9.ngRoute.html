@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body>
+	<div ng-view></div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-route.js"></script>
+<script>
+	angular.module('llTest',['ngRoute'])
+			.config(function($routeProvider){
+				$routeProvider.when('/index',{
+					template:'index'
+				}).when('/footer',{
+					templateUrl:'footer.html'
+				}).when('/',{
+					template:'<h1>root</h1>'
+				}).otherwise({
+            		redirectTo:'/'
+        		});
+			})
+</script>
+<script>
+//路由 用于页面间的控制跳转
+//定义 在main模块里注入ngRoute依赖
+//在路由模块里面的.config()方法里面注入了$routeProvider用于实现路由配置
+//通过when()方法，匹配的url和路由操作
+//otherwise() 找不到指定的路由的时候跳转的路由
+//使用  用ng-view指令告诉angular页面的哪一个部分是要转换的 不支持嵌套视图
+
+</script>
