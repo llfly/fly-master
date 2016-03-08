@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body ng-controller='llController'>
+	<button ng-click="go('user.part2')">切换user.part2</button>
+	<a ui-sref="index">index</a>
+	<a ui-sref="user">user</a>
+	<div style="border:1px solid red" ui-view></div>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script src="angular-ui-router.js"></script>
+<script>
+	angular.module('llTest',['ui.router'])
+			.config(function($stateProvider,$urlRouterProvider){
+				$stateProvider.state('index',{
+					url: '/index',
+            		templateUrl: '10.index.html'
+				}).state('user',{
+					url:'/user',
+					templateUrl:'10.user.html'
+				}).state('index.part1', {
+		            url: '/part1',
+		            template: 'index.part1'
+		        }).state('index.part2', {
+		            url: '/part2',
+		            template: 'index.part2'
+		        }).state('user.part1', {
+		            url: '/part1',
+		            template: 'user.part1'
+		        }).state('user.part2', {
+		            url: '/part2',
+		            template: 'user.part2'
+		        })
+				$urlRouterProvider.otherwise('/index');
+			});
+	angular.module('llTest').controller('llController',function($state,$scope){
+		$scope.go = function(state){
+			$state.go(state);
+		}
+	})
+</script>
+<script>
+//内嵌状态和视图
+//状态可以互相嵌套
+
+
+//多命名视图
+//可以在一个页面里使用多个ui-view
+</script>

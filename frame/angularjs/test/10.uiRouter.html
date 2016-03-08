@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app="llTest">
+<head>
+	<title></title>
+</head>
+<body ng-controller='llController'>
+	<a ui-sref="index">index</a>
+	<a ui-sref="user">user</a>
+	<div ui-view>
+	</div>
+	<button ng-click="go('index')">切换到index</button>
+	<button ng-click="go('user')">切换到user</button>
+</body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script src="angular-ui-router.js"></script>
+<script>
+	angular.module('llTest',['ui.router'])
+			.config(function($stateProvider,$urlRouterProvider){
+				$stateProvider.state('index',{
+					url:'/index',
+					resolve:{
+						books:function($q){
+							var defer = $q.defer();
+							setTimeout(function(){
+								defer.resolve([{"name":"javascript"},{"name":"css"}]);
+							},2000);
+							return defer.promise;
+						}
+					},
+					controller:function($scope,$http,books){
+						// $http.get('books.json').then(function(data){
+						// 	//data,status,config,statusText
+						// 	$scope.books = data.data;
+						// })
+
+						//$scope.books = [{"name":"javascript"},{"name":"css"}];
+
+						//无法使用settimeout 异步调用时控制器已被渲染结束，可通过resolve解决
+						// setTimeout(function(){
+						// 	$scope.books = [{"name":"javascript"},{"name":"css"}];
+						// },3000);
+						$scope.books = books;
+					},
+					template:'<ul><li ng-repeat="book in books">{{book.name}}</li></ul>',
+				}).state('user',{
+					url:'/user',
+					need_login:true,//自定义属性
+					template:'user template'
+				}).state('login',{
+					url:'/login',
+					template:'login template'
+				});
+				//当url找不到任何位置时，重定向到/index
+				$urlRouterProvider.otherwise('/index');
+			});
+	angular.module('llTest').controller('llController',function($state,$scope){
+		$scope.go = function(state){
+			$state.go(state);
+		}
+	})
+	//run方法是第一个执行方法？
+	angular.module('llTest').run(function($rootScope,$state){
+		$rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState,fromParams){
+			//console.log(arguments);
+			if(toState.need_login){
+				if(!$rootScope.username){
+					alert('未登录');
+					$state.go('login');
+					event.preventDefault();
+					return;
+				}
+			}
+		})
+	})
+</script>
+<script>
+//UI-router
+//ui-router工作原理非常类似于angular的路由控制器，但它只关注状态，在应用程序的整个用户界面和导航中
+//一个状态对应于一个页面位置 通过定义controller,template和view等属性，阿里定义指定位置的用户界面和界面行为
+
+//模板将被插入哪里
+//状态被激活时，它的模板会自动插入到父状态对应的模板中包含ui-view属性的元素内部
+//如果是顶层的状态，它的父模板就是index.html
+
+// 激活状态
+// 调用$state.go()方法
+// 点击包含ui-sref指令的链接
+// 导航到与状态相关联的url
+
+//controllers控制器
+//当用户点击一个url手动导航一个状态时，$stateProvider将加载对应的模板到视图中，并且将控制器和模板的scope绑定在一起。如果已经存在controller，只需要指定名字即可
+
+
+//解决器 Resolve
+//可以使用resolve为控制器提供可选的依赖注入项
+//resolve配置项是一个由key/factory构成的对象
+//key注入控制器的依赖项名称，也就是服务的别名
+//factory函数的函数值将作为依赖注入项，如果函数是一个耗时的操作，那么控制器必须等待该函数执行完成才会被实例化
+
+
+//控制权限
+//给$state对象提供配置，指定必须登录才能访问的状态
+//监听路由事件
+//	$stateNotFound 当状态无法找到时发生
+//	$stateChangeStart 切换状态前
+//	$stateChangeSuccess 切换状态后
+//	$stateChangeError 当模板解析过程中发生错误时触发
+//进入退出回调
+
+//内嵌状态和视图
+//状态可以互相嵌套
+</script>
