@@ -4,14 +4,22 @@
 	<title></title>
 </head>
 <body>
+
+<h2>decorator测试</h2>
 <div ng-controller="llController">
 	<button ng-click="log()">点我</button>
 </div>
+
+
+<h2>拦截器测试</h2>
 <div ng-controller="llController2">
 	<ul>
 		<li ng-repeat="book in books">{{book.name}}</li>
 	</ul>
 </div>
+
+
+<h2>过滤器测试</h2>
 <div ng-controller="llController3">
 	{{88.8888|number:2|currency:'¥'}}
 	<br/>
@@ -19,11 +27,13 @@
 	<br/>
 	{{100|add:10:15:13}}
 </div>
+
+
 </body>
 </html>
-<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="../angular.js"></script>
 <script type="text/javascript">
-	//decorator 扩展一些angular自身功能，又不能修改源码，此时可以用decorator
+//decorator 扩展一些angular自身功能，又不能修改源码，此时可以用decorator
 	angular.module('llTest',[])
 			.config(function($provide){
 				$provide.decorator('$log',function($delegate){
@@ -41,8 +51,15 @@
 					$log.log('hello');
 				}
 			})
+//拦截器
+//$httpProvider中有一个interceptors数组，而所谓拦截器只是一个简单的注册到了该数组中的常规服务工厂
+//拦截器功能
+//通过实现request方法拦截请求：该方法会在$http发送请求到后台之前执行，在此可以修改配置或者其他的操作
+//通过实现response方法拦截响应：该方法会在$http接收到从后台过来的响应之后执行，可以修改配置或者其他操作
+//通过实现requestError方法拦截请求异常：有时候一个请求发送失败活着被拦截器拒绝掉
+//通过实现responseError方法拦截响应异常：有时候后台调用失败了
 			.controller('llController2',function($scope,$http){
-				$http.get('book.json').success(function(data){
+				$http.get('books.json').success(function(data){
 					console.log(data);
 					$scope.books = data;
 				}).error(function(){
@@ -51,6 +68,7 @@
 			})
 			.factory('bookInterceptor',function($log,$q){
 				return {
+					//将books.json换掉
 					request:function(config){
 						$log.log('request',config);
 						var defer = $q.defer();
@@ -78,6 +96,26 @@
 			.config(function($httpProvider){
 				$httpProvider.interceptors.push('bookInterceptor');
 			})
+//过滤器
+//过滤器也是一种服务，负责对输入的内容进行处理转换，以便更好地向用户显示
+//过滤器可以在模版中的{{}}标记中使用
+//预置的过滤器{{12|currency}}
+//带参数的过滤器{{1234|number:2}}
+//过滤器流水线 过滤器可以应用于另一个过滤器的输出，就像流水线 {{expression|filter1|filter2|...}}
+
+//代码中使用过滤器
+//过滤器在注入器中注册时，名称被加了一个后缀：Filter，例如currency过滤器的服务名称是currencyFilter
+//过滤器是一种服务，除了名字需要追加Filter后缀，和其他服务的调用没有什么区别
+//
+//创建过滤器
+//过滤器也是一种特殊的服务
+//必须使用模块的filter()接口注册服务
+//必须提供对象工厂factory方法
+//对象工程必须返回一个过滤器函数，其第一个参数为输入变量
+//
+//为过滤器增加参数
+//过滤器的行为可以通过额外的参数来调整
+//通过在过滤器类工厂返回的过滤器函数中传入额外的参数，就可以实现这个功能
 			.controller('llController3',function($scope,numberFilter){
 				$scope.num = numberFilter(88.888888,2);
 			})
@@ -90,33 +128,4 @@
 					return sum;
 				}
 			})
-	//拦截器
-	//$httpProvider中有一个interceptors数组，而所谓拦截器只是一个简单的注册到了该数组中的常规服务工厂
-	//拦截器功能
-	//通过实现request方法拦截请求：该方法会在$http发送请求到后台之前执行，在此可以修改配置或者其他的操作
-	//通过实现response方法拦截响应：该方法会在$http接收到从后台过来的响应之后执行，可以修改配置或者其他操作
-	//通过实现requestError方法拦截请求异常：有时候一个请求发送失败活着被拦截器拒绝掉
-	//通过实现responseError方法拦截响应异常：有时候后台调用失败了
-	
-
-	//过滤器
-	//过滤器也是一种服务，负责对输入的内容进行处理转换，以便更好地向用户显示
-	//过滤器可以在模版中的{{}}标记中使用
-	//预置的过滤器{{12|currency}}
-	//带参数的过滤器{{1234|number:2}}
-	//过滤器流水线 过滤器可以应用于另一个过滤器的输出，就像流水线 {{expression|filter1|filter2|...}}
-	
-	//代码中使用过滤器
-	//过滤器在注入器中注册时，名称被加了一个后缀：Filter，例如currency过滤器的服务名称是currencyFilter
-	//过滤器是一种服务，除了名字需要追加Filter后缀，和其他服务的调用没有什么区别
-	//
-	//创建过滤器
-	//过滤器也是一种特殊的服务
-	//必须使用模块的filter()接口注册服务
-	//必须提供对象工厂factory方法
-	//对象工程必须返回一个过滤器函数，其第一个参数为输入变量
-	//
-	//为过滤器增加参数
-	//过滤器的行为可以通过额外的参数来调整
-	//通过在过滤器类工厂返回的过滤器函数中传入额外的参数，就可以实现这个功能
 </script>

@@ -2,7 +2,7 @@
 <html ng-app="llTest">
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="bootstrap.css"></head>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css"></head>
 <body ng-controller="formCtrl">
 	<div class="container">
 		<form name="userForm" novalidate="novalidate">
@@ -21,7 +21,7 @@
 </body>
 	<pre>{{userForm|json}}</pre>
 </html>
-<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="../angular.js"></script>
 <script type="text/javascript">
 	angular.module('llTest',[])
 			.controller('formCtrl',function($scope){
@@ -115,24 +115,4 @@
 					}
 				}
 			})
-</script>
-<script type="text/javascript">
-//表单验证
-//定义验证规则，验证有效性
-//显示验证结果
-//禁用 h5自带验证，novalidate="novalidate"
-//用户输入后，angular会依次调用验证器进行验证，全部成功时model会变成用户输入的值
-//不成功则保留原值，并在model上增加一个$error对象
-
-//成员变量
-//$dirty 表单中任何一项是否输入过
-//$pristine 表单中任何一项尚未输入过
-//$error 存放错误信息
-//$invalid 表单数据是否无效，只要有一项无效则整个表单无效
-//$valid 与$invalid相反
-//$name 表单的名字
-//email... 表单各个输入框的model
-
-//错误提示
-//输入框加样式 or 字段提示
 </script>

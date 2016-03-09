@@ -2,7 +2,7 @@
 <html ng-app="llTest">
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="bootstrap.css"></head>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css"></head>
 <body ng-controller="formCtrl">
 	<div class="container">
 		<form name="userForm" novalidate="novalidate">
@@ -21,7 +21,7 @@
 </body>
 	<pre>{{userForm|json}}</pre>
 </html>
-<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="../angular.js"></script>
 <script type="text/javascript">
 	angular.module('llTest',[])
 			.controller('formCtrl',function($scope){

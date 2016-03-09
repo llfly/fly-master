@@ -7,15 +7,15 @@
 	<div ng-view></div>
 </body>
 </html>
-<script type="text/javascript" src="angular.js"></script>
-<script type="text/javascript" src="angular-route.js"></script>
+<script type="text/javascript" src="../angular.js"></script>
+<script type="text/javascript" src="../angular-route.js"></script>
 <script>
 	angular.module('llTest',['ngRoute'])
 			.config(function($routeProvider){
 				$routeProvider.when('/index',{
 					template:'index'
 				}).when('/footer',{
-					templateUrl:'footer.html'
+					templateUrl:'../footer.html'
 				}).when('/',{
 					template:'<h1>root</h1>'
 				}).otherwise({

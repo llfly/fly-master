@@ -12,13 +12,11 @@
 	<div llfly></div>
 	<div class="llfly"></div>
 	<!-- directive:llfly -->
-	
 	<hr/>
 
 	<llfly2></llfly2>
 	<llfly2></llfly2>
 	<llfly2></llfly2>
-	
 	<hr/>
 
 	<person namex='{{zhangsan}}' agex='age' sayx="say(name,word)"></person>
@@ -35,7 +33,7 @@
 	</div>
 </body>
 </html>
-<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="../angular.js"></script>
 <script type="text/javascript">
 	angular.module('llTest',[])
 		.directive('ngHoverable',function(){
@@ -120,7 +118,7 @@
 				},
 				restrict:"E",
 				// template:'<div>姓名：{{namey}}<input ng-model="namey"/>年龄：{{agey}}<input ng-model="agey"/><input ng-model="word"><div ng-click="sayy({name:namey,word:word})">点击我</div></div>'
-				templateUrl:'5.dicatate.tras.html'
+				templateUrl:'dicatate.tras.html'
 			}
 		})
 		.controller('llfly2Conotroller',function($scope){
