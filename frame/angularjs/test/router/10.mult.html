@@ -7,7 +7,10 @@
 <body>
 <a ui-sref="index">首页</a>
 <a ui-sref="user">用户管理</a>
-<div ui-view></div>
+<div ui-view>
+</div>
+<div ui-view="aview"></div>
+<div ui-view='bview'></div>
 </body>
 <script src="angular.js"></script>
 <script src="angular-ui-router.js"></script>
@@ -23,18 +26,21 @@
             url: '/user',
             views:{
                 "":{
-                    templateUrl:'10.index.html'
+                    template:'<div ui-view="add"></div><div ui-view="list"></div>'
                 },
-                "menu@user":{
-                    templateUrl:'10.user.html'
+                "add@user":{
+                    template:'<a ui-sref="user.add">增加用户</a><a ui-sref="user.list">用户列表</a><div ui-view></div>'
+                },
+                "list@user":{
+                    template:"用户列表"
                 }
             }
-        }).state('user.part1', {
-            url: '/part1',
-            template:'part1'
-        }).state('user.part2', {
-            url: '/part2',
-            template:'part2'
+        }).state('user.add',{
+            url:'/add',
+            template:'新增用户模版'
+        }).state('user.list',{
+            url:'/list',
+            template:'用户列表模版'
         })
     });
 </script>
