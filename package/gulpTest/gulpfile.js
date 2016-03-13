@@ -83,3 +83,15 @@ gulp.task('server',['babel'],() =>{
 		}
 	})
 })
+//----------------------------------------------------------------
+//和webpack混合使用
+// var gulp = require('gulp');
+// var gutil =require('gulp-util');
+// var webpack = require('webpack');
+// var webpackConfig = require('./webpack.config.js');
+// gulp.task('webpack',function(callback){
+// 	var myConfig = Object.create(webpackConfig);
+// 	webpack(myConfig,function(err,stats){
+// 		callback();
+// 	});
+// })

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//立即调用的函数表达式(IIFE)
+//在JavaScript里，任何function在执行的时候都会创建一个执行上下文，因为为function声明的变量和function有可能只在该function内部，这个上下文，在调用function的时候，提供了一种简单的方式来创建自由变量或私有子function。
+
+//当声明类似function foo(){}或var foo = function(){}函数的时候，通过在后面加个括弧就可以实现自执行
+
+// 因为想下面第一个声明的function可以在后面加一个括弧()就可以自己执行了，比如foo()，
+// 因为foo仅仅是function() { /* code */ }这个表达式的一个引用
+var foo = function(){ console.log(1) }
+// ...是不是意味着后面加个括弧都可以自动执行？
+//function(){console.log(1) }(); // Uncaught SyntaxError: Unexpected token (
+
+//function foo2(){console.log(1)}();// Uncaught SyntaxError: Unexpected token )
+
+//上述代码，如果甚至运行，第2个代码会出错，因为在解析器解析全局的function或者function内部function关键字的时候，默认是认为function声明，而不是function表达式，如果你不显示告诉编译器，它默认会声明成一个缺少名字的function，并且抛出一个语法错误信息，因为function声明需要一个名字。
+
+// 下面这个function在语法上是没问题的，但是依然只是一个语句
+// 加上括号()以后依然会报错，因为分组操作符需要包含表达式
+
+
+//有趣的是，即便你为上面那个错误的代码加上一个名字，他也会提示语法错误，只不过和上面的原因不一样。在一个表达式后面加上括号()，该表达式会立即执行，但是在一个语句后面加上括号()，是完全不一样的意思，他的只是分组操作符。
+
+
+// 但是如果你在括弧()里传入一个表达式，将不会有异常抛出
+// 但是foo函数依然不会执行
+function foo3(){ console.log(2) }( 1 );
+ 
+// 因为它完全等价于下面这个代码，一个function声明后面，又声明了一个毫无关系的表达式：
+function foo4(){ console.log(2) }
+ 
+( 1 );
+
+
+//要解决上述问题，非常简单，我们只需要用大括弧将代码的代码全部括住就行了，因为JavaScript里括弧()里面不能包含语句，所以在这一点上，解析器在解析function关键字的时候，会将相应的代码解析成function表达式，而不是function声明。
+
+
+
+
+
+
+// var i = 0;
+// (function(){console.log(i++);}());
+// (function(){console.log(i++);})();
+// (function (){console.log(i++);}());
+// !function (){console.log(i++);}();
+// ~function (){console.log(i++);}();
+// -function (){console.log(i++);}();
+// +function (){console.log(i++);}();
+</script>
