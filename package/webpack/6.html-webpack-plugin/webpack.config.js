@@ -44,12 +44,12 @@ module.exports = {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'common.js'),
       new ExtractTextPlugin('bundle.css'),
       new HtmlWebpackPlugin({
-        title: 'zf-react',
+        title: 'll-react',
         template: './app/index.html'
       })
     ],
-    devtool: 'cheap-module-source-map'
+    devtool: 'cheap-module-source-map'//在浏览器中直接调试源码，控制台sources下
 };

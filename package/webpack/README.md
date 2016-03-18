@@ -128,3 +128,10 @@ gulp可以结合browser-sync的reload接口和watch功能结合，也可以实�
 # 4.react-hot-loader
 
 # 5.extract-text-webpack-plugin
+css文件和js平行加载
+# 6.html-webpack-plugin
+将html也进行统一产出
+调试工具devtool:'cheap-module-source-map'
+第三方资源 new webpack.optimize.CommonsChunkPlugin('vendor','common.js')
+?[hash]
+webpack.DefinePlugin()区分开发环境
