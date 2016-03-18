@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript" src="node_modules/seajs/dist/sea.js"></script>
+<script type="text/javascript">
+	seajs.use(['./a.js','./b.js'],function(a,b){
+		
+		//动态加载某个文件
+		seajs.require('./c.js')
+	})
+</script>

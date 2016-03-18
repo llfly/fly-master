@@ -10,16 +10,16 @@ module.exports = {
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
-				exclude: '/node_modules/', //设置忽略
-				query: {//传递参数，也可以通过?拼接在loader后面
+				exclude: '/node_modules/', //忽略
+				query: {
 					compact: false,
 					presets: ['es2015']
 				}
-			},//当需要加载的文件匹配`test`的正则时，就会调用后面的`loader`对文件进行处理
+			},
 			{
 				test: /\.css$/,
 				loader: "style!css"
-			},
+			}, //当需要加载的文件匹配`test`的正则时，就会调用后面的`loader`对文件进行处理
 			{
 				test: /\.(png|jpg)$/,
 				loader: 'url?limit = 4000'
@@ -27,7 +27,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.BannerPlugin('//hello,world'),//
+		new webpack.BannerPlugin('//hello,world'),
 	],
 	resolve: {
 		alias: {
