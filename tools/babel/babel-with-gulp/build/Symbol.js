@@ -141,3 +141,27 @@ var log = function log(obj) {
 
 	log(Reflect.ownKeys(obj2)); // ["a", "b", Symbol(my_key)]
 }
+
+//7. Symbol.for()，Symbol.keyFor()
+//我们希望重新使用同一个Symbol值，Symbol.for方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的Symbol值。如果有，就返回这个Symbol值，否则就新建并返回一个以该字符串为名称的Symbol值。
+//Symbol.keyFor方法返回一个已登记的Symbol类型值的key。
+{
+	var _obj4 = Symbol('foo');
+	var _s = Symbol.for('foo');
+	var _s2 = Symbol.for('foo');
+
+	log(_s === _s2); // true
+	//Symbol.for()与Symbol()这两种写法，都会生成新的Symbol。
+	//它们的区别是，前者会被登记在全局环境中供搜索，后者不会。
+	//Symbol.for()不会每次调用就返回一个新的Symbol类型的值，而是会先检查给定的key是否已经存在，如果不存在才会新建一个值。
+	//比如，如果你调用Symbol.for("cat")30次，每次都会返回同一个Symbol值，但是调用Symbol("cat")30次，会返回30个不同的Symbol值。
+
+	log(Symbol.keyFor(_obj4)); // undefined
+	log(Symbol.keyFor(_s)); // foo
+	//Symbol.for为Symbol值登记的名字，是全局环境的，可以在不同的iframe或service worker中取到同一个值,而Symbol()写法没有登记机制，所以每次调用都会返回一个不同的值，且用keyFor查不到
+
+	var iframe = document.createElement('iframe');
+	iframe.src = String(window.location);
+	document.body.appendChild(iframe);
+	log(iframe.contentWindow.Symbol.for('foo') === Symbol.for('foo'));
+}

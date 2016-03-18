@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body></body>
+</html>
+<script>
+// function getLocation(){
+// 	if (navigator.geolocation){
+// 		navigator.geolocation.getCurrentPosition(showPosition);
+// 	}else{
+// 		conosle.log("Geolocation is not supported by this browser.");
+// 	}
+// }
+// function showPosition(position){
+// 	console.log("Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude);
+// }
+// getLocation();
+
+
+
+;(function(window,$,mapApi,mapData){
+		var $geoBtn = $('#geoBtn')
+		,curPositionMarker
+		,curPositionCircle
+		,geoBtnInMapImage1 = new mapApi.MarkerImage('imgs/geoBtnInMap1.png',new mapApi.Size(20,20),new mapApi.Point(0,0),new mapApi.Point(10,10),new mapApi.Size(20,20))
+		,geoBtnInMapImage2 = new mapApi.MarkerImage('imgs/geoBtnInMap2.png',new mapApi.Size(20,20),new mapApi.Point(0,0),new mapApi.Point(10,10),new mapApi.Size(20,20))
+		,checkMapInitedAndAutoGeoBtnTapIntervalFunc
+		// geoBtn导航和普通态的方法
+		$.geoBtnState = (function($,$geoBtn){
+			var state = 'normal'
+			return {
+				normal:function(){
+					state = 'normal'
+					$geoBtn.css('backgroundImage','url(images/ic_map_position_normal.png)')
+					$.notice.hide(0,'正在定位您的位置，请稍后…')
+					if(window.watchPositionPointer){
+						navigator.geolocation.clearWatch(window.watchPositionPointer)
+						window.watchPositionPointer = null;
+					}
+				}
+				,naving:function(){
+					state = 'naving'
+					$geoBtn.css('backgroundImage','url(images/ic_map_following_normal.png)')
+					window.mapApi.event.addListenerOnce(window.map,'drag',function(){
+						$.geoBtnState.normal()
+					})
+				}
+				,loading:function(){
+					state = 'loading'
+					$geoBtn.css('backgroundImage','url(images/geoBtn3.gif)')
+				}
+				,getState:function(){
+					return state
+				}
+			}
+		})($,$geoBtn);
+		// 定位方法
+		$.location = function(isInitAuto,isgetLocationOnce){
+			// 参数isInitAuto，是否是页面载入后的自动定位；参数isgetLocationOnce，是否只定位一次（短链还原过来的请求，只定位一次）
+			var geoInfoLocation
+			,geoInfoAccuracy
+			,map = window.map
+			,firstTimeLocationAfterClick = true
+			,positionNotCallbackYet = true
+			,watchOrGetFuncName = isgetLocationOnce?'getCurrentPosition':'watchPosition'
+			if($.geoBtnState.getState() !== 'normal'){return;} //不是普通态时点击无效
+			$.geoBtnState.loading();
+			setTimeout(function(){
+				if(positionNotCallbackYet){
+					$.notice.show('正在定位您的位置，请稍候…').hide(10000)
+				}
+			},500)
+			window.watchPositionPointer = navigator.geolocation[watchOrGetFuncName](function(geoInfo){
+				positionNotCallbackYet = false;
+				$.notice.hide();
+				geoInfoLocation = mapData.curPoint = new mapApi.Convertor().toSogou(new mapApi.LatLng(geoInfo.coords.latitude,geoInfo.coords.longitude));
+				geoInfoAccuracy = parseInt(geoInfo.coords.accuracy)
+				if(firstTimeLocationAfterClick){
+					isgetLocationOnce?$.geoBtnState.normal():$.geoBtnState.naving();
+					firstTimeLocationAfterClick = false
+				}
+				// 这里的问题是，brand不随着marker动，需要绑定后解绑，明天继续看这个问题
+				curPositionMarker = mapData.curPositionMarker
+				if(curPositionMarker){
+					curPositionMarker.setPosition(geoInfoLocation)
+					// if(mapData.searchCache && mapData.searchCache.brand && mapData.searchCache.brandIsShowingMyPostion){
+					// if(mapData.myPositionCache && mapData.myPositionCache.brand && mapData.myPositionCache.brand.visible){
+					if(mapData.myPositionCache && mapData.myPositionCache.brand){
+						// console.log('当前位置改变了')
+						// mapData.searchCache.brand.spirit.anchor = [11,18]
+						// mapData.searchCache.brand.setSize(new mapApi.Size(145,60))
+						mapData.myPositionCache.brand.setPosition(geoInfoLocation)
+						$('#curPositionBrandAccuracySpan').html(geoInfoAccuracy)
+					}
+				}else{
+					curPositionMarker = mapData.curPositionMarker = new mapApi.Marker({
+						// icon:new mapApi.MarkerImage('imgs/geoBtnInMap1.png',new mapApi.Size(20,20),new mapApi.Point(0,0),new mapApi.Point(10,10),new mapApi.Size(20,20))
+						icon:geoBtnInMapImage1
+						,position:geoInfoLocation
+						,map:map
+						,isFixed:true
+						,zIndex:2
+					})
+					clearInterval(mapData.geoBtnInMapImageChangeInterval)
+					mapData.geoBtnInMapImageChangeInterval = setInterval(function(){
+						curPositionMarker.setIcon(curPositionMarker.getIcon() === geoBtnInMapImage1?geoBtnInMapImage2:geoBtnInMapImage1)
+					},1000)
+					// if(!mapData.curPositionMarkerClickShowBrandEvent){
+					mapData.curPositionMarkerClickShowBrandEvent = mapApi.event.addListener(curPositionMarker,'click',function(){
+						// longTapCache = mapData.longTapCache
+						// if(longTapCache){
+						// 	longTapCache.brand && longTapCache.brand.hide()
+						// }
+						$.sendLog('click=myPositionMarker')
+						$.hideBrands('search')
+						$.useUi('uiSearchInfoAndMyPositionBrand',function(ui){
+							// console.log(ui.method.build)
+							ui.method.build('我的位置','精确到<span id="curPositionBrandAccuracySpan">'+geoInfoAccuracy+'</span>米',geoInfoLocation,function(brand){
+								mapApi.event.clearListeners(brand,'click')
+								mapApi.event.addListener(brand,'click',function(){
+									// alert(2)
+									$.sendLog('click=myPositionBrand')
+									$.showPage('pageSearchResultDetail',{
+										callbackAfterAppendBeforeSlide:function(){
+											var pageSearchResultDetail = window.pageModules.loaded.pageSearchResultDetail
+											,$pageSearchResultDetail = pageSearchResultDetail.$
+											// ,sogouPonit
+											$pageSearchResultDetail.attr('data-frompage',window.pageModules.currentPageNotToTopName)
+											// sogouPonit = new mapApi.Convertor().toSogou(geoInfoLocation)
+											pageSearchResultDetail.method.buildDetail({
+												clustering:9999
+												,detail:{}
+												,caption:'我的位置'
+												,points:[
+													{
+														x:geoInfoLocation.x
+														,y:geoInfoLocation.y
+													}
+												]
+												,_self:{
+													accuracy:geoInfoAccuracy
+												}
+											},'myPosition')
+										}
+									})
+									// e.stopPropagation()
+								})
+							},true)
+							// mapData.searchCache.brand.spirit.anchor = [11,18]
+							// mapData.searchCache.brand.setSize(new mapApi.Size(145,60))
+						})
+					})
+					// }
+				}
+				mapData&&mapApi.event.trigger(mapData,"locationsucc");
+				//获取成功发送一次日志
+				$.sendLog('canGeo=true');
+
+
+				curPositionCircle = mapData.curPositionCircle
+				if(curPositionCircle){
+					curPositionCircle.setCenter(geoInfoLocation);
+					curPositionCircle.setRadius(geoInfoAccuracy);
+				}else{
+					curPositionCircle = mapData.curPositionCircle = new mapApi.Circle({ // 由于画圆的模型有异步加载延迟，预创建一个，后续再加入圆心和半径
+						map:map
+						,center:geoInfoLocation
+						,radius:geoInfoAccuracy
+						,strokeColor:'#0e86e7'
+						,strokeOpacity:1.0
+						,fillColor:'#0e86e7'
+						,fillOpacity:0.1
+						,isFixed:true
+						// ,zIndex:10000000
+					})
+				}
+
+				if(!isgetLocationOnce){ // 短链还原的 只定位一次，且无需切屏
+					if(isInitAuto){// 第一次载入后的自动定位，和“取关闭时的级数和中心重现地图”不知道谁先先后返回，而且第一次定位通常连续返回多次，所以延迟滚动
+						setTimeout(
+							function(){
+								window.map.fitBounds(curPositionCircle.getBounds())
+							}
+						,1000)
+					}else{
+						window.map.fitBounds(curPositionCircle.getBounds())
+					}
+				}
+
+		    }
+		    ,function(err){
+		  		$.sendLog('canGeo='+err.code);// 日志中添加失败原因 add by xuyuetig 20140506
+		    	positionNotCallbackYet = false;
+				mapData&&mapApi.event.trigger(mapData,"locationfail");
+		    	firstTimeLocationAfterClick = false;
+					$.notice.show('请打开浏览器定位设置，然后刷新本页面，并允许设置').hide(3000);
+					$.geoBtnState.normal()
+		    },{
+		    	timeout:30000 // 30s后放弃定位，找PM确认，已确认
+		    })
+		}
+		
+		$geoBtn.click(function(){
+			$.sendLog('click=geoBtn')
+			// $.clearAutoSearch()
+			$.location()
+			if(!$.isTriggerGeom){
+				
+				$("#addressLinerTitle").show().css('opacity','1');
+				$.isTriggerGeom = true;
+				setTimeout(function(){
+					$("#addressLinerTitle").hide();
+					$.isTriggerGeom = false;
+				},5000)
+			}
+				
+		})
+		
+		// if(location.hash){ // 兼容#后面带和?后面带两种格式，这里是#
+		// 	hash = location.hash.replace('#','')
+		// }else{ // 这里是“？”号格式
+		// 	href = location.href
+		// 	indexOfQuestionMark = location.href.indexOf('?')
+		// 	if(indexOfQuestionMark !== -1){
+		// 		hash = location.href.substr(indexOfQuestionMark+1)
+		// 	}
+		// }
+		// if(hash){
+		// 	hash = hash.replace(/ad=\d/i,'').replace('IPLOC=CN1100','')// 去除无需短链还原的部分
+		// }
+		if(window._hash){
+			$("#DLWrapBG").show();
+			var getParamOriginurltype = $.getParam('originurltype',window._hash)
+			$.sendLog('init=url'+(getParamOriginurltype?('&originurltype='+getParamOriginurltype):''))
+			$.location(true,true)
+			//清除来源参数
+			$.setParam('from','')
+			//
+			seajs.use('lib/urlParse',function(){
+				$.urlParse(window._hash)
+			})
+		}else{
+			$.sendLog('init=browser')
+			// 确保地图init后，即第一次调整视野到上一次关闭的时候完成后，再触发自动定位
+			checkMapInitedAndAutoGeoBtnTapIntervalFunc = function(){
+				setTimeout(function(){
+					if(window.mapInited){
+						$.location(true)
+					}else{
+						checkMapInitedAndAutoGeoBtnTapIntervalFunc()
+					}
+				},200)
+			}
+			checkMapInitedAndAutoGeoBtnTapIntervalFunc()
+		}
+</script>

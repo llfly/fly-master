@@ -90,3 +90,41 @@ require('expose?$!jquery');
 `npm install babel-preset-es2015`
 `{loader:'babel-loader',exclude:/node_modules/}`
 # 2.multipleEntry
+/打包成多个资源文件
+entry属性可以是一个对象，而对象名也就是key会作为下面output的filename属性的[name]
+
+```
+ entry:{
+  bundle1:'./entry1.js',
+  bundle2:'./entry2.js'
+ }
+output:{
+ path:__dirname,
+ filename:"[name].js"
+}
+```
+
+问题：相同模块会同时存在于bundle1,bundle2，这个时候需要公共模块
+
+利用插件可以智能提取公共部分，以提供浏览器缓存复用
+plugins:[new webpack.optimize.CommonsChunkPlugin('common.js')]
+需要手动在html上去加载common.js，并且是必须要最先加载
+
+# 3.webpack-dev-server
+`npm install webpack-dev-server -g`
+会把当前目录作为根目录启动一个express服务，会自动打包实时刷新
+将命令配置到package.json的dev参数中
+在webpack.config.js更新一下入口文件配置即可实现编辑器中保存代码就可在浏览器中实现刷新的效果。
+
+```
+entry: [
+      'webpack-dev-server/client?http://localhost:8080',
+      path.resolve(__dirname, 'app/index.js')
+]
+```
+
+gulp可以结合browser-sync的reload接口和watch功能结合，也可以实现。
+
+# 4.react-hot-loader
+
+# 5.extract-text-webpack-plugin

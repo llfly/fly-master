@@ -37,36 +37,4 @@ module.exports = {
 }
 
 
-//多入口，抽取common
-// module.exports = {
-// 	entry:{
-// 		bundle1:'./entry.js',
-// 		bundle2:'./entry.js'
-// 	},
-// 	output:{
-// 		path:__dirname,
-// 		filename:'[name].js'
-// 	},
-// 	module:{
-// 		loaders:[
-// 		{
-// 			test:/\.css$/,
-// 			loader:"style.css"
-// 		},
-// 		{
-// 			test: /\.(png|jpg)$/,
-//  			loader: 'url?limit = 4000'
-// 		}
-// 		]
-// 	},
-// 	plugins: [
-// 		new webpack.BannerPlugin('//hello,world'),
-// 		new webpack.optimize.CommonsChunkPlugin('common.js')
-// 	],
-// 	resolve: {
-// 		alias: {
-// 			jQuery: '../../lib/jQuery/jquery-2.0.3.js'
-// 		}
-// 	}
-// }
 
