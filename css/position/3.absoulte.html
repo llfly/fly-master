@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>absolute布局上下文下的水平垂直居中</title>
+	<style type="text/css">
+	html,body{
+		margin: 0;
+		padding: 0;
+		font-size:10px;
+	}
+	/*使用 margin auto*/
+	#div1{
+		width:50px;
+		height: 50px;
+		border:1px solid red;
+		/* 设置高宽border只是为了显示效果 */
+		position: absolute;
+		left: 0; top: 0; right: 0; bottom: 0;
+    	margin: auto;
+	}
+
+
+	/*利用left：50%将盒子的左边先置于父容器的中点，然后再将盒子往左偏移盒子自身宽度的50%，三种实现方式*/
+
+	/*绝对定位，水平竖直居中。需要提前知道元素的尺寸，否则margin负值的调整无法精确，往往要借助JS获得。
+	*/
+	#div2{
+		width:100px;
+		height: 100px;
+		border:1px solid blue;
+
+		position:absolute;
+		left: 50%;
+		top:50%;
+		margin-top:-50px;/* 高度的一半 */
+		margin-left:-50px;/* 宽度的一半 */
+	}
+
+
+	/*使用css3的transform变换，兼容性不好*/
+	#div3{
+		width:150px;
+		height: 150px;
+		border:1px solid green;
+		/* 设置高宽border只是为了显示效果 */
+    	position: absolute;
+    	left: 50%; top: 50%;
+    	transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */
+	}
+
+
+	#div4{
+		width: 150px;
+		height: 100px;
+		background-color: transparent;
+	}
+	#div4-child{
+
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">使用margin auto</div>
+	<br/>
+	<div id="div2">使用绝对定位，减去一半高宽</div>
+	<div id="div3">使用css3 transform</div>
+	<div id="div4">
+		<div id="div4-child"></div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+//text-align: center;不能用于块级元素
+</script>

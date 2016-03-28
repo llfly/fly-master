@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>利用盒模型的margin水平垂直居中</title>
+	<style type="text/css">
+	html,body{
+  		margin: 0;
+  		padding:0;
+	}
+	#div4-parent{
+		background-color: #ccc;
+		height: 200px;
+		overflow: auto;/*形成bfc，防止子类的margin穿透*/
+	}
+	/*
+	使用margin填充需要知道元素的高宽
+	 */
+	#div4-child{
+		width:100px;
+		height: 100px;
+		background-color: #eee;
+		margin: 50px auto;/*上：(外层高宽-内层高宽)/2 左右：auto*/
+	}
+	#div5-parent{
+		width: -moz-fit-content;/*目前这个属性只支持Chrome和Firefox浏览器*/
+		width: -webkit-fit-content;
+		width: fit-content;
+		margin: auto;
+
+		background-color: #ccc;
+		height: 100px;
+	}
+	</style>
+</head>
+<body>
+	<div id="div4-parent">
+		<div id="div4-child">利用盒模型的margin水平垂直居中</div>
+	</div>
+	<div id="div5-parent">
+		<span>利用fit-content</span>
+	</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//20160324
+function leftpad(str,len,ch){
+	if(!ch&&ch!==0) ch = ' ';
+	var cnt = len - str.length;
+	var pad ='';
+	while(1){
+		if(cnt&1)pad+=ch;
+		cnt >>=1;
+		if(cnt)ch+=ch;
+		else break;
+	}
+	return pad +str;
+}
+
+function leftpad2(str,len,ch){
+	return Array(len-str.length+1).join(ch) + str;
+}
+
+var leftpad = (str,n,ch) => ((new Array(n)).join(ch||' ') + str).slice(-Math.max(n, str.length));
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
+
+
+(function(){
+	var foo = 10;
+	var bar = 5;
+	alert(foo*bar);
+})();
+
+(function(foo,bar){
+	alert(foo*bar);
+})(10,2);
+
+var baz = (function(foo,bar){
+	return foo*bar;
+})(10,2);
+//匿名函数用来创建闭包。
+//闭包是一个受到保护的变量空间，由内嵌函数生成。js具有函数级的作用域，这意味着定义在函数内部的变量在函数外部不能被访问。
+//js的作用域又是词法性质的，这意味着函数运行在定义它的作用域中，而不是在调用它的作用域中。
+//把这两个因素结合起来，就能通过把变量包裹在匿名函数中而对其加以保护。
+
+var baz;
+(function(){
+	var foo = 10;
+	var bar = 2;
+	baz = function(){
+		retrun foo*bar;
+	}
+})();
+baz();
+
+</script>

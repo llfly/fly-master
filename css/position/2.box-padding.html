@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>利用盒模型的padding水平垂直居中</title>
+	<style type="text/css">
+	html,body{
+		margin: 0;
+		padding: 0;
+	}
+	/*padding填充*/
+	#div2-parent{
+		background-color: #ccc;
+		width:200px;
+		height: 200px;
+		margin: auto;
+	}
+	#div2-child{
+		width:100px;
+		height: 100px;
+		background-color: #eee;
+		background-clip:content-box;
+		padding:50px;/*(外层高宽-内层高宽)/2*/
+	}
+	#div3-parent{
+		background-color: #ccc;
+		width:200px;
+		height: 200px;
+		margin: auto;
+	}
+	#div3-child{
+		padding: -webkit-calc((100% - 100px) / 2);
+		padding: calc((100% - 100px) / 2);
+		width: 100px;
+		height: 100px;
+		background-color: #eee;
+		background-clip: content-box;
+	}
+	</style>
+</head>
+<body>
+	<div id="div2-parent">
+		<div id="div2-child">使用padding</div>
+	</div>
+	<hr/>
+	<div id="div3-parent">
+		<div id="div3-child">使用css3的calc控制padding</div>
+	</div>
+</body>
+</html>
