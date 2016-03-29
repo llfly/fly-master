@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	/*absolute float:包裹性，破坏性
+	包裹性换种说法就是让元素inline-block化，例如一个div标签默认宽度是100%显示的，但是一旦被absolute属性缠上，则100%默认宽度就会变成自适应内部元素的宽度。
+	有float:left/position:absolute撑腰的情况下，display属性就是多余的，可以直接回家喝茶了
+	*/
+	.div { background-color:#ccc; }
+	.float{float: left;}
+	.abs { position:absolute; }
+	</style>
+</head>
+<body>
+	<!-- <div class="div">
+		<p>无absolute</p>
+	</div>
+	<div class="div abs">
+		<p>absolute后</p>
+	</div> -->
+	<div class="div float">
+		<p>图片无absolute</p>
+	</div>
+	<div class="div">
+		<p>图片无absolute</p>
+	</div>
+	<div class="div">
+		<p>图片absolute后</p>
+	</div>
+</body>
+</html>

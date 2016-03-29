@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//function内不使用var声明的变量会绑到windows对象上，没用var声明的变量可以用delect删除。
+
+var a = 1;
+b = 2;
+!function(){
+	var c = 3;
+	d = 4;
+}();
+console.log(window);
+</script>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>absolute布局上下文下的水平垂直居中</title>
+	<style type="text/css">
+	html,body{
+		margin: 0;
+		padding: 0;
+		font-size:10px;
+	}
+	/*使用 margin auto 必须有width和height值，不兼容IE6.7
+	原理：absolute性质的盒子，它的包含块的宽度等于它的盒模型的宽度 + left + right值，包含块的高度同理，
+	盒模型包括margin-box、border-box、padding-box、content-box，而在这个居中方法中，
+	left + right值是0，width是定值，width所在盒子包括了除了margin-box外的那三个box，margin都是auto值，
+	按照上面那个公式，margin-left + margin-right的值应该等于包含块的宽度 - left的值 - right的值 - width的值，也就是说margin-left + margin-right的值等于除了width所占宽度外的剩下宽度，拥有剩下宽度后，就是平分其宽度，以让左右两边相等，达到居中。
+	*/
+	#div1{
+		width:50px;
+		height: 50px;
+		border:1px solid red;
+		/* 设置高宽border只是为了显示效果 */
+		position: absolute;
+		left: 0; top: 0; right: 0; bottom: 0;
+    	margin: auto;
+	}
+
+
+	/*利用left：50%将盒子的左边先置于父容器的中点，然后再将盒子往左偏移盒子自身宽度的50%，三种实现方式*/
+
+	/*绝对定位，水平竖直居中。需要提前知道元素的尺寸，否则margin负值的调整无法精确，往往要借助JS获得。
+	  需要父容器是body，或是是设置了position:relative属性的元素
+	*/
+	#div2{
+		width:100px;
+		height: 100px;
+		border:1px solid blue;
+
+		position:absolute;
+		left: 50%;
+		top:50%;
+		margin-top:-50px;/* 高度的一半 */
+		margin-left:-50px;/* 宽度的一半 */
+	}
+
+
+	/*使用css3的transform变换解决高宽问题，不兼容IE6.7.8.9
+	  需要父容器是body，或是是设置了position:relative属性的元素
+	*/
+	#div3{
+		width:150px;
+		height: 150px;
+		border:1px solid green;
+		/* 设置高宽border只是为了显示效果 */
+    	position: absolute;
+    	left: 50%; top: 50%;
+    	transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */
+	}
+	/*外部使用absulte，内部通过relative进行校正，需要知道高宽*/
+	#div4{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 200px;
+		height: 200px;
+		/*background-color: transparent;*/
+	}
+	#div4-child{
+		position: relative;
+		left: -50%;
+		top: -50%;
+		width: 100%;
+		height: 100%;
+		border: 1px solid red;
+	}
+
+	/*外部定义text-align，内部使用inline-block。需要知道高度*/
+
+	/*
+	text-aign:center本来是不能直接作用于absolute元素的，但是没有给其left等值的行级absolute元素是会受文本的影响。
+	text-align:center作用的是文本而不是absolute的元素，但是，当absolute元素为inline-block的时候，会受到匿名文本节点的影响。
+
+	自身宽度需知，否则，得要借助脚本去获取才能实现居中
+	无法实现block水平元素的水平居中
+
+	垂直方向是不能被操作文本的属性影响，使用margin-top
+	margin-left: - ("1/2个元素宽度" + 2);
+	不兼容IE8.9
+	 */
+	#div5{
+		text-align: center;
+		height: 300px;
+		background-color: #ccc;
+	}
+
+	#div5-child{
+		border: 1px solid red;
+		position: absolute;
+		margin-left: -101px;
+		display: inline-block;
+		width:200px;
+		height: 200px;
+		margin-top: 50px;
+	}
+	</style>
+</head>
+<body>
+	<div id="div1">1.使用margin auto</div>
+	<div id="div2">2.使用绝对定位，减去一半高宽</div>
+	<div id="div3">3.使用css3 transform</div>
+	<div id="div4">
+		<div id="div4-child">4.外部absolute,内部relative</div>
+	</div>
+	<div id="div5">
+		<div id="div5-child">5.外部使用text-align: center,内部设置inline-block。</div>
+	</div>
+</body>
+</html>
