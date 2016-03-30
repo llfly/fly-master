@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="global">
+	<div id="scopeTest" ng-controller="myController">
+		请输入关键字：<input type="text" ng-model="query"/>
+		<ul>
+			<li ng-repeat="phone in phones | filter:query">
+				{{phone.name}}
+				<p>{{phone.snippet}}</p>
+			</li>
+		</ul>
+		<input type="button" value="点击我" ng-click="sayHello()"/>
+		<br/>
+		{{getting}}
+	</div>
+</body>
+	<script src="../angular.js"></script>
+</html>
+<script type="text/javascript">
+	window.onload = function(){
+		document.getElementById('scopeTest').addEventListener('click',function(){
+			console.log(this);
+			// angular.element(this)  ==> $
+			var scope = angular.element(this).data($scope);
+			console.log(scope);
+		},false)
+	}
+	var global = angular.module('global',[]);
+	global.controller('myController',function($scope,$timeout){
+		console.log($scope);
+		$scope.phones = [{name:'iphone',snippet:'iphone is good'},{name:'xiaomi',snippet:'xiaomi is good too'}];
+		$scope.sayHello = function(){
+			console.log($scope);
+			$scope.getting =  "hello，" + ($scope.query || 'llfly');// + ||优先级！！！！
+		};
+
+		$scope.$watch('query',function(){//三个参数：变化后，变化前，当前作用域
+			console.log(arguments);
+			console.log($scope.query);
+		});
+
+		setTimeout(function(){
+			$scope.getting = 'change';
+			$scope.$apply();//digest
+		},3000);
+		$timeout(function(){
+			$scope.getting = 'change2';
+		},7000);
+		setTimeout(function(){
+			$scope.$apply(function(){
+				$scope.getting = 'change3';
+			})
+		},10000);
+	})
+	//ng-model值绑定在何处？是否一定需要ng-model?与$scope.xxx的区别？
+</script>
+<script type="text/javascript">
+	//ng-repaet每次迭代都会生成一个scope，将值赋值到scope上，可通过调试工具查看到
+	//scope只有在调用的时候创建，类似于原型链
+	//要明确创建一个$scope对象，就要给DOM元素安上一个controller对象，使用的是ng-controller 指令属性。
+	//所有$scope都遵循原型继承，这意味着它们都能访问父$scope们,对任何属性和方法，如果AngularJS在当前$scope上找不到，就会到父$scope上去找，如果在父$scope上也没找到，就会继续向上回溯，一直到$rootScope上，这个$rootScope是最顶级的$scope，它对应着含有 ng-app指令属性的那个DOM元素，也就是说根作用域关联的DOM就是ng-app指令定义的地方。
+
+
+//不要试图去复用controller,一个控制器一般只负责一小块视图
+//不要在controller中操作DOM，这不是控制器的职责，是指令的职责。
+//不要在controller里做数据格式化，ng有很好用的过滤器实现此功能。
+//不要在controller里面做数据过滤操作，ng有$filter服务
+//一般来说，controller是不会互相调用的，控制器这间的交互是通过事件进行的。
+
+//$scope 是一个 POJO （Plain Ordinary Java Object）简单的Js对象
+//$scope 提供了一些工具方法$watch/$apply()
+//$scope 是表达式的执行环境，或者说叫作用域
+//$scope 是一个树型结构，与DOM标签平行
+//每一个angular应用都有一个根作用域 $rootScope, 位于ng-app上
+//$scope可以传播事件，类似DOM事件，可以向上下可以向下
+//$scope不仅是MVC的基础，也是后面实现双向数据绑定的基础,应用开始先找rootScope,然后把下级scope附加到rootScope上从而形成树型结构。
+
+
+//$scope上绑定变量 在页面使用{{}}或ng-bind后，内部会监听值的变化反馈到页面上。在使用setTimeout手动改变变量值，页面是不会刷新的
+//这个时候可以使用$apply，或者$timeout():内部原理先赋值，再调用$apply方法，带$符号的方法都会内部调用$apply
+
+
+//观察者列表首先观察scope上面的属性，将属性备份存到自己对象上，当调用apply方法时，观察者列表检测值变化，调用回调
+//一次轮训称为digest
+
+//创建(Creationd)
+//在创建控制器或指令时，angularjs会用$injector创建一个新的作用域，并在这个新建的控制器或指令时把作用域传进去
+//链接
+//scope对象会附加或链接到视图。这些作用域将会注册当 angular上下文中发生变化时需要运行的函数
+//$watch->注册监控(Watcher registration)变化时执行的回调函数
+//更新
+//事件循环执行时，顶级的$rootScope和每个子作用域都执行自己的脏值检查。每个监控函数监控变化，检测到变化后，$scope会触发指定的回调函数。
+//销毁
+//当scope在视图中不在需要时，会清理和销毁自己。
+//$scope.$destroy();
+
+
+//要知道一个变量变了，方法无外乎两种
+//1.能通过固定的接口才能改变的值，比如说只能通过set()设置变量的值，set被调用时比较一下就知道了。这种方法的缺点是写法繁琐
+//2.脏检查  	对象，比较每一个属性，这样会有一定的性能问题。
+
+
+//angular的实现是使用脏检查
+//检测策略：
+//不会脏检查所有的对象，当对象被绑定到html中，这个对象添加为检查对象(watcher)
+//不会脏检查所有的属性，同样当属性被绑定后，这个属性会被列为检查的属性。
+//在angular程序初始化时，会将绑定的对象的属性添加为监听对象(watcher)，也就是说一个对象绑定了N个属性，就会添加N个watcher
+
+var obj = {
+	b:300,
+	set:function(key,val){
+		obj[key] = val;
+		document.getElementById('div').innerHTML = val;
+	}
+}
+obj.set('b',400);
+//什么时候去脏检查
+//angular系统的方法中都会触发比较事件，比如controller初始化，所有ng-开头的事件执行后，都会触发脏检查
+
+//手动触发脏检查
+//$apply仅仅只是进入angular context，然后通过$digest去触发脏检查
+//$apply如果不给参数的话，会检查该$scope里所有监听的属性，推荐给参数
+
+//先通过eval解析表达式，如果有错会报错，接着找$digest()方法，
+
+//$digest()
+//所属的scope和其所有子scope的脏检查，脏检查又会触发$watch，整个angular双向绑定机制就活起来了。
+//不建议直接调用$digest()，而应该使用$apply(),$apply其实不能把信直接送给$digest，之间还有$evel把关，如果$apply带的表达式不合法，$evel会把错误送交$exceptionHandle,合法才触发digest，所以更安全
+
+
+//$watch
+//主要用于手动监听某些变量
+//在digest执行时，如果watch观察的value与上次执行时不一样，就会被触发
+//angularjs内部的watch实现了页面随model的及时更新
+//$watch(watchFn,watchAction,deepWatch)
+//watchFn:angular表达式或函数的字符串
+//watchAction(newValue,oldValue,scope)：watchFn发生变化时被调用
+//deepWatch：可选的布尔值命令检查被监控的对象的每个属性是否发生变化
+
+//$watch会返回一个函数，想要注销这个watch可以使用函数
+
+
+
+
+</script>

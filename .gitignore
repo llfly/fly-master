@@ -38,3 +38,5 @@ node_modules
 
 # Mac OS File
 .DS_Store
+
+/output/
