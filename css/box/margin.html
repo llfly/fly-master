@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html,body{
+			margin:0;
+			padding:0;
+		}
+		#div1{
+			width:200px;
+			height:200px;
+			background-color:red;
+			margin-top:20px;
+			color:white;
+		}
+		#div1-child{
+			width:100px;
+			height:100px;
+			background-color:black;
+			margin-top:10px;
+		}
+		#div2-brother1{
+			width:100px;
+			height:100px;
+			background-color:red;
+			margin-bottom:20px;
+		}
+		#div2-brother2{
+			width:100px;
+			height:100px;
+			background-color:yellow;
+			margin-top:10px;
+		}
+		#div3{
+			width:200px;
+			background-color:red;
+			margin-bottom:10px;
+		}
+		#div3-child{
+			width:100px;
+			height:100px;
+			background-color:yellow;
+			margin-bottom:20px;
+		}
+		#div4{
+			margin-top:20px;
+			margin-bottom:40px;
+			/*background-color: #ccc;*/
+		}
+		#div4-child{
+			height:200px;
+			width:200px;
+			float:left;
+			background-color:red;
+		}
+		#div5{
+			margin-top:20px;
+			height: 100px;
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="div1-child">我在内部，margin-top为10px</div>
+		我在外面，margin-top为20px
+	</div>
+
+	<hr/>
+
+	<div id="div2-brother1">我的margin-bottom为20px</div>
+	<div id="div2-brother2">我的margin-top为10px</div>
+
+	<hr/>
+
+	<div id="div3">
+		我的margin-bottom为10px，height为auto
+		<div id="div3-child">我的margin-bottom为20px</div>
+	</div>
+
+	<hr/>
+
+	<div id="div4">
+		<div id="div4-child">
+			我是浮动的子元素，父级不包含常规文档流的子元素，高度为auto，本身没有建立新	的BFC，margin-top为20px，margin-bottom为40px
+		</div>
+	</div>
+
+	<!-- <hr/> -->
+
+	<div id="div5"></div>
+</body>
+</html>
