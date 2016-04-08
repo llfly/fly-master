@@ -12,6 +12,7 @@ class ComponentDemo extends Component {
     //从父级获取属性this.props
     console.log(this);//this指向自身  _reactInternalInstance，context，props，refs，getDOMNode()，isMounted()，replaceProps()，replaceState()，setProps()，state，updater
     console.log(this.props);//Object {name: "llfly"}
+    console.log(this.state);
     //this.props 对象的属性与组件的属性一一对应，但是有一个例外，就是 this.props.children 属性。它表示组件的所有子节点
     //this.props.children 的值有三种可能：
     //如果当前组件没有子节点，它就是 undefined ;

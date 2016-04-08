@@ -31,14 +31,18 @@ class App extends Component {
         {
           /*
           <SimpleComponent />
+
           <ComponentDemo name="llfly" />
           <SpreadDemo {...data} />
           <StyleDemo />
+
           <StateDemo />
-          <PropsDemo title="设置的标题" />
+          <PropsDemo title="传入参数" title="第二次传入参数" name="fy"  {...data}/>
           <PropTypesDemo />
+
           <LifeCycleDemo />
           <DestroyComponent />
+
           <HandleDOMComponent />
           <HandleEvent />
           <SelfCreateComponent />
@@ -47,7 +51,7 @@ class App extends Component {
           <MixinDemo />
            */
         }
-        <ComponentDemo name="llfly" />
+        <LifeCycleDemo />
       </div>
     )
   }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class SpreadDemo extends Component {
   componentWillMount(){
     console.log(this.props);
+    console.log(this.state);
   }
   render(){
     return <h1> {this.props.name} is a {this.props.type} </h1>;

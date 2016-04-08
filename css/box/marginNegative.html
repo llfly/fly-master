@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#demo{
+    	overflow:hidden;
+	}
+	#demo ul{
+	    margin-bottom: -1px;
+	}
+	#demo li{
+    	border-bottom: 1px solid #ccc;
+	}
+	#demo1{
+		padding-left: 45px;
+	}
+	#demo1 strong{
+		margin-left:-45px;
+		/*也可以设置p标签的text-indent: -45px;*/
+	}
+	#doc{
+	    overflow:hidden;
+	}
+	#main,#aside{
+	    margin-bottom:-999px;
+	    padding-bottom:999px;
+	}
+	#main{
+		float: left;
+	    width: 390px;
+	    background: #aaa;
+	}
+	#aside{
+		float: right;
+	    width: 200px;
+	    background: #ccc;
+	}
+	#demo2{
+    	border-bottom:1px solid #aaa;
+    	width:320px;
+    	margin: auto;
+	}
+	#demo2 a{
+	    display: inline-block;
+	    position: relative;
+	    margin-bottom: -1px;
+	    border: 1px solid #aaa;
+	    padding: 3px 10px;
+	    background: #eee;
+	    color: #aaa;
+	}
+	#demo2 .on{
+		background: #fff;
+	    border-bottom-color:#fff;
+	}
+	</style>
+</head>
+<body>
+	<div id="demo">
+		<h3>消除最后一个下划线实例</h3>
+		<ul>
+			<li>&raquo; 有点累想歇一下好长一个标题</li>
+			<li>&raquo; 有点累想歇一下好长一个标题</li>
+			<li>&raquo; 有点累想歇一下好长一个标题</li>
+			<li>&raquo; 有点累想歇一下好长一个标题</li>
+			<li>&raquo; 有点累想歇一下好长一个标题</li>
+		</ul>
+	</div>
+
+	<div id="demo1">
+		 <strong>缩进：</strong>
+    	 <p>使用margin实现缩进</p>
+	</div>
+
+	<div id="doc">
+	    <div id="main">使用margin和padding来实现等高<br />占位内容<br />占位内容<br />占位内容</div>
+	    <div id="aside">侧边栏</div>
+	</div>
+
+
+	<div style="width: 500px;">
+		<div id="test" style="background-color: red;margin-right: -10px;height: 30px;">我没设宽度，实际宽度为510</div>
+	</div>
+	<div style="width: 500px;">
+		<div id="test2" style="background-color: red;margin-right: -10px;height: 30px;width:200px;">我设置了宽度，实际宽度为200</div>
+	</div>
+
+	tabstrip底边线重合
+	<div id="demo2">
+	    <a href="?">分类一</a>
+	    <a href="?" class="on">分类二</a>
+	    <a href="?">分类三</a>
+	    <a href="?">分类四</a>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+/*
+#demo li{
+    border-bottom: 1px solid #ccc;
+}
+处理最后一项用c3:first-child, :nth-last-child(n), :nth-last-of-type(n)，兼容性不好
+
+#demo .last{
+    border-bottom: 0 none;
+}
+使用特殊的class来单独处理这项，需单独定义一个差异化的class，不利于数据循环输出，因为还得判断是否最后一项。
+ */
+
+/*
+相同的还有处理最后一个图片的边框
+ */
+</script>
