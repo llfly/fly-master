@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//模块化，可重用
+//封装了变量和function，和全局的namaspace不接触，松耦合
+//只暴露可用public的方法，其它私有方法全部隐藏
+var Calculator = function(){
+	var eqCtl = 0;
+	return {
+		add:function(num){
+			eqCtl+=num;
+		}
+	};
+}
+var calculator = new Calculator();
+calculator.add(10);
+//每次都需要new一下，每个实例在内存里都是一份copy
+//匿名闭包
+(function(){}());
+;(function(){})();
+
+
+var Module1 = (function(){
+	var my = {},privateName='Module1';
+
+	function privateCode(data){
+		//内部处理代码
+	}
+	my.Name = privateName;
+	my.change = function(){
+		//...
+	}
+	return my;
+}());
+//扩展
+//大型项目里，将一个功能分离成多个文件，将Module1传进去，添加一个函数属性，然后再返回
+
+var Module1 = (function(my){
+	my.change2 = function(){
+		//...
+	}
+	return my;
+})(Module1);
+//尽管上面的代码可以执行，但是必须先声明Module1，然后再执行上面的扩展代码，也就是说步骤不能乱
+//松耦合扩展
+var Module1 = (function(my){
+	//添加一些功能
+	return my;
+})(Module1 || {});
+
+//松耦合没法重写一些属性或者函数，也不能在初始化的时候就使用Module的属性，紧耦合限制了加载顺序，但是提供了重载的机会。
+var Module1 = (function(my){
+	var oldMethod = my.change;
+
+	my.change = function(){
+		//...
+	};
+
+	return my;
+})(Module1);
+
+//克隆与继承
+var Module1 =(function(old){
+	var my = {},key;
+
+	for(key in old){
+		if(old.hasOwnProperty(key)){
+			my[key] = old[key];
+		}
+	}
+
+	var oldMethod = old.change;
+	my.change = function(){
+		//克隆以后进行重写
+	};
+	return my;
+})(Module1);
+//引用类型只是指向了同一个引用而已，解决这个问题，通常使用递归，如果是function类型，可以使用eval
+//跨文件共享私有对象
+//如果一个module分割到多个文件的话，每个文件需要保证一样的结构，也就是说每个文件匿名函数里的私有对象都不能交叉访问，那如果我们非要使用，那怎么办呢？
+var blogModule = (function (my) {
+    var _private = my._private = my._private || {},
+
+        _seal = my._seal = my._seal || function () {
+            delete my._private;
+            delete my._seal;
+            delete my._unseal;
+
+        },
+
+        _unseal = my._unseal = my._unseal || function () {
+            my._private = _private;
+            my._seal = _seal;
+            my._unseal = _unseal;
+        };
+
+    return my;
+} (blogModule || {}));
+//任何文件都可以对他们的局部变量_private设属性，并且设置对其他的文件也立即生效。一旦这个模块加载结束，应用会调用 blogModule._seal()"上锁"，这会阻止外部接入内部的_private。如果这个模块需要再次增生，应用的生命周期内，任何文件都可以调用_unseal() ”开锁”，然后再加载新文件。加载后再次调用 _seal()”上锁”。
+
+//子模块
+Module1.CommentSubModule = (function () {
+    var my = {};
+    // ...
+
+    return my;
+} ());
+</script>

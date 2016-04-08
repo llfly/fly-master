@@ -47,7 +47,7 @@ class App extends Component {
           <MixinDemo />
            */
         }
-        <ComponentDemo name="llfly" />
+        <StateDemo />
       </div>
     )
   }

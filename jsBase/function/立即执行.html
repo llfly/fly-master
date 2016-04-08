@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+
+//      声明函数,并立即执行,()把return函数转成函数表达式,然后传入参数2立即执行
+        ;(function abc(a){
+            console.log(a);
+            return function(b){console.log(a,b)};   //firebug输出1,2，使用（）运算符
+        }(1))(2)
+
+
+//function(){}，这种是函数定义，()是函数分组解析，在解析之前，会把之前出现的字母一起放在定义内。
+//函数定义的第一个单词必须是function，而之前出现了()，所以就报错，必须用;来隔离一下
+    </script>
+</head>
+<body>
+
+</body>
+</html>
