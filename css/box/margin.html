@@ -59,6 +59,40 @@
 			height: 100px;
 			background-color: #ccc;
 		}
+		#div6{
+			margin-top:10px;
+			margin-bottom:40px;
+		}
+		#div6-child1{
+			height:200px;
+			width:200px;
+			float:left;
+			background-color:red;
+		}
+		#div6-child2{
+			background-color: #eee;
+			height: 50px;
+			margin-top:20px;
+			background-color: #333;
+		}
+		#div7{
+			margin-top:10px;
+			margin-bottom:40px;
+		}
+		#div7-child1{
+			height:200px;
+			width:200px;
+			float:left;
+			background-color:red;
+		}
+		#div7-child2{
+			background-color: #eee;
+			height: 50px;
+			margin-top:20px;
+			background-color: #333;
+		}
+
+
 	</style>
 </head>
 <body>
@@ -87,8 +121,33 @@
 		</div>
 	</div>
 
-	<!-- <hr/> -->
-
 	<div id="div5"></div>
+
+	<div style="clear:both"></div>
+	<hr/>
+
+	<div id="div6">
+		<div id="div6-child1">
+			我是浮动的子元素
+		</div>
+		<div id="div6-child2">
+			我是常规文档流的子元素，margin-top为20px
+		</div>
+	</div>
+
+
+	<div style="clear:both"></div>
+	<hr/>
+
+
+	<div id="div7">
+		<div id="div7-child1">
+			我是浮动的子元素
+		</div>　<!-- <-这里有一个全角空格，样式与上一个demo相同 -->
+		<div id="div7-child2">
+			我是常规文档流的子元素，margin-top为20px
+		</div>
+	</div>
+
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.a{
+		float:left;
+		height:30px;
+		margin:20px;
+		background-color: #ccc;
+	}
+	.b{
+		clear:left;
+		height:30px;
+		margin-top:-30px;
+		background-color: #eee;
+	}
+	.c{
+		clear: left;
+		height: 30px;
+		margin-top:50px;
+		background-color: #aaa;
+	}
+	.d{
+		clear: left;
+		height: 30px;
+		margin-top:100px;
+		background-color: #aaa;
+	}
+	</style>
+</head>
+<body>
+	<div class="a">float:left</div>
+	<div class="b">设置了 clear 为非 none 值的元素其顶部 border 边界不允许出现在之前浮动元素的底部margin边界之上，但是其margin可以和之前浮动元素的任何区域重合。</div>
+	<hr/>
+
+	<div class="a">float:left</div>
+	<div class="c">我的margin已经把上面的元素覆盖，不信你看看，是不是拥有 clear 特性的元素对其之前的浮动元素没有任何影响？因为不论是正值还是负值，其位置都不会发生变化。答案是否定的</div>
+
+	<hr/>
+
+	<div class="a">float:left</div>
+	<div class="d">我的margin-top超过了包含块内浮动元素的实际高度 margin + border + padding + height</div>
+</body>
+</html>
