@@ -15,6 +15,7 @@ import {
   SelfCreateComponent,
   UseChildrenComponent,
   FormApp,
+  FormTest,
   MixinDemo
 
 } from '../components';
@@ -44,14 +45,18 @@ class App extends Component {
           <DestroyComponent />
 
           <HandleDOMComponent />
+
           <HandleEvent />
+
           <SelfCreateComponent />
           <UseChildrenComponent />
+
           <FormApp />
+
           <MixinDemo />
            */
         }
-        <LifeCycleDemo />
+        <FormTest />
       </div>
     )
   }
