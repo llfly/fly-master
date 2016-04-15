@@ -15,7 +15,6 @@ import {
   SelfCreateComponent,
   UseChildrenComponent,
   FormApp,
-  FormTest,
   MixinDemo
 
 } from '../components';
@@ -56,7 +55,7 @@ class App extends Component {
           <MixinDemo />
            */
         }
-        <FormTest />
+        <MixinDemo />
       </div>
     )
   }

@@ -10,7 +10,7 @@ class RadioButtons extends Component {
       return <span>
           A
           <input onChange={this.props.handleRadio} name="goodRadio" type="radio" value="A"/>
-          B
+          在组件内设置defaultChecked默认选中 B
           <input onChange={this.props.handleRadio} name="goodRadio" type="radio" defaultChecked value="B"/>
           C
           <input onChange={this.props.handleRadio} name="goodRadio" type="radio" value="C"/>
