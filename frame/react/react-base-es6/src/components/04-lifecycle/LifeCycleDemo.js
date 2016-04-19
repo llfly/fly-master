@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class LifeCycle extends Component {
 
-  props = {
+  static defaultProps = {
     value: '开始渲染'
   }
 
@@ -43,6 +43,48 @@ class LifeCycle extends Component {
       console.log('componentWillUnmount');
   }
 }
+
+
+// 用 React.createClass或者React.Component 定义组件时允许传入相应的配置及组件API的使用，包括组件生命周期提供的一系列钩子函数。
+
+// 1.组件初始定义
+// getDefaultProps 得到默认属性对象，这个在ES6的时候不需要这样定义
+// propTypes 属性检验规则
+// mixins 组件间公用方法
+
+// 2.初次创建组件时调用
+// getInitialState 得到初始状态对象
+// render 返回组件树. 必须设置
+// componentDidMount 渲染到 dom 树中是调用，只在客户端调用，可用于获取原生节点
+
+// 3.组件的属性值改变时调用
+// componentWillReceiveProps 属性改变调用
+// shouldComponentUpdate 判断是否需要重新渲染
+// render 返回组件树. 必须设置
+// componentDidUpdate 渲染到 dom 树中是调用, 可用于获取原生节点
+
+// 4.销毁组件
+// componentWillUnmount 组件从 dom 销毁前调用
+
+// # 创建-》渲染-》销毁
+
+// getDefaultProps()
+// getInitialState()
+// componentWillMount()
+// render()
+// componentDidMount()
+// componentWillUnmount()
+
+// # 更新组件
+
+// componentWillReceiveProps()
+// shouldComponentUpdate()
+// componentWillUpdate()
+// render()
+// componentDidUpdate()
+
+
+
 //生命周期方法
 //挂载 componentWillMount
 //服务器端和客户端都只调用一次，在初始化渲染执行之前立刻调用。如果在这个方法内调用 setState，render() 将会感知到更新后的 state，将会执行仅一次，尽管 state 改变了。
@@ -51,7 +93,6 @@ class LifeCycle extends Component {
 //挂载 componentDidMount
 //在初始化渲染执行之后立刻调用一次，仅客户端有效（服务器端不会调用）。在生命周期中的这个时间点，组件拥有一个 DOM 展现，你可以通过 this.getDOMNode() 来获取相应 DOM 节点。
 //如果想和其它 JavaScript 框架集成，使用 setTimeout 或者 setInterval 来设置定时器，或者发送 AJAX 请求，可以在该方法中执行这些操作。
-
 
 //更新 componentWillReceiveProps
 //在组件接收到新的 props 的时候调用。在初始化渲染的时候，该方法不会调用。
@@ -64,8 +105,8 @@ class LifeCycle extends Component {
 //如果 shouldComponentUpdate 返回 false，则 render() 将不会执行，直到下一次 state 改变。（另外，componentWillUpdate 和 componentDidUpdate 也不会被调用。）
 //默认情况下，shouldComponentUpdate 总会返回 true，在 state 改变的时候避免细微的 bug，但是如果总是小心地把 state 当做不可变的，在 render() 中只从 props 和 state 读取值，此时你可以覆盖 shouldComponentUpdate 方法，实现新老 props 和 state 的比对逻辑。
 //如果性能是个瓶颈，尤其是有几十个甚至上百个组件的时候，使用 shouldComponentUpdate 可以提升应用的性能。
-//
-//
+
+
 //更新 componentWillUpdate
 ///在接收到新的 props 或者 state 之前立刻调用。在初始化渲染的时候该方法不会被调用。
 //使用该方法做一些更新之前的准备工作。

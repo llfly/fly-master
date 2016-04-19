@@ -27,3 +27,4 @@ class SelfCreateComponent extends Component {
 }
 
 export default SelfCreateComponent;
+//受限组件 && 非受限组件

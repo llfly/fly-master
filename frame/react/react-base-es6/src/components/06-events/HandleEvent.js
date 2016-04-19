@@ -22,3 +22,4 @@ class HandleEvent extends Component {
 }
 
 export default HandleEvent;
+// 更多事件 http://reactjs.cn/react/docs/events.html#form-events

@@ -26,11 +26,6 @@ class SimpleComponent extends Component {
 
 
 
-
-
-
-
-
 // 看看React给我们提供了哪些顶层组件
 console.log( React );
 //React.Component 使用ES6的class创建组件用的API

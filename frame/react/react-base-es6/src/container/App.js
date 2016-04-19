@@ -44,10 +44,14 @@ class App extends Component {
           <DestroyComponent />
 
           <HandleDOMComponent />
+
           <HandleEvent />
+
           <SelfCreateComponent />
           <UseChildrenComponent />
+
           <FormApp />
+
           <MixinDemo />
            */
         }

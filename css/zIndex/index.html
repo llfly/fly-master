@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html,body{
+			margin: 0;
+			padding:0;
+		}
+		div{
+			width:200px;
+			height: 200px;
+		}
+		#div1{
+			background-color: red;
+			position: relative;
+			z-index: 2;/*需要配合定位元素使用，否则不起作用*/
+		}
+		#div2{
+			margin-top: -100px;
+			background-color: yellow;
+		}
+
+
+		#div3{
+			background-color: blue;
+			animation:mymove 1s 10;
+			margin-top: -100px;
+			z-index: -1;
+			position: relative;
+
+		}
+		@keyframes mymove
+		{
+			from{z-index:-1;}
+			to {z-index:1;}
+		}
+
+		#div4{
+			background-color: yellow;
+		}
+		#div5{
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">我是div1</div>
+	<div id="div2">我是div2</div>
+	<div id="div3">我是div3，支持animation动画</div>
+
+	<br/>
+
+	<div id="div4"></div>
+	<div id="div5"></div>
+</body>
+</html>
+<script type="text/javascript">
+//z-index
+//auto,<integer>,inherit
+
+//基本特性
+//1.支持负值
+//2.支持css3 animation动画
+//3.在css2.1时代，需要配合定位元素来使用
+//即：如果不考虑css3，只有定位元素(position:relative/absolute/fixed/sticky)的z-index才有作用，在css3中有例外。
+
+
+//如果定位元素z-index没有发生嵌套：
+//1. 后来居上的准则
+//2. 哪个大，哪个上
+
+
+</script>

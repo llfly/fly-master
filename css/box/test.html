@@ -2,8 +2,65 @@
 <html>
 <head>
 	<title></title>
+	<style type="text/css">
+	html,body{
+		margin: 0;
+		padding: 0;
+	}
+	div{
+		width:200px;
+		height: 200px;
+		background-color: red;
+		margin:0 auto;
+	}
+	#div1{
+		position: absolute;
+	}
+	#div2{
+		float: right;
+	}
+	#span1{
+		margin: 0 auto;
+		background-color: red;
+	}
+	</style>
 </head>
 <body>
-
+	<span id="span1">非块级元素</span>
+	<div>margin起作用</div>
+	<div id="div1">设置absolute</div>
+	<div id="div2">设置float不为none</div>
 </body>
 </html>
+<script type="text/javascript">
+//使用margin keyword auto
+//margin keyword auto只能应用在常规流中的 block-level 元素上
+//当一个块级元素定义了 position 值为非 static 和 relative 之外的值时，margin-right/left auto 的计算值为0；
+//当一个块级元素定义了 float 值为非 none 之外的值时，margin-right/left auto 的计算值为0；
+//非块级元素的margin-right/left auto 的计算值为0；
+
+//计算值为0，即说明其应用使用值的意图失败。所以在有如上情形的场景中，都无法使用 auto 来实现水平居中。同时也说明了，只有 normal flow 的 block-level 才能应用 margin keyword auto。
+
+//margin可以应用在除某些table-*元素和某些行内元素之外的所有元素上。
+//和margin亲近的table-*系元素
+
+//table
+//inline-table
+//table-caption
+//除了 display 值为以上3种之外的 table系 元素，都不能应用 margin ，比如：th, td。
+//所有的置换元素都可以设置 margin 属性，并且可以设置宽高，这就是为什么 img 是行内元素却可以设置 width 和 height。
+
+//什么是置换元素（Replaced elements）？
+
+//一个元素拥有内在的二维属性，其宽高属性受外部资源影响，默认拥有CSS格式，这样的元素被称为置换元素。
+//意思就是说置换元素的宽高不完全由CSS决定，还受其自身内容和外部资源所影响。
+//举个例子来说，仍然说 img 元素吧，你会发现，如果你 src 进来不同尺寸的资源，那么在 viewport 上显示的图片宽高也是不同的，也就是说 img 元素的宽高会受外部资源影响。
+
+//再说说 input元素，随便在页面上扔一个input，你都能发现它拥有一个默认的宽高，这就是它所具有的内在二维宽高属性，并且该类元素会受UA影响，不同UA下所呈现外观会有不同。
+
+//常见的置换元素有哪些？
+//img, object, button, input, textarea, select等
+
+
+//行内非置换元素使用 margin 时只有左右起作用
+</script>
