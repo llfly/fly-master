@@ -31,37 +31,46 @@
 17. 流程控制：async,defer...
 
 ### css
-1. 盒模型
-2. 基本布局
-3. bfc,ifc
-4. css3
+1.[ ] 盒模型,context,padding,margin
+2.[ ] 定位
+3.[ ] 浮动
+4.[ ] 层叠上下文,z-Index
+5.[ ] 基本布局
+6.[ ] bfc,ifc,ffc
+7.[ ] 动画
+8.[ ] 选择器
 
 ### 模块化
 1. 命名空间，匿名自执行函数
 2. YUI
 3. amd,cmd,seajs,requirejs
 4. es6 module
+5. commongJS,umd
 
 
 ### 打包,自动化构建
-1. IE FileSystemObject
-2. grunt
-3. gulp
-4. fis
-5. webpack
+1.[ ] IE FileSystemObject
+2.[ ] grunt
+3.[ ] gulp
+4.[ ] fis
+5.[ ] webpack
 
 ### mv*、组建化
-1. backbone
-2. vue
-3. angularjs
-4. react
+1.[ ] backbone
+2.[ ] vue
+3.[ ] angularjs
+4.[ ] react
 
 ### http
-1. request,response
-2. cookie,session
-3. cache
-4. REST API
-5. https,http/2
+1.[ ] request,response
+2.[ ] cookie,session,token,jwt
+3.[ ] cache
+4.[ ] REST API
+5.[ ] https,http/2
+6.[ ] oauth2.0
+7.[ ] 跨域
+
+
 
 ### 数据结构与算法
 1. 位运算
@@ -74,8 +83,17 @@
 8. 查找
 
 ### 工具类
-1. jQuery
-2. underscore
+1.[ ] jQuery
+2.[ ] underscore
+3.[ ] babel
+4.[ ] git
+5.[ ] linux
+6.[ ] markdown,hexo
+
+### 后端
+1.[ ] nginx
+2.[ ] nodejs
+3.[ ] docker
 
 ### 工程化
 1. 设计模式

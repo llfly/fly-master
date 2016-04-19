@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<iframe id="iframe1" src="./b.html"></iframe>
+	<iframe id="iframe2" src="https://www.douban.com" style="width:200px;height: 200px;"></iframe>
+</body>
+</html>
+<script type="text/javascript">
+	;(function(){
+		var iframe1 = document.getElementById('iframe1');
+		var conWin = iframe1.contentWindow;
+		console.log(conWin);
+		var childName = conWin.name;
+		console.log(childName);
+	})()
+</script>
