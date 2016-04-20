@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>post message title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	window.onload = function(){
+		//postMessage API 三个重要信息
+		//1. 消息发送的目标，一个window对象，此处window.parent
+		//2. 消息内容，即方法的第一个参数，此处为document.title
+		//	传递object因浏览器兼容问题，建议通过序列化操作将内容序列化成字符串
+		//3. 目标窗口的域，如果明确指定，则仅目标窗口URL匹配指定域时可接收，设为"表示不限 起到限制接收的作用"
+		window.parent.postMessage(document.title,"*");
+	}
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我和父级子域不同</title>
+</head>
+<body>
+    我是和父级子域不同的页面
+    <p id="text"></p>
+    <button onclick="callparent()">点击我调用父页面方法</button>
+</body>
+</html>
+<script type="text/javascript">
+	var data = '我是跨子域页面的数据';
+	function fun(text){
+		alert('我是跨子域页面的fun');
+		document.getElementById('text').innerHTML = text;
+	}
+	function callparent(){
+		var pwin = window.parent;
+		//如果有多层frame嵌套,window.top表示顶层窗口引用
+		pwin.fun('我是在跨子域里调用父页面方法');
+	}
+    //document.domain = 'a.com';
+</script>

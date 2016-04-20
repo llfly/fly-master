@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	我是从其他域名跳转过来的
+</body>
+</html>
+<script type="text/javascript">
+	//这个页面执行完成后，携带参数跳转回父页面通域页面
+	var url = location.href;
+	document.title = decodeURI(url.split('=')[1]);
+</script>

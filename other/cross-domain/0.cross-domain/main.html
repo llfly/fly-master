@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我是main页面，我要被传递到子域</title>
+</head>
+<body>
+	<p id="sub_title">获取子页面之后，将子页面的title显示到这里</p>
+	<iframe id='ifrm'></iframe>
+	<button onclick="getUrl('./test0.html')">同域通信测试test0</button>
+	<button onclick="getUrl('http://sub.a.com:3001/test1.html')">跨子域通信测试test1</button>
+	<button onclick="getUrl('http://www.b.com:3001/test2.html')">跨域通信测试test2</button>
+	<button onclick="getUrl('http://www.b.com:3001/test3.html')">通过postMessage方式进行跨域</button>
+</body>
+</html>
+<script type="text/javascript">
+	function getUrl(url){
+		var ifrm = document.getElementById('ifrm');
+		var title = document.getElementById('sub_title');
+		ifrm.src=url;
+
+		ifrm.onload = function(){
+			// var subWin = ifrm.contentWindow;
+			// console.log(subWin);
+			// 通过window.frames[iframeId]方式获得的对象，在ie上与其他浏览器上有差别
+			var subWin = window.frames['ifrm'].contentWindow || window.frames['ifrm'];
+			//也可以通过索引index来获取对应的对象
+			//window.frames[0];
+			console.log(subWin);
+
+			title.innerHTML = subWin.document.title;
+
+			if(subWin.fun){
+				subWin.fun(document.title);
+			}
+		}
+	}
+
+	function fun(arg){
+		alert(arg);
+	}
+	//document.domain = 'a.com';
+
+	window.onmessage = function(evt){
+		evt = evt || event;
+		console.log(evt);
+		evt.source.postMessage('back',event.origin);
+		document.getElementById('sub_title').innerHTML = evt.data;
+	}
+</script>
