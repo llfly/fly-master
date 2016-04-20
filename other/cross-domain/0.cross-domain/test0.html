@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我是同域页面的title</title>
+</head>
+<body>
+	你好，我是同域页面。
+	<p id="text"></p>
+	<button onclick="callparent()">点击我调用父页面方法</button>
+</body>
+</html>
+<script type="text/javascript">
+	var data = '我是同域页面的数据';
+	function fun(text){
+		alert('我是同域页面的fun');
+		document.getElementById('text').innerHTML = text;
+	}
+	function callparent(){
+		var pwin = window.parent;
+		//如果有多层frame嵌套,window.top表示顶层窗口引用
+		pwin.fun('我是在子页面里调用父页面方法');
+	}
+</script>
