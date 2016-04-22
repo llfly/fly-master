@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+</html>
+<script type="text/javascript">
+	(function ajax(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			var status = xhr.status;
+			if(xhr.readyState ==4){
+				if(status>=200&& status<300){
+					console.log('success');
+				}else{
+					console.log('fail')
+				}
+			}
+		}
+		//get
+		// xhr.open('get','http://www.a.com:3000'+'?hello=TEST',true);
+		// xhr.send();
+
+
+
+		//application/x-www-form-urlencoded
+		//multipart/form-data
+		//application/json
+		//text/xml
+		xhr.open('post','http://www.a.com:3000',true);
+		//post
+		//xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		//xhr.setRequestHeader('Content-type','multipart/form-data');
+
+		//options
+		//xhr.setRequestHeader('Content-type','application/json');
+		//xhr.setRequestHeader('Content-type','text/xml');
+
+		//options
+		xhr.setRequestHeader('hahha','haha');
+		xhr.send({hello:'test'});
+	})();
+</script>

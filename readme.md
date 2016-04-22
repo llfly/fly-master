@@ -31,14 +31,49 @@
 17. 流程控制：async,defer...
 
 ### css
-1.[ ] 盒模型,context,padding,margin
-2.[ ] 定位
-3.[ ] 浮动
-4.[ ] 层叠上下文,z-Index
-5.[ ] 基本布局
-6.[ ] bfc,ifc,ffc
-7.[ ] 动画
-8.[ ] 选择器
+1. [ ] selector
+2. [ ] box
+    - [ ] model
+    - [ ] padding
+    - [ ] margin
+3. [ ] display
+4. [ ] position
+    - [ ] relative
+    - [ ] absolute
+    - [ ] static
+    - [ ] fixed
+5. [ ] align
+6. [ ] font
+7. [ ] float
+8. [ ] background,sprites,rgba,transparent
+9. [ ] layout
+    - [ ] text
+    - [ ] box model
+    - [ ] visual formatting
+        - [ ] absolute
+        - [ ] floats
+        - [ ] normal flow
+            - [ ] bfc
+            - [ ] ifc
+            - [ ] ffc
+            - [ ] table
+            - [ ] grid
+10. [ ] link
+11. [ ] effect
+12. [ ] reflow
+13. [ ] 重绘，性能
+14. [ ] animation
+15. [ ] effect
+16. [ ] brower
+17. [ ] form
+18. [ ] overflow
+19. [ ] selector
+20. [ ] border-color
+21. [ ] radius
+22. [ ] reflection
+23. [ ] shadow
+24. [ ] gradient
+25. [ ] media-layout
 
 ### 模块化
 1. 命名空间，匿名自执行函数
@@ -47,28 +82,39 @@
 4. es6 module
 5. commongJS,umd
 
-
 ### 打包,自动化构建
-1.[ ] IE FileSystemObject
-2.[ ] grunt
-3.[ ] gulp
-4.[ ] fis
-5.[ ] webpack
+1. [ ] IE FileSystemObject
+2. [ ] grunt
+3. [ ] gulp
+4. [ ] fis
+5. [ ] webpack
 
 ### mv*、组建化
-1.[ ] backbone
-2.[ ] vue
-3.[ ] angularjs
-4.[ ] react
+1. [ ] backbone
+2. [ ] vue
+3. [ ] angularjs
+4. [ ] react
 
 ### http
-1.[ ] request,response
-2.[ ] cookie,session,token,jwt
-3.[ ] cache
-4.[ ] REST API
-5.[ ] https,http/2
-6.[ ] oauth2.0
-7.[ ] 跨域
+1. [ ] request,response
+2. [ ] cookie,session,token,jwt
+3. [ ] cache
+4. [ ] REST API
+5. [ ] https,http/2
+6. [ ] oauth2.0
+7. [ ] Cross-domain
+    - [ ] cookie跨域
+    - [ ] ajax跨域
+        - [ ] jsonp
+        - [ ] CORS
+    - [ ] iframe跨域
+        - [ ] document.domain
+        - [ ] location.hash
+        - [ ] window.name
+        - [ ] postMessage
+8. [ ] browser render
+9. [ ] web safety
+10. [ ] encode,utf-8,gkb,base64
 
 
 
@@ -83,17 +129,17 @@
 8. 查找
 
 ### 工具类
-1.[ ] jQuery
-2.[ ] underscore
-3.[ ] babel
-4.[ ] git
-5.[ ] linux
-6.[ ] markdown,hexo
+1. [ ] jQuery
+2. [ ] underscore
+3. [ ] babel
+4. [ ] git
+5. [ ] linux
+6. [ ] markdown,hexo
 
 ### 后端
-1.[ ] nginx
-2.[ ] nodejs
-3.[ ] docker
+1. [ ] nginx
+2. [ ] nodejs
+3. [ ] docker
 
 ### 工程化
 1. 设计模式

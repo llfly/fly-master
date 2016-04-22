@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	var script = document.createElement('script');
+	function test(arg){
+		console.log(arg);
+	}
+	script.onload = function(){
+		console.log(3);
+	}
+	script.src='./test.js';
+	document.getElementsByTagName('body')[0].appendChild(script);
+</script>
