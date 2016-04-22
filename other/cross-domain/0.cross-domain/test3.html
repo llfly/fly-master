@@ -51,44 +51,44 @@
 
 
 
-window.onmessage = function(evt){
-	var evt = evt || event;
-	try{
-		var obj = JSON.parse(evt.data);
-		console.log(obj);
-	}catch(e){
-		console.log(e);
-	}
-	if(obj.cmd){
-		obj['arg0'] = 'title'
+// window.onmessage = function(evt){
+// 	var evt = evt || event;
+// 	try{
+// 		var obj = JSON.parse(evt.data);
+// 		console.log(obj);
+// 	}catch(e){
+// 		console.log(e);
+// 	}
+// 	if(obj.cmd){
+// 		obj['arg0'] = 'title'
 
-		var cmd = obj.cmd + '{';
-		if(obj.args){
-			for(var i=0;i<obj.args.length;i++){
-				obj['arg' + i] = obj.args[i];
-				if(i>0){
-					cmd +=',';
-				}
-				cmd +='obj.arg' + i;
-			}
-		}
-		cmd +='}';
-		try{
-			var ret = eval(cmd);
-			if(obj.returnCmd){
-				evt.source.postMessage(JSON.stringify({
-					cmd:obj.returnCmd,
-					args:[ret]
-				}),evt.origin);
-			}
-		}catch(e){
-			if(console)console.log(e);
-		}
-}
-}
+// 		var cmd = obj.cmd + '{';
+// 		if(obj.args){
+// 			for(var i=0;i<obj.args.length;i++){
+// 				obj['arg' + i] = obj.args[i];
+// 				if(i>0){
+// 					cmd +=',';
+// 				}
+// 				cmd +='obj.arg' + i;
+// 			}
+// 		}
+// 		cmd +='}';
+// 		try{
+// 			var ret = eval(cmd);
+// 			if(obj.returnCmd){
+// 				evt.source.postMessage(JSON.stringify({
+// 					cmd:obj.returnCmd,
+// 					args:[ret]
+// 				}),evt.origin);
+// 			}
+// 		}catch(e){
+// 			if(console)console.log(e);
+// 		}
+// }
+// }
 
 
-function getFrmVarValue(targetWindow,varName,callback){
-	sendFrmMsg(targetWindow,"getOtherFrameVarValue",[varName],callback;)
-}
+// function getFrmVarValue(targetWindow,varName,callback){
+// 	sendFrmMsg(targetWindow,"getOtherFrameVarValue",[varName],callback);
+// }
 </script>

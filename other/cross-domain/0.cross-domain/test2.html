@@ -5,17 +5,14 @@
 </head>
 <body>
 	你好，我是跨域页面。我准备用跳转的方式跨域
-	<!-- <p id="text"></p>
-	<button onclick="callparent()">点击我调用父页面方法</button> -->
 </body>
 </html>
 <script type="text/javascript">
-	//1. 通过域间页面跳转，携带url跳回到同域
+	//通过域间页面跳转，携带url跳回到同域
 	// 需要借助中间页面跳转，麻烦
 	// 通过url传递参数，参数量有限制
 	setTimeout(function(){
 		alert('准备跳转');
 		location.href = 'http://www.a.com:3001/sub_domain_pass.html?arg=' + document.title;
 	})
-	// 2. 通过postMessage
 </script>
