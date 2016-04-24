@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+    
+</body>
+</html>
+<script type="text/javascript">
+
+//原理
+function test(a){
+    console.log(a);
+}
+
+test({
+    data:'1'
+
+});
+
+
+//封装
+
+function JSONP(src, callback, time, failback) {
+    var script = document.createElement('script'),
+        cb = "callback_" + (new Date()).getMilliseconds() + parseInt(Math.random() * 1000);
+    var timeout = null;
+    //整理cb参数
+    if (callback) {
+        if (src.indexOf("?") != -1) {
+            src += "&cb=" + cb;
+        } else {
+            src += "?cb=" + cb;
+        }
+    }
+    //回调
+    window[cb] = function(data) {
+        clearTimeout(timeout);
+        timeout = null;
+        callback(data);
+        window[cb] = null;
+        return;
+    }
+    time && (timeout = setTimeout(function() {
+        window[cb] = null;
+        failback && failback();
+    }, time));
+    //写入
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', src);
+    document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+function success(data){
+    console.log(data);
+}
+function fail(){
+    console.log('fail');
+}
+JSONP('http://10.146.20.172/EngineV6/search/json?what=keyword:%E4%BA%94%E9%81%93%E5%8F%A3&range=city:%E5%85%A8%E5%9B%BD',success,1000,fail);
+
+</script>

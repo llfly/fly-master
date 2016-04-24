@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	//获取cookie
+		(function ajax(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			var status = xhr.status;
+			if(xhr.readyState ==4){
+				if(status>=200&& status<300){
+					console.log('success');
+					sendCookie();
+				}else{
+					console.log('fail')
+				}
+			}
+		}
+		xhr.open('post','http://www.a.com:3000',true);
+		xhr.setRequestHeader('Content-type','multipart/form-data');
+		xhr.send({username:'test',password:'005'});
+	})();
+
+	//向其他域设置cookie
+	//通过script标签向b域中写入cookie
+	function sendCookie(){
+		console.log('sendCookie');
+		var script = document.createElement('script');
+		script.src = 'http://www.b.com:3000/cookie?' + document.cookie;
+		document.getElementsByTagName('body')[0].appendChild(script);
+	}
+</script>
