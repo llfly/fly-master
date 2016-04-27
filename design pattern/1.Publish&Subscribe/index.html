@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//观察者模式，发布/订阅模型
+//在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实时事件处理系统。
+//发布和订阅
+//发布者：向订阅者们发送数据，一般来说，一个发布者可能有许多订阅者。
+//订阅者：数据到来时候收到通知，消费数据，根据数据作出反应。总而言之，从发布者那接受数据。
+
+//可以通过发布者的主动推送，或订阅者的拉取来获取信息。
+//订阅者可以订阅和退订，他们还要接受。可以在 有人投送 和 自己收取 之间自由选择
+//发布者负责投送 可以在 发送 和 由人取 之间自由选择
+
+//test1
+// var Publisher = new Observable;
+
+// var Subscriber = function(news){
+
+// };
+// Publisher.subscribeCustomer(Subscriber);
+// Publisher.deliver('extre,extre,read all about it');
+
+// Publisher.unSubscribeCustomer(Subscriber);
+
+// //---------------------------------------------------------
+// //test2
+// var NewYorkTimes = new Publisher;
+// var AustinHerald = new Publisher;
+// var SfChronicle = new Publisher;
+
+// var Joe = function(from){
+// 	console.log('Delivery from '+ from + 'to Joe');
+// }
+// var Fy = function(from){
+// 	console.log('Delivery from '+ from + 'to Fy');
+// }
+
+// Joe.subscribe(NewYorkTimes).subscribe(AustinHerald);
+// Fy.subscribe(NewYorkTimes).subscribe(AustinHerald).subscribe(SfChronicle);
+
+// NewYorkTimes.deliver('here is your paper');
+// AustinHerald.deliver('hello').deliver('ni hao ');
+// SfChronicle.deliver('test');
+
+
+//构建观察者API
+function Publisher(){
+	this.subscribes = [];
+}
+//投送方法
+Publisher.prototype.deliver = function(data){
+	this.subscribe.foreach(
+		function(fn){
+			fn(data);
+		}
+		);
+	return this;
+};
+//订阅方法
+Function.prototype.subscribe = function(publisher){
+	var that = this;
+	var aleradyExists = publisher.subscribes.some(
+		function(el){
+			return el === that;
+		});
+	if(!aleradyExists){
+		publisher.subscribes.push(this);
+	}
+	return this;
+}
+//退订方法
+Function.prototype.unsubscribe = function(publisher){
+	var that = this;
+	publisher.subscribes = publisher.subscribes.filter(
+		function(el){
+			return el !=== that;
+		}
+		);
+	return this;
+};
+//-----------------------------------------------------------------
+//Publiser API
+var Animation = function(o){
+	this.onStart = new Publiser,
+	this.onComplete = new Publiser,
+	this.onTween = new Publiser;
+};
+Animation.method('fly',function(){
+	this.onStart.deliver();
+	//for()
+	//this.onTween.deliver();
+	//this.onComplete.deliver();
+});
+
+var Superman = new Animation({});
+var putOnCape = function(i){};
+var takeOffCape = function(i){};
+
+putOnCape.subscribe(Superman.onStart);
+takeOffCape.subscribe(Superman.onComplete);
+
+Superman.fly();
+
+addEvent()
+</script>
