@@ -49,20 +49,22 @@
 // AustinHerald.deliver('hello').deliver('ni hao ');
 // SfChronicle.deliver('test');
 
+//观察者主导，使用推模型
 
-//构建观察者API
+//构建目标对象API
 function Publisher(){
-	this.subscribes = [];
+	this.subscribes = [];//观察者队列
 }
 //投送方法
 Publisher.prototype.deliver = function(data){
-	this.subscribe.foreach(
+	this.subscribes.forEach(
 		function(fn){
 			fn(data);
 		}
 		);
 	return this;
 };
+
 //订阅方法
 Function.prototype.subscribe = function(publisher){
 	var that = this;
@@ -80,33 +82,27 @@ Function.prototype.unsubscribe = function(publisher){
 	var that = this;
 	publisher.subscribes = publisher.subscribes.filter(
 		function(el){
-			return el !=== that;
+			return el !== that;
 		}
 		);
 	return this;
 };
-//-----------------------------------------------------------------
-//Publiser API
-var Animation = function(o){
-	this.onStart = new Publiser,
-	this.onComplete = new Publiser,
-	this.onTween = new Publiser;
+
+//test
+var pub = new Publisher();
+
+//声明一个观察者
+var test = function(data){
+	console.log('我是第一个观察者',data);
 };
-Animation.method('fly',function(){
-	this.onStart.deliver();
-	//for()
-	//this.onTween.deliver();
-	//this.onComplete.deliver();
-});
 
-var Superman = new Animation({});
-var putOnCape = function(i){};
-var takeOffCape = function(i){};
+var test1 = function(data){
+	console.log('我是第二个观察者',data)
+}
+test.subscribe(pub);
+test1.subscribe(pub);
 
-putOnCape.subscribe(Superman.onStart);
-takeOffCape.subscribe(Superman.onComplete);
-
-Superman.fly();
-
-addEvent()
+pub.deliver('第一次发布信息');
+test1.unsubscribe(pub);
+pub.deliver('第二次发布信息');
 </script>

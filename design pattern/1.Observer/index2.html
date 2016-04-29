@@ -4,11 +4,15 @@
 	<title></title>
 </head>
 <body>
-
+	<button id="addNewObserver">Add New Observer checkbox</button>
+	<input type="checkbox" id="mainCheckbox"/>
+	<div id="observersContainer"></div>
 </body>
 </html>
 <script type="text/javascript">
 //一个或多个观察者对目标的状态感兴趣，它们通过将自己依附在目标对象上以便注册所感兴趣的内容。目标状态发生改变并且观察者可能对这些改变感兴趣，就会发送一个通知消息，调用每个观察者的更新方法。当观察者不再对目标感兴趣时，它们可以简单地将自己从众分离。
+
+//面向对象的语言中
 
 //Subject(目标)：维护一系列的观察者，方便添加或删除观察者
 //Observer(观察者):为那些在目标状态发生改变时需获得通知的对象提供一个更新接口
@@ -16,6 +20,7 @@
 //ConcreteObserver(具体观察者)：存储一个指向ConcreteSubject的引用，实现Observer的更新接口，以使自身状态与目标的状态保持一致
 
 
+//观察者接口
 function ObserverList(){
 	this.observerList = [];
 }
@@ -62,6 +67,7 @@ ObserverList.prototype = {
 		}
 	}
 }
+//使用extendsion扩展对象
 function extend(obj,extension){
 	for(var key in obj){
 		extension[key] = obj[key];
@@ -69,7 +75,7 @@ function extend(obj,extension){
 }
 
 
-
+//目标接口，主导，推模型
 function Subject(){
 	this.observers = new ObserverList();
 }
@@ -93,4 +99,30 @@ function Observer(){
 		
 	}
 }
+
+var controlCheckbox = document.getElementById('mainCheckbox'),
+addBtn = document.getElementById('addNewObserver'),
+container = document.getElementById('observersContainer');
+
+extend(new Subject(),controlCheckbox);
+controlCheckbox['onclick'] = new Function('controlCheckbox.Notify(controlCheckbox.checked)');
+
+addBtn['onclick'] = AddNewObserver;
+
+//具体观察者 Concrete Observer
+function AddNewObserver(){
+	var check = document.createElement('input');
+	check.type = 'checkbox';
+
+	extend(new Observer(),check);
+
+	check.Update = function(value){
+		this.checked = value;
+	};
+
+	controlCheckbox.AddObserver(check);
+
+	container.appendChild(check);
+}
+
 </script>
