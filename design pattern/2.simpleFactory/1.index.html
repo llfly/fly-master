@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	var LoginAlert = function(text){
+		this.content = text;
+	}
+	LoginAlert.prototype.show = function(){
+		//show alert
+	}
+	var userNameAlert = new LoginAlert('用户名不得少于6个字符');
+	userNameAlert.show();
+
+
+
+	var LoginConfirm = function(text){
+		this.content = text;
+	}
+	LoginConfirm.prototype.show = function(){
+		//show confrim
+	}
+	var LoginConfirm = new LoginConfirm();
+	LoginConfirm.show();
+
+	var PopFactory = function(type){
+		switch(type){
+			case 'alert' :
+			return new LoginAlert();
+			case 'confrim':
+			return new LoginConfirm();
+		}
+	}
+
+//----------------------------------------------------------------------------------------------
+	var Basketball = function(){
+		this.intro = '篮球';
+	}
+	Basketball.prototype = {
+		getMember:function(){
+			console.log('每个队伍需要5名队员');
+		},
+		getBallSize:function(){
+			console.log('18');
+		}
+	}
+
+	var Football = function(){
+		this.intro = '足球';
+	}
+	Football.prototype = {
+		getMember:function(){
+			console.log('每个队伍需要11名队员');
+		},
+		getBallSize:function(){
+			console.log('18')
+		}
+	}
+	var Tennis = function(){
+		this.intro = '网球';
+	}
+	Tennis.prototype = {
+		getMember:function(){
+			console.log('每个队伍需要1名队员');
+		},
+		getBallSize:function(){
+			console.log('1');
+		}
+	}
+
+	var SprotsFactory = function(name){
+		switch(name){
+			case 'baskeball':
+			return new Basketball();
+			case 'football':
+			return new Football();
+			case 'tennis':
+			return new Tennis();
+		}
+	}
+
+	var football = SprotsFactory('baskeball');
+	console.log(football);
+	console.log(football.intro);
+	football.getMember();
+
+
+//----------------------------------------------------------------------------------------------
+	function createBook(name,time,type){
+		//创建一个对象，并对对象拓展属性和方法
+		var o = new Object();
+		o.name = name;
+		o.time = time;
+		o.type = type;
+		o.getName = function(){
+			console.log(this.name);
+		};
+		return o;
+	}
+	var book1 = createBook('js book',2014,'js');
+	var book2 = createBook('css book',2016,'css');
+
+	book1.getName();
+	book2.getName();
+
+
+//----------------------------------------------------------------------------------------------
+	function createPop(type,text){
+		var o = new Object();
+		o.show = function(){
+
+		};
+		if(type == 'alert'){
+
+		};
+		if(type == 'confirm'){
+
+		}
+		return o;
+	}
+	var type = createPop('alert','用户名最少6位数');
+
+	//第一种通过类实例化对象创建
+	//第二种通过创建一个新对象然后包装增强其属性和功能实现
+	//它们之间的差异也造成了前面通过类创建的对象，如果这些类继承同一父类，那么他们的父类原型上的方法是可以共用的。
+	//后面寄生方式创建的对象都是一个新的个体，所以方法不能共用。
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//工厂方法模式
+//安全模式类  通过this去判断类型
+//安全的工厂方法
+	var Factory = function(type,content){
+		if(this instanceof Factory){
+			var s = new this[type](content);
+			return s;
+		}else{
+			return new Factory(type,content);
+		}
+	}
+	Factory.prototype = {
+		Java:function(content){
+			console.log(content + ' this is java');
+		},
+		javascript:function(content){
+			console.log(content + ' this is javascript');
+		},
+		php:function(content){
+			console.log(content + ' this is php');
+		}
+	};
+
+
+	var data = [{type:'javascript',content:'hello'},
+	{type:'Java',content:'java'},
+	{type:'php',content:'php'}
+	];
+
+	for(var i = 0 ; i <data.length;i++){
+		Factory(data[i].type,data[i].content);
+	}
+</script>
