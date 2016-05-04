@@ -129,4 +129,77 @@
 	//第二种通过创建一个新对象然后包装增强其属性和功能实现
 	//它们之间的差异也造成了前面通过类创建的对象，如果这些类继承同一父类，那么他们的父类原型上的方法是可以共用的。
 	//后面寄生方式创建的对象都是一个新的个体，所以方法不能共用。
+
+//----------------------------------------------------------------------------------------------
+
+	var BicyleShop = function(){};
+	BicyleShop.prototype = {
+		sellBicyle:function(model){
+			var bicycle;
+			switch(model){
+				case 'The Speedster':
+					bicycle = new Speedster();
+					break;
+				case 'The Lowrider':
+					bicycle = new Lowrider();
+				case 'The Comfort Cruiser':
+				default:
+					bicycle = new ComfortCruiser();
+			}
+			Interface.ensureImplements(bicycle,Bicyle);
+			bicycle.assemble();
+			bicycle.wash();
+
+			return bicycle;
+		}
+	}
+	//接口在工厂模式中起着很重要的作用，如果不对对象进行某种类型检查以确保其实现了必须的方法，工厂模式带来的好处就所剩无几了。
+	
+	var Bicyle = new Interface('Bicyle',['assemble','wash','ride','repair']);
+
+	var Speedster = function(){};
+	Speedster.prototype = {
+		assemble:function(){},
+		wash:function(){},
+		ride:function(){},
+		repair:function(){}
+	}
+
+	var californiaCruisers = new BicyleShop();
+	var yourNewBike = californiaCruisers.sellBicyle('The Speedster');
+
+
+	var BicycleFactory = {
+		createBicyle:function(model){
+			var bicycle;
+
+			switch(model){
+				case 'The Speedster':
+					bicycle = new Speedster();
+					break;
+				case 'The Lowrider':
+					bicycle = new Lowrider();
+				case 'The Comfort Cruiser':
+				default:
+					bicycle = new ComfortCruiser();
+			}
+
+			Interface.ensureImplements(bicycle,Bicyle);
+			return bicycle;
+		}
+	}
+
+	var BicyleShop = function(){};
+	BicyleShop.prototype = {
+		sellBicyle:function(model){
+			var bicycle = BicycleFactory.createBicyle(model);
+
+			bicycle.assemble();
+			bicycle.wash();
+
+			return bicycle;
+		}
+	}
+	//把成员对象的创建工作转交给一个外部对象。
+	//这个外部对象可以是一个简单的命名空间，也可以是一个类的实例。
 </script>
