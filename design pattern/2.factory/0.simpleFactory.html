@@ -17,8 +17,6 @@
 	var userNameAlert = new LoginAlert('用户名不得少于6个字符');
 	userNameAlert.show();
 
-
-
 	var LoginConfirm = function(text){
 		this.content = text;
 	}
@@ -169,6 +167,11 @@
 	var yourNewBike = californiaCruisers.sellBicyle('The Speedster');
 
 
+
+//BicycleFactory是一个单体，用来把createBucycle方法封装在一个命名空间中。这个方法返回一个实现了Bicycle接口的对象
+
+
+
 	var BicycleFactory = {
 		createBicyle:function(model){
 			var bicycle;
@@ -188,7 +191,7 @@
 			return bicycle;
 		}
 	}
-
+	//这个BicycleFactory对象可以供各种类用来创建新的自行车实例。有关可供车型的所有信息都集中在一个地方管理，所以添加更多车型很容易。
 	var BicyleShop = function(){};
 	BicyleShop.prototype = {
 		sellBicyle:function(model){
@@ -200,6 +203,12 @@
 			return bicycle;
 		}
 	}
-	//把成员对象的创建工作转交给一个外部对象。
+	//这种模式把成员对象的创建工作转交给一个外部对象。
 	//这个外部对象可以是一个简单的命名空间，也可以是一个类的实例。
+	//如果负责创建实例的方法的逻辑不会发生改变，那么一般说来用单体或静态类方法创建这些成员实例是合乎情理的，但如果要提供几种不同品牌的自行车，那么更恰当的做法是把这个创建方法实现在一个类中，并从该类派生出一些子类。
+	
+
+
+	//真正的工厂模式与简单工厂模式的区别在于，它不是另外使用一个类或对象来创建自行车，而是使用一个子类。
+	//按照正式定义，工厂是一个将其成员对象的实例化推迟到子类中进行的类。
 </script>

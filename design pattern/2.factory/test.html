@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//一个类或对象中往往包含别的对象，在创建这种成员对象时，使用常规方式(new 关键字和类构造函数)，会导致相关的两个类之间产生依赖性。
+//使用一个方法来决定究竟要实例化哪个具体的类，
+//简单工厂使用一个类（通常是一个单体）来生成实例
+//工厂模式则使用子类来决定一个成员变量应该是哪个具体的类的实例。
+
+
+
+//定义createBicycle 方法，现在BicycleShop是一个抽象类，不能被实例化，只能用来派生子类。
+var BicycleShop = function(){};
+BicycleShop.prototype = {
+	sellBicycle:function(model){
+		var bicycle = this.createBicycle(model);
+
+		bicycle.assemble();
+		bicycle.wash();
+
+		return bicycle;
+	},
+	createBicycle:function(model){
+		throw new Error('Unsupported operation on an abstract class')
+	}
+}
+
+
+var AcmeBicycleShop = function(){};
+extend(AcmeBicycleShop,BicycleShop);
+AcmeBicycleShop.prototype.createBicycle = function(model){
+	var bicycle;
+
+	switch(model){
+		case 'The Speedster':
+		bicycle = new AcmeSpeedster();
+		break;
+		case 'The Lowrider':
+		bicycle = new AcmeLowrider();
+		break;
+		case 'The Flatlander':
+		bicycle = new AcmeFlander();
+		break;
+		case 'The Comfort Cruiser':
+		default:
+			bicycle = new AcmeComfortCruiser();
+	}
+	Interface.ensureImplements(bicycle,Bicycle);
+	return bicycle;
+}
+//使用场景
+//当对象或组建设置涉及高复杂性时
+//当需要根据所在的不同环境轻松生成对象的不同实例时
+//当处理很多共享相同属性的小型对象或组件时
+//再编写只需要满足一个API契约（鸭子类型）的其他对象的实例对象时，对于解耦是很有用的。
+
+//动态实现 创建一些用不同方式实现同一接口的对象
+//节省设置开销
+//对象需要进行复杂并且彼此相关的设置，使用工厂模式可以减少每种对象所需的代码量。
+//用许多小型对象组成一个大对象
+//可以用来创建封装了许多较小对象的对象。
+
+</script>
