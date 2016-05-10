@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//抽象工厂模式：通过对类的工厂抽象使其业务用于对产品类簇的创建，而不负责创建某一类产品的实例
+
+//模拟抽象类
+var Car = function(){};
+Car.prototype = {
+	getPrice:function(){
+		return new Error('抽象方法不能调用');
+	},
+	getSpeed:function(){
+		return new Error('抽象方法不能调用');
+	}
+}
+//定义一个产品簇，并声明一些必备的方法，如果类中没有方法重写就会抛出异常。
+
+//抽象工厂方法
+var VehicleFactory = function(subType,superType){
+	//判断抽象工厂中是否有该抽象类
+	if(typeof VehicleFactory[superType] === 'function'){
+		//缓存类
+		function F(){};
+		//继承父类属性和方法
+		F.prototype = new VehicleFactory[superType]();
+		//将子类的constructor指向子类
+		subType.constructor = subType;
+		//子类原型继承父类
+		subType.prototype = new F();
+	}else{
+		throw new Error('未创建该抽象类');
+	}
+}
+
+VehicleFactory.Car = function(){
+	this.type = 'car';
+}
+VehicleFactory.Car.prototype = {
+	getPrice:function(){
+		return new Error('抽象方法不能调用');
+	},
+	getSpeed:function(){
+		return new Error('抽象方法不能调用');
+	}
+};
+VehicleFactory.Bus = function(){
+	this.type = 'bus';
+};
+VehicleFactory.Bus.prototype = {
+	getPrice:function(){
+		return new Error('抽象方法不能调用');
+	},
+	getSpeed:function(){
+		return new Error('抽象方法不能调用');
+	}
+};
+VehicleFactory.Truck = function(){
+	this.type = 'truck';
+};
+VehicleFactory.Truck.prototype = {
+	getPrice:function(){
+		return new Error('抽象方法不能调用');
+	},
+	getSpeed:function(){
+		return new Error('抽象方法不能调用');
+	}
+};
+
+
+//抽象与实现
+var BMW = function(price,speed){
+	this.price = price;
+	this.speed = speed;
+}
+VehicleFactory(BMW,'Car');
+BMW.prototype.getPrice = function(){
+	 return this.price;
+}
+BMW.prototype.getSpeed = function){
+	return this.speed;
+}
+
+//该模式创建出的结果不是一个真实的对象实例，而是一个类簇，它制定了类的结构。
+</script>
