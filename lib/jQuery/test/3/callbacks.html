@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript" src="../../jquery-2.0.3.js"></script>
+<script type="text/javascript">
+	function aaa(){
+		alert(1);
+	}
+	function bbb(){
+		alert(2);
+	}
+
+	var cb = $.Callbacks();
+
+	cb.add(aaa);
+	cb.add(bbb);
+
+	cb.fire();
+
+	//对不同作用域下的函数进行统一管理
+
+	function ccc(){
+		alert(3);
+	}
+	cb.add(ccc);
+	;(function(){
+		function ddd(){
+			alert(4);
+		};
+
+		cb.add(ddd);
+	})();
+	cb.remove(bbb);
+	cb.fire();
+</script>
