@@ -25,17 +25,17 @@
 
 	//对不同作用域下的函数进行统一管理
 
-	function ccc(){
-		alert(3);
+	function ccc(arg){
+		alert(3 + arg);
 	}
 	cb.add(ccc);
 	;(function(){
-		function ddd(){
-			alert(4);
+		function ddd(arg){
+			alert(4 + arg);
 		};
 
 		cb.add(ddd);
 	})();
 	cb.remove(bbb);
-	cb.fire();
+	cb.fire('test');
 </script>
