@@ -26,7 +26,8 @@
 		$.dequeue(document,'queue1');
 
 		//实例方法
-		$(document).queue('queue2',[a,b]);
-		console.log($(document).queue('queue2'));
+		//$(document).queue('queue2',[a,b]);
+		$(document).queue('queue2',a,b);
+		//console.log($(document).queue('queue2'));
 	});
 </script>
