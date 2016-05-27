@@ -42,6 +42,7 @@
 		add(oDiv,'test',aaa);
 		trigger(oDiv,'test');
 		//remove(oDiv,'click',aaa);
+		//核心方法
 		function add(obj,types,fn){
 			obj.listeners = obj.listeners || {};
 			obj.listeners[types] = obj.listeners[types] || [];
