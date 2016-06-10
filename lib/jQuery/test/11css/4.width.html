@@ -37,8 +37,10 @@
 		
 
 		//$('#div1').width() , innerWidth() , outerWidth()
-		//get :$.css(elem,name,extra,styles) :第三个参数 ==> cssHooks get ==> getWidthOrHeight() ==>augmentWidthOrHeight
+		//调用关系
+		//get :$.css(elem,name,extra,styles) :第三个参数 ==> cssHooks get ==> getWidthOrHeight(整个结果) ==>augmentWidthOrHeight(计算不同的组合方式，差异性值)
 		//set $.style(elem,name,value,extra) : 第四个参数 ==> cssHooks set  ==> setPositiveNumber()  ==> augmentWidthOrHeight
 		//extra : 四个选项：content,padding,border,margin
+		//根据参数的不同，进行不同的处理 content -> width , padding ->innerWidth , border -> outerWidth , margin -> outerWidth
 	})
 </script>
