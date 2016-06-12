@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#div1{
+			width:200px;
+			height:200px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" name="点击" value="点击">
+	<div id="div1"></div>
+</body>
+</html>
+<script type="text/javascript" src="../../jquery-2.0.3.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('input').click(function(){
+			$('#div1').hide(1000).show(1000).toggle(1000);//width,height,opacity
+		})
+	})
+</script>

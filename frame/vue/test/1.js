@@ -32,7 +32,7 @@ var vm = new Vue({
   el: '#example',
   data: data
 })
-console.log(vm.$els);
+console.log(vm.$el);
 
 
 vm.$data === data // -> true
