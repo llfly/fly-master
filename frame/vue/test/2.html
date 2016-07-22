@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<p v-for="item in arr" track-by="$index">{{item}}</p>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="../vue.js"></script>
+<script type="text/javascript">
+	var Arr = [1,2,3];
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			arr:Arr
+		}
+	});
+	Arr.push(4);
+	//Arr.push(5);
+	//console.log(vm.$data);
+</script>
