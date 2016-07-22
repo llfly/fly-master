@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+//基本知识点
+//let
+//1. 声明只在所在代码块内有效
+//2. 不存在变量提升
+//3. 暂时性死区
+//4. 不允许重复声明
+
+
+var a = [];
+for(var i = 0;i<10;i++){
+	a[i] = function(){
+		console.log(i);
+	};
+}
+a[6]();//10
+//变量i是var声明的，在全局范围内都有效。所以每一次循环，新的i值都会覆盖旧值，导致最后输出的是最后一轮的i的值。
+//解决方案
+//1. 使用let声明
+for(let i = 0;i<10;i++){
+	a[i] = function(){
+		console.log(i);
+	};
+}
+a[6]();//6
+
+//2. 使用闭包
+for(var i=0;i<10;i++){
+	a[i] = (function(x){
+		return function(){
+			console.log(x);
+		}
+	})(i);
+}
+a[6]();
+
+
+
+
+//不存在变量提升
+console.log(foo); // 输出undefined
+//console.log(bar); // 报错ReferenceError
+
+var foo = 2;
+let bar = 2;
+
+
+
+//在代码块内，使用let,const命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称TDZ）
+var tmp = 123;
+
+if (true) {
+  //tmp = 'abc'; // ReferenceError
+  let tmp;
+}
+
+//暂时性死区使typeof 也不再是安全操作
+//typeof x; // ReferenceError
+//let x;
+
+
+// function bar(x = y, y = 2) {
+//   return [x, y];
+// }
+
+// bar(); // 报错
+
+//let x;
+
+
+
+
+//-----------------------------------------------------------------------------//
+//块级作用域
+//没有块级作用域会造成
+//内层变量覆盖外层变量
+var tmp = new Date();
+function f() {
+  console.log(tmp);
+  if (false) {
+    var tmp = "hello world";
+  }
+}
+
+f(); // undefined
+//计数的循环变量泄露成全局变量
+var s = 'hello';
+for (var i = 0; i < s.length; i++) {
+  console.log(s[i]);
+}
+console.log(i); // 5
+
+//es6 新增了块级作用域
+//允许块级作用域的任意嵌套
+//外层作用域无法读取内层作用域的变量
+//取代了IIFE
+//es5规定函数只能在顶层作用域和函数作用域中声明，不能在块级作用域声明
+//es6 允许在块级作用域内声明函数。
+//函数声明类似于var，即会提升到全局作用域或函数作用域的头部。
+//函数声明还会提升到所在的块级作用域的头部。
+//环境导致了行为差异太大，应该避免在块级作用域内声明函数。
+
+
+// IIFE写法
+(function () {
+  var tmp = '';
+}());
+
+// 块级作用域写法
+{
+  let tmp = '';
+}
+//-----------------------------------------------------------------------------//
+//const命令
+//1. 声明一个只读常量
+//2. 声明时必须赋值，后面不能再修改
+//3. 只在声明所在的块级作用域内有效
+//4. 不提升，存在暂时性死区
+//5. 对于引用类型的变量，const只保证变量指向地址不变
+
+
+//-----------------------------------------------------------------------------//
+//声明变量的方法
+//var function
+//let const import class
+//var命令和function命令声明的全局变量，依旧是全局对象的属性
+//let命令、const命令、class命令声明的全局变量，不属于全局对象的属性。
+var a = 1;
+// 如果在Node的REPL环境，可以写成global.a
+// 或者采用通用方法，写成this.a
+window.a // 1
+
+let b = 1;
+window.b // undefined
+</script>
