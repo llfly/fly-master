@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <style>
+  .static {
+    font-size: 120px;
+    width: 600px;
+    margin: 0 auto;
+    background-color: yellow;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+  }
+
+  .class-a {
+    color: #FF0000;
+  }
+
+  .classB {
+    text-decoration: underline;
+  }
+
+  .classC{
+     text-shadow: 2px 2px 4px #000000;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div v-bind:class="[classA, { classB: isB, classC: isC }]">台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      classA: 'class-a',
+      isB: true,
+      isC: true
+    }
+
+  });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>02</title>
+    <script src="vue.js"></script>
+    <style>
+    /* 必需 */
+
+    .expand-transition {
+        transition: all .3s ease;
+        /* 所有设定，0.3秒*/
+        height: 30px;
+        padding: 10px;
+        color: #000000;
+        background-color: #eee;
+        /* 背景 灰色 */
+        overflow: hidden;
+    }
+    /* .expand-enter 定义进入的开始状态 */
+    /* .expand-leave 定义离开的结束状态 */
+
+    .expand-enter,
+    .expand-leave {
+        height: 0;
+        padding: 0 10px;
+        opacity: 0;
+        /* 透明度 */
+    }
+    /* 必需 */
+
+    .fade-transition {
+        opacity: 1;
+        height: 30px;
+        padding: 10px;
+        color: #ffffff;
+        background-color: #3636ff;
+        transition: opacity 1.25s ease-in-out;
+        -moz-transition: opacity 1.25s ease-in-out;
+        -webkit-transition: opacity 1.25s ease-in-out;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0.1;
+    }
+
+    #menu ul {
+        float: right;
+        list-style: none;
+    }
+
+    #menu ul li {
+        float: left;
+        margin: 0px 10px 0px 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+        <ul>
+            <li>
+                <div v-if="show" :transition="transitionName">hello</div>
+            </li>
+            </li> {{$data|json}}</li>
+        </ul>
+        <ul id="menu">
+            <li>
+                <button @click="show=!show">显示  :{{show}} , 过渡效果 {{transitionName}}</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('fade')">过渡效果 fade</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('expand')">过渡效果 expand</button>
+        </ul>
+    </div>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            show: true,
+            transitionName: 'expand'
+        },
+        methods: {
+            transitionName_set_to: function(to1) {
+                this.transitionName = to1;
+            }
+        }
+
+    })
+    </script>
+</body>
+
+</html>

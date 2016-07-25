@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="../../vue.js"></script>
+    <meta charset="UTF-8">
+    <title>VUE Component demo</title>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        template: '<div>我是 vue 的组件实例，有看到吗？</div>'
+    })
+
+    var myComponentInstance = new MyComponent()
+
+    console.log(myComponentInstance);
+
+    // 控制台中，可以看到
+    // vue 的组件实例
+    // $el, $root
+    //
+    // 执行 myComponentInstance.$mount('#app')
+    // 可以看到 这个 vue的组件实例，就挂载在 #app
+    </script>
+</body>
+
+</html>

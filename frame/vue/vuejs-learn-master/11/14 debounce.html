@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <h4>input box debounce demo</h4>
+
+        <input v-model="msg" debounce="2500"> {{msg}}
+        <br>
+        <input v-model="msg1" > {{msg1}}
+        <br>
+        <h3>第一次文字框，会延时几秒钟才会绑定</h3>
+        {{$data|json}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            msg: '',
+            msg1: ''
+        }
+    })
+    </script>
+</body>
+
+</html>

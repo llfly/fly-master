@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+    <template v-if="ok1">
+      <h1>A</h1>
+      <p>Paragraph A</p>
+      <p>Paragraph A</p>
+    </template>
+    <template v-if="ok2">
+      <h1>B</h1>
+      <p>Paragraph B</p>
+      <p>Paragraph B</p>
+    </template>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      ok: true, // 控制台 操作
+      ok1:true, // 控制台 操作
+      ok2:true // 控制台 操作
+    }
+  })
+  </script>
+</body>
+
+</html>

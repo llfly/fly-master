@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{name}}
+</div>
+<script src="../../vue.js"></script>
+<script>
+    //hook
+    var vm = new Vue({
+        data:{
+            name:'hello'
+        },
+        created: function () {
+            alert('实例已经创建');
+            setTimeout(function(){
+                alert('实例timeout');
+            },2000);
+        },
+        beforeCompile: function () {
+            alert('编译之前');
+            setTimeout(function(){
+                alert('编译timeout');
+            },2000);
+        },
+        compiled: function () {
+            alert('编译后');
+        },
+        ready: function () {
+            alert('插入到文档里');
+        },
+        beforeDestroy: function () {
+            alert('销毁之前');
+        },
+        destroyed: function () {
+            alert('销毁完成');
+        }
+    });
+    //created
+
+    //手动挂载指定元素
+    vm.$mount('#app');
+    //调用$mount时 beforeCompile -> compiled -> ready
+
+    //销毁实例
+    vm.$destroy();
+    //调用$destory时 beforeDestroy -> destroyed
+    
+    //加上timeout之后 依旧会在最后执行  整个都是一个异步过程 如何判断这些时间点？
+</script>
+</body>
+</html>

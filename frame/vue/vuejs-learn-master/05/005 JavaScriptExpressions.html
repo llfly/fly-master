@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--
+    java script 表达式
+    -->
+    <div id="app">
+        <div>{{ number + 1 }} </div>
+        <div>{{ ok ? 'YES' : 'NO' }} </div>
+        <div> {{ message.split('').reverse().join('') }}</div>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            number:100,
+            ok:false,
+            message:'i love vue.js!'
+        }
+    })
+    </script>
+</body>
+
+</html>

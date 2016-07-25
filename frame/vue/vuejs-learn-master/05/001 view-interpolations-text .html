@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+        插值-文本
+    </title>
+</head>
+
+<body>
+    <!---->
+    <div id="app">
+        <span>Message: {{ msg }}</span>
+        <input type="text" v-model="msg" placeholder="this is msg">
+        <br>
+        <span>This will never change: {{* msg1 }}</span>
+        <input type="text" v-model="msg1" placeholder="this is msg1">
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hello Vue.js!',
+            msg1: 'Hello Vue.js!'
+        }
+    })
+    </script>
+</body>
+
+</html>

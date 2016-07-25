@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <!--你可以为索引指定一个别名（如果 v-for 用于一个对象，则可以为对象的键指定一个别名）-->
+    <div id="example-1">
+        <div v-for="(index, item) in items">
+            {{ index }} {{ item.message }}
+        </div>
+        <hr>
+        <!--从 1.0.17 开始可以使用 of 分隔符，更接近 JavaScript 遍历器语法：-->
+        <div v-for="item of items">
+            {{ $index }} {{ item.message }}
+        </div>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                message: 'Foo'
+            }, {
+                message: 'Bar'
+            }]
+        }
+    })
+    </script>
+</body>
+
+</html>

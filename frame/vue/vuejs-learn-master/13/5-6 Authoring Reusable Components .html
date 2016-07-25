@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>5-6</title>
+    <style>
+    .fade-transition {
+        transition: opacity .3s ease;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0;
+    }
+
+    .box {
+        width: 250px;
+        border: 1px solid #9325BC;
+        padding: 10px;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .box:hover {
+        -moz-box-shadow: 0 0 10px #ccc;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        border: 10px solid #9325BC;
+    }
+    </style>
+</head>
+
+<body>
+    <h3>可重复使用的组件</h3>
+    <div id="app">
+        <my-component
+        :foo="baz"
+        :bar="qux"
+        @click="doThis('click')"
+        @mouseover="onMouseOver('mouseover')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+
+
+         <my-component
+         :foo="baz"
+         :bar="qux"
+         @click="doThis('台湾小凡')"
+         @mouseover="onMouseOver('喜欢 vuejs')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+
+
+         <my-component
+         :foo="baz"
+         :bar="qux"
+         @click="doThis('感谢 vue群')"
+         @mouseover="onMouseOver('Vuejs 364912432')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+    </div>
+    <br>
+    <script>
+    Vue.component('my-component', {
+        template: `
+            <div class='box'>
+            <slot name="icon"></slot>
+
+            <slot name="main-text"></slot>
+
+            </div>
+        `,
+        props: ['foo', 'bar'],
+        data: function() {
+            return {
+                items: {
+                    a: '1', // 子组件的作用域跟父组件的作域是独立不连系
+                    b: '2',
+                    c: '3'
+                }
+            }
+        }
+
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: {
+                'a': '4',
+                'b': '5',
+                'c': '6'
+            }
+        },
+        methods: {
+            'doThis': function(msg) {
+                console.log(msg);
+            },
+            'onMouseOver': function(msg) {
+                console.log(msg)
+            }
+        }
+
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ideal</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div id="test">
+			<p>{{msg}}</p>
+			<p>{{msg}}</p>
+			<p>{{msg}}</p>
+			<p>{{what}}</p>
+			<p>{{hey}}</p>
+		</div>
+		<script>
+			var bindingMark = 'data-element-binding'
+			function Element (id, initData) {
+
+				var self	 = this,
+					el 		 = self.el = document.getElementById(id)
+					bindings = {} // the internal copy
+					data 	 = self.data = {} // the external interface
+					//匹配出innerHTML中所有的{{}}执行markToken回调，将变量创建到bindings里
+					//返回<span  data-element-binding =variable></span>
+					content  = el.innerHTML.replace(/\{\{(.*)\}\}/g, markToken)
+
+				el.innerHTML = content
+
+				for (var variable in bindings) {//内部接口数据执行bind
+					bind(variable)
+				}
+
+				if (initData) {//将外面数据传递给外部暴露接口data
+					for (var variable in initData) {
+						data[variable] = initData[variable]
+					}
+				}
+
+				function markToken (match, variable) {
+					bindings[variable] = {}
+					return '<span ' + bindingMark + '="' + variable +'"></span>'
+				}
+
+				function bind (variable) {
+					//将所有匹配的dom元素挂载到bindings[variable].els上
+					bindings[variable].els = el.querySelectorAll('[' + bindingMark + '="' + variable + '"]');
+				    //遍历els移除bindingMark属性
+				    [].forEach.call(bindings[variable].els, function (e) {
+				        e.removeAttribute(bindingMark)
+				    });
+				    //为每一个变量在data上添加set/get方法
+					Object.defineProperty(data, variable, {
+						set: function (newVal) {
+							//为每一个元素执行替换值操作
+						    [].forEach.call(bindings[variable].els, function (e) {
+						    	//在indings[variable].value上存储元素值，通过textContent修改值
+						        bindings[variable].value = e.textContent = newVal
+						    })
+						},
+						get: function () {
+						    return bindings[variable].value
+						}
+					})
+				}
+			}
+			var app = new Element('test', {
+				msg: 'hello'
+			})
+			//app.data['msg'] = 'hi'; //视图发生改变
+		</script>
+	</body>
+</html>

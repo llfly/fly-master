@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>04-1</title>
+    <script src="vue.js"></script>
+    <!--使用 animate.css -->
+    <link rel="stylesheet" href="animate.css">
+</head>
+
+<body>
+    <h3>使用 animate.css 自订动画 demo</h3>
+    <div id="example">
+        <div v-show="ok" class="animated" transition="bounce1">Watch me bounce</div>
+        <div v-show="ok" class="animated" transition="bounce2">Watch me bounce</div>
+        <button @click="ok=!ok">ok:{{ok}}</button>
+    </div>
+    <script>
+    Vue.transition('bounce1', {
+        enterClass: 'rubberBand',
+        leaveClass: 'lightSpeedOut'
+    })
+    Vue.transition('bounce2', {
+        enterClass: 'rubberBand',
+        leaveClass: 'lightSpeedOut',
+        type:'animation'
+    })
+
+
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            ok: true
+        },
+
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--vue.js 013 组件 4-4 Single Slot -->
+
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    #vm {
+        margin-top: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <!--小凡：特意加上编号，以便了解 slot 渲染的顺序-->
+    <!--职位：规划主管-->
+    <div id="vm">
+        <my-component>
+            <p>4.~view 层~</p>
+            <p>5.This is some original content</p>
+            <p>6.This is some more original content</p>
+        </my-component>
+    </div>
+    <!--职位：工程师 a君-->
+    <template id="my-component">
+        <div>
+            <h1>1.~template 层~</h1>
+            <h1>2.This is my component!</h1>
+            <slot>
+                3.view 层中的 内容，会显示在这里！
+            </slot>
+        </div>
+    </template>
+    <script>
+    Vue.component('my-component', {
+        template: '#my-component',
+
+    });
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+</body>
+
+</html>

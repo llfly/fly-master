@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example-1">
+        <ul>
+        <!-- 计算属性 与列表渲染-->
+            <template v-for="item in filter1">
+                <li>{{ item}}</li>
+            </template>
+        </ul>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }, {
+                msg: 'John'
+            }, {
+                msg: 'Thomas'
+            }, {
+                msg: 'James'
+            }, {
+                msg: 'Adrew'
+            }, {
+                msg: 'Martin'
+            }]
+        },
+        computed: {
+            filter1: function() {
+                /*
+                 * itmes 字串长度大于4，形成列表
+                 */
+                self = this;
+                var arr=[];
+                for (var i = 0, l = self.items.length; i < l; i++) {
+                    //console.log(self.items[i].msg);
+                    var str_len = self.items[i].msg.length;
+                    //.log(str_len);
+                    if (str_len >=5){
+                        arr.push(self.items[i].msg);
+                    }
+                }
+                //console.log('arr:'+ arr);
+                return arr;
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

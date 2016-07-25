@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+  <!--vue.js 规定 template 不能使用 v-show-->
+    <template v-show="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+    <!--在一般的标签，使用 v-show 是可以的-->
+    <h1 v-show="ok">Hello!</h1>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      ok: false, // 控制台 操作，看 dom 结构
+
+    }
+  })
+  </script>
+</body>
+
+</html>

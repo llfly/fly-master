@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+</head>
+
+<body>
+    <pre>
+        html 无法辨别大小写，所以影响到 props 的写法（这也是初学者一开始搞不清楚的地方)
+        props 官网版
+    </pre>
+    <div id="app1">
+        <child my-message="hello!"></child>
+    </div>
+    <pre>
+        我就是要 props 第一个大写版
+    </pre>
+    <div id="app2">
+        <child1 My-message="hello!"></child1>
+    </div>
+    <pre>
+        我就是要搞怪， props 最后一个字大写版
+    </pre>
+    <div id="app3">
+        <child2 my-messag-e="hello!"></child2>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    Vue.component('child', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}</span><br>'
+    });
+    var vm = new Vue({
+        el: '#app1'
+    });
+    //---------------------------
+    Vue.component('child1', {
+        // camelCase in JavaScript
+        props: ['MyMessage'],
+        template: '<span>{{ MyMessage }}1</span><br>'
+    });
+    var vm2 = new Vue({
+        el: '#app2'
+    });
+
+    //-----------------------------
+    Vue.component('child2', {
+        // camelCase in JavaScript
+        props: ['myMessagE'],
+        template: '<span>{{ myMessagE }}2</span><br>'
+    });
+    var vm3 = new Vue({
+        el: '#app3'
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--
+    过滤器，可以传递参数
+    json
+    输出经 JSON.stringify() 处理后的结果
+    此示例：分别用 4个空格，8个空格的json格式，显示对象
+    -->
+    <div id="app">
+    <h1><pre>{{ message | json 4 }}</pre></h1>
+        <br>
+        <h1><pre>{{ message1| json 8 }}</pre></h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: {
+                1: 'i love vue.js!',
+                2: 'very true'
+            },
+            message1: {
+                3: 'vue.js is mvvm!',
+                4: 'very good'
+            },
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	Function.prototype.Method = function(name,func){
+		this.prototype[name] = func;
+		return this;
+	}
+	var test = [8,7,5,2,9,0,1,4,3];//测试用例
+	Array.Method('bubbleSort',function(){
+		var i = 0,j,len = this.length,temp;
+		for(;i<len;i++)
+			for(j=0;j<len-1;j++){
+				if(this[j]>this[j+1]){
+					temp = this[j];
+					this[j] = this[j+1];
+					this[j+1] = temp;
+				}
+			}
+		return this;
+	});
+	Array.Method('selectSort',function(){
+		var i=0,j,len = this.length,k,temp;
+		for(;i<len;i++){
+			k = i;
+			for(j=i+1;j<len;j++){
+				if(this[k]>this[j]){
+					k = j;
+				}
+			}
+			if(k!=i){
+				temp = this[i];
+				this[i] = this[k];
+				this[k] = temp;
+			}
+		}
+		return this;
+	})
+	//console.log(test.bubbleSort());
+	//console.log(test.selectSort());
+	Array.Method('insertSort',function(){
+		var i = 1,j,len = this.length,temp;
+		for(;i<len;i++){
+			temp = this[i];
+			j = i-1;
+			while(j>=0&&temp<this[j]){
+				this[j+1] = this[j];
+				this[j] = temp;
+				j--;
+			}
+		}
+		return this;
+	});
+	//console.log(test.insertSort());
+	Array.Method('quickSort',function(low,high){
+		var i = low,j = high -1,temp;
+		if(low<high){
+			temp = this[low];
+			while(i<j){
+				for(;i<j;j--){
+					if(this[j]<temp){
+						this[i++] = this[j];
+						break;
+					}
+				}
+				for(;i<j;i++){
+					if(this[i]>temp){
+						this[j--] = this[i];
+						break;
+					}
+				}
+			}
+			this[i] = temp;
+			this.quickSort(low,i);
+			this.quickSort(i+1,high);
+		}
+		return this;
+	})
+	//console.log(test.quickSort(0,test.length));
+	Array.Method('mergeSort',function(){
+		var merge = function (arr, low, mid, high) {
+	        var tmp = [];
+	        var i = low;
+	        var j = mid + 1;
+	        var k =0;
+	        var len;
+	        while (i <= mid && j <= high) {
+	            if (arr[i] < arr[j]) {
+	              tmp[k++] = arr[i++];
+	            } else {
+	              tmp[k++] = arr[j++];
+	            }
+	        }
+	        while (i <= mid) {
+	           tmp[k++] = arr[i++];
+	        }
+	        while (j <= high) {
+	           tmp[k++] = arr[j++];
+	        }
+	        for (k = 0, len = tmp.length; k < len; k++) {
+	            arr[low + k] = tmp[k];
+	        }
+	    };
+	    var sort = function (array, i, j) {
+	        if (i < j) {
+	            var mid = Math.floor((i + j) / 2);
+	            sort(array, i, mid);
+	            sort(array, mid + 1, j);
+	            merge(array, i, mid, j);
+	        }
+	    };
+	    sort(this, 0, this.length - 1);
+	  	return this;
+	});
+	console.log(test.mergeSort());
+// function merge1(arr1,arr2){
+// 	var i=0,j=0,k,len1 = arr1.length,len2 = arr2.length,arr = [];
+// 	while(i<len1&&j<len2){
+// 		if(arr1[i]<arr2[j]){
+// 			arr.push(arr1[i++]);
+// 		}else{
+// 			arr.push(arr2[j++]);
+// 		}
+// 	}
+// 	while(i<len1){
+// 		arr.push(arr1[i++]);
+// 	}
+// 	while(j<len2){
+// 		arr.push(arr2[j++]);
+// 	}
+// 	console.log(arr);
+// }
+// var test2 = [1,3,4,5,7,8,9]
+// var test1 = [1,2,3,4,6,8];
+// merge1(test1,test2)
+	//二叉树
+</script>

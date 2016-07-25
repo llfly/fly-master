@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--partial 注册 局部的模板 示例-->
+    <!--http://vuejs.org/api/#partial-->
+    <div id="app">
+        <!-- a static partial -->
+        <partial name="my-partial"></partial>
+    </div>
+    <script>
+    Vue.partial('my-partial', '<p>This is a partial! {{msg}}</p>')
+
+    new Vue({
+        el: '#app',
+        data:{
+          msg:'你好，我是台湾小凡'
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--vue.js 013 组件 4-3 Compilation Scope 3 -->
+
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    #vm {
+        margin-top: 100px;
+    }
+
+    .component1 {
+        margin: 10px 10px 10px 100px;
+        display: block;
+        background-color: #ffcc66;
+    }
+
+    .component2 {
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <app>
+        </app>
+    </div>
+    <template id="app">
+        <div>
+            {{msg}}
+            <child-component></child-component>
+            <!--无效，因为 父组件作用域中，只能使用父组件的data-->
+            <child-component1  v-show="someChildProperty" ></child-component1>
+        </div>
+    </template>
+    <script>
+    Vue.component('child-component', {
+        // 有效，因为是在正确的作用域内，使用全局注册，并且在此作用域使用 data
+        template: '<div v-show="someChildProperty">Child</div>',
+        data: function() {
+            return {
+                'someChildProperty': true
+            }
+        }
+    })
+    Vue.component('child-component1', {
+        // 无效，因为 父组件作用域中，无法使用子组件的data
+        template: '<div >Child-1</div>',
+        data: function() {
+            return {
+                'someChildProperty': true
+            }
+        },
+    });
+
+
+    Vue.component('app', {
+        template: '#app',
+        data: function() {
+            return {
+                msg: '-app-',
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+</body>
+
+</html>

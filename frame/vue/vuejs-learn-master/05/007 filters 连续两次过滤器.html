@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--
+    过滤器，capitalize 第一个文字转大写
+    lowercase  是全部转小写
+    此示例：讲解 连续使用两个过滤器
+    -->
+    <div id="app">
+        <h1>{{ message | capitalize | lowercase }}</h1>
+        <br>
+        <h1>{{ message1| capitalize }}</h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'i love vue.js!',
+            message1: 'are you?'
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div v-for="book in books">
+        {{$index + '.'}}{{book.name}} {{book.price}}//$index时当前数组的索引
+    </div>
+    <hr/>
+    <!--可以用括号的形式 第一个参数是当前索引 第二个是数组的每一项   index = $index-->
+    <div v-for="(index,item) in doubleArr">
+        {{item.name}} {{index}}
+        <div v-for="b in item.name" track-by="$index">{{$index}}-{{b}}-{{item.price}}</div>
+        <br/>
+    </div>
+
+    <hr/>
+
+    <div v-for="item in obj ">
+        {{$key}}:{{item}} //遍历出来的都是值
+        //{{$key}}是当前对象的键
+    </div>
+
+</div>
+<script src="../../vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            books:[
+                {name:'javascript',price:5},
+                {name:'node',price:2},
+                {name:'ajax',price:3},
+                {name:'vue',price:4},
+            ],
+            doubleArr:[//双重数组
+                {name:['a','e','f'],price:50},
+                {name:['a'],price:50},
+                {name:['a','e'],price:50},
+                {name:['a','e','a','e'],price:50},
+            ],
+            obj:{
+                name:1,
+                age:2,
+                sex:3
+            }
+        }
+    });
+    //track-by
+    //stagger
+    //enter-stagger
+    //leave-stagger
+</script>
+</body>
+</html>

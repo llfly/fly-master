@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div v-if="Math.random() > 0.5">
+      <h1>这是错误的 用法，v-if 嵌套 另一个 v-if</h1>
+      <div v-if="Math.random() > 0.5">儿子出来</div>
+      <div v-else>儿子出不来了…真麻烦</div>
+    <div v-else>爸爸累了，想睡觉</div>
+    </div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {}
+  })
+  </script>
+</body>
+
+</html>

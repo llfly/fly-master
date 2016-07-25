@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--partial 注册 局部的模板 示例-->
+    <!--http://vuejs.org/api/#partial-->
+    <div id="app">
+        <!-- a dynamic partial -->
+        <!-- renders partial with id === vm.partialId -->
+        <partial v-bind:name="partialId"></partial>
+        <br> partialId :
+        <input type="text" v-model="partialId" placeholder="this is partialId">
+    </div>
+    <script>
+    //注册局部模板片断 1
+    Vue.partial('my-partial', '<p>This is a partial! {{msg}}</p>')
+        //注册局部模板片断 2
+    Vue.partial('my-day', '<p>我的一天, 就是现在！ {{msg}}</p>')
+    new Vue({
+        el: '#app',
+        data: {
+            partialId: 'my-partial',
+            msg: '你好，我是台湾小凡'
+        }
+    })
+    </script>
+</body>
+
+</html>

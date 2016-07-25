@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example-2">
+        <button v-on:click="say('hello!', $event)">Submit</button>
+        <a href="http://vuejs.org/"  v-on:click="say('vuejs!', $event)" >http://vuejs.org/</a>
+        <p>preventDefault() 方法将防止上面的链接打开 URL。</p>
+    </div>
+    <script>
+    new Vue({
+        el: '#example-2',
+        methods: {
+            say: function(msg, event) {
+                alert(event.type);
+                console.log(event); // 控制台，看得比较精确
+                alert(msg);
+                event.preventDefault(); //preventDefault() 方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）。
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

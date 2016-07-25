@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        多选（绑定到一个数组） demo
+        <br>
+        <select v-model="selected" multiple>
+            <option selected>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected | json }}</span>
+        <br>
+        <span>注：mac book pro , 按住 command, 来多选</span>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            selected: 'c'
+        },
+
+    })
+    </script>
+</body>
+
+</html>

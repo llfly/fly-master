@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        value bindings demo
+        <br>
+        <!-- 当选中时，`picked` 为字符串 "a" -->
+        <input type="radio" v-model="picked" value="a">
+        <!-- `toggle` 为 true 或 false -->
+        <input type="checkbox" v-model="toggle">
+        <!-- 当选中时，`selected` 为字符串 "abc" -->
+        <select v-model="selected">
+            <option value="abc">ABC</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+        <pre>{{$data | json}}</pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            selected: '',
+            picked:'',
+            toggle:''
+        }
+    })
+    </script>
+</body>
+
+</html>

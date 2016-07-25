@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="example-1">
+        <ul>
+            <template v-for="item in items">
+                <li>{{$index}}.{{ item.msg }}</li>
+            </template>
+        </ul>
+        <button v-on:click="f1">执行 f1 filter /Foo/ </button>
+        <button v-on:click="f2">执行 f2 concat arr </button>
+        <button v-on:click="f3">执行 f3 splice(2,3) </button>
+        <div class="blue">
+            {{$data | json }}
+        </div>
+
+        <pre>
+        变异方法，如名字所示，修改了原始数组。相比之下，也有非变异方法，如 filter(), concat() 和 slice()，不会修改原始数组而是返回一个新数组。
+        在使用非变异方法时，可以直接用新数组替换旧数组：
+        可能你觉得这将导致 Vue.js 弃用已有 DOM 并重新渲染整个列表——幸运的是并非如此。
+        Vue.js 实现了一些启发算法，以最大化复用 DOM 元素，
+        因而用另一个数组替换数组是一个非常高效的操作。
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }, {
+                msg: 'John'
+            }, {
+                msg: 'Thomas'
+            }, {
+                msg: 'James'
+            }, {
+                msg: 'Adrew'
+            }, {
+                msg: 'Martin'
+            }],
+            arr: [{
+                msg: '台湾小凡'
+            }, {
+                msg: '感谢'
+            }, {
+                msg: '群友'
+            }]
+        },
+        methods: {
+            f1: function() {
+                example1.items = example1.items.filter(function(item) {
+                    return item.msg.match(/Foo/)
+                })
+            },
+            f2: function() {
+                example1.items = example1.items.concat(this.arr[0])
+                example1.items = example1.items.concat(this.arr[1])
+                example1.items = example1.items.concat(this.arr[2])
+            },
+            f3:function (){
+                example1.items = example1.items.splice(2,3)
+            }
+        }
+
+    })
+    </script>
+</body>
+
+</html>

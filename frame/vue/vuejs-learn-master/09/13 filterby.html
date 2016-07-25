@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="filter-by-example">
+        <input v-model="name">
+        <ul>
+            <!--
+        <li v-for="user in users | filterBy name in 'name'  | orderBy 'name' -1">
+        -->
+            <li v-for="user in users | filterBy name in 'name'  | orderBy 'name' -1">
+                {{ user.name }}
+            </li>
+        </ul>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    new Vue({
+        el: '#filter-by-example',
+        data: {
+            name: '',
+            users: [{
+                name: 'Bruce'
+            }, {
+                name: 'Chuck'
+            }, {
+                name: 'Jackie'
+            }]
+        }
+    })
+    </script>
+</body>
+
+</html>

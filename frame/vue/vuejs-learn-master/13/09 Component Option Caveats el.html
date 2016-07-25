@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>09</title>
+</head>
+
+<body>
+    <pre>
+    组件选项关于 el 的注意事项
+    </pre>
+    <div id="app1">
+        ABC
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        el: function() {
+            return '#app1' // 在 vue.extend 中，el 正确的用法，使用函数
+        },
+        template: '<div>{{a}}</div>',
+        data: function() {
+            return {
+                a: '学 vue ，还蛮开心的~'
+            }
+        }
+    });
+    var vm = new MyComponent({});
+    </script>
+</body>
+
+</html>

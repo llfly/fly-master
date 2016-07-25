@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <h4>input box debounce demo(键盘的反应 0.5 秒, this.msgkeup +1 )</h4>
+        <input v-model="msg" @keyup="onKeyup | debounce 500"> {{msg}}
+        <br>
+        <input v-model="msg1"> {{msg1}}
+        <br> {{$data|json}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            msg: '',
+            msg1: '',
+            msgkeyup:1
+        },
+        methods :{
+            onKeyup:function (){
+                this.msgkeyup=this.msgkeyup+1
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

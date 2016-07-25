@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--vue.js 013 组件 4-1 Compilation Scope -->
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    .component1 {
+        margin: 10px 10px 10px 100px;
+        display: block;
+        background-color: #ffcc66;
+    }
+
+    .component2 {
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <app>
+        </app>
+    </div>
+    <template id="app-header">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app-footer">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app">
+        <div>
+            <!--tag 的组成 demo -->
+            {{msg}}
+            <app-header></app-header>
+            <app-footer></app-footer>
+        </div>
+    </template>
+    <script>
+    Vue.component('app-header', {
+        template: '#app-header',
+        data: function() {
+            return {
+                msg: 'app-header 台湾小凡',
+            }
+        },
+    });
+
+    Vue.component('app-footer', {
+        template: '#app-footer',
+        data: function() {
+            return {
+                msg: 'app-footer 感谢 群友'
+            }
+        },
+    });
+
+    Vue.component('app', {
+        template: '#app',
+        data: function() {
+            return {
+                msg: '-app-'
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+</body>
+
+</html>

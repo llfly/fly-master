@@ -1,0 +1,88 @@
+Ó<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>06</title>
+    <script src="vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!--使用 animate.css -->
+    <link rel="stylesheet" href="animate.css">
+    <style>
+    #example {
+        width: 500px;
+        height: 300px;
+        background-color: yellow;
+    }
+    </style>
+</head>
+
+<body>
+    <h3>animation 高级活用，hover，click 绑定，与 vue transition
+    </h3>
+    <div id="example">
+        <div v-show="ok" class="animated" transition="bounce">
+            <div id="jsanimation1">
+                此元素 hover 事件
+                <a href='https://daneden.github.io/animate.css/' target='_new'>
+                animate.css
+                </a>
+            </div>
+            <div id="jsanimation2">
+                此元素 click
+            </div>
+        </div>
+        <button @click="ok=!ok">ok:{{ok}}</button>
+    </div>
+    <script>
+    Vue.transition('bounce', {
+        type: 'animation',
+        enterClass: 'bounceInLeft',
+        leaveClass: 'bounceOutRight'
+    })
+    var vm = new Vue({
+            el: '#example',
+            data: {
+                ok: true
+            },
+
+        })
+        // ***************************************
+        // * 将 animation.css , 绑定在 元素的 Hover
+        // *
+    function animationHover(element, animation) {
+        element = $(element);
+        element.hover(
+            function() {
+                element.addClass('animated ' + animation);
+            },
+            function() {
+                //wait for animation to finish before removing classes
+                window.setTimeout(function() {
+                    element.removeClass('animated ' + animation);
+                }, 2000);
+            }
+        );
+    };
+
+    animationHover('#jsanimation1', 'hinge');
+    // ***************************************
+    // * 将 animation.css , 绑定在 元素的 click
+    // *
+    function animationClick(element, animation) {
+        element = $(element);
+        element.click(
+            function() {
+                element.addClass('animated ' + animation);
+                //wait for animation to finish before removing classes
+                window.setTimeout(function() {
+                    element.removeClass('animated ' + animation);
+                }, 2000);
+            }
+        );
+    };
+    animationClick('#jsanimation2', 'zoomOutDown');
+    </script>
+</body>
+
+</html>

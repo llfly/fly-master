@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <span>Message is: {{ message }}</span>
+        <br>
+        input text 双向绑定 demo<br>
+        <input type="text" v-model="message" placeholder="edit me">
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Vue.js 很好用!'
+        },
+
+    })
+
+
+    </script>
+</body>
+
+</html>

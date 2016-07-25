@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	function test(num){
+		if ( num == 0){
+			return 0;
+		}else if(num == 1){
+			return 1;
+		}else{
+			return test(num-1) + test(num-2);
+		}
+	}
+	//0,1,1,2,3,5,8,13,21
+	//0,1,2,3,4,5,6,7,8
+	//时间复杂度：黄金分割的n次方
+	console.log(test(8));
+
+
+	//优化
+	//朴素平方递归式
+	
+	//fn = a^n/sqrt(5)
+	//(fn+1 fn) = (1 1)^n
+	//(fn fn-1) = (1 0)
+</script>

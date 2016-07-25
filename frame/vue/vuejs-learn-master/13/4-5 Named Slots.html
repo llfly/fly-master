@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--vue.js 013 组件 4-5 Named Slots -->
+
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    #vm {
+        margin-top: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <!--小凡：特意加上编号，以便了解 slot 渲染的顺序-->
+    <div id="vm">
+        <parent></parent>
+    </div>
+
+    <!--职位：规划主管-->
+    <template id="parent">
+        <h3>A君</h3>
+        <multi-insertion>
+            <p slot="one">1.One</p>
+            <p slot="two">2.Two</p>
+            <p>3.Default A</p>
+            <h4 slot="four">4.Four</h4>
+            <p slot="five">5.Five</p>
+            <h5>3.Default A</h5>
+        </multi-insertion>
+        <hr>
+        <h3>B君</h3>
+        <multi-insertion1>
+            <p slot="one">1.One</p>
+            <p slot="two">2.Two</p>
+            <p>3.Default A</p>
+            <h4 slot="four">4.Four</h4>
+            <p slot="five">5.Five</p>
+            <h5>3.Default A</h5>
+        </multi-insertion1>
+    </template>
+
+
+    <!--职位：工程师 a 君-->
+    <template id="multi-insertion">
+        <div>
+            <slot></slot>
+            <slot name="five"></slot>
+            <slot name="four"></slot>
+            <slot name="one"></slot>
+            <slot></slot>
+            <slot name="two"></slot>
+        </div>
+    </template>
+
+    <!--职位：工程师 b 君-->
+    <template id="multi-insertion1">
+        <div>
+            <slot></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="four"></slot>
+            <slot name="one"></slot>
+            <slot name="two"></slot>
+        </div>
+    </template>
+    <script>
+    Vue.component('parent', {
+        template: '#parent',
+
+    });
+    Vue.component('multi-insertion', {
+        template: '#multi-insertion',
+
+    });
+    Vue.component('multi-insertion1', {
+        template: '#multi-insertion1',
+
+    });
+    var vm = new Vue({
+        el: '#vm',
+    });
+    </script>
+</body>
+
+</html>

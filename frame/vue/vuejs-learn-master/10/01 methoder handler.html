@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <button v-on:click="greet">Greet</button>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            name: 'Vue.js'
+        },
+        // define methods under the `methods` object
+        methods: {
+            greet: function(event) {
+                // `this` inside methods point to the Vue instance
+                alert('Hello ' + this.name + '!') // this.name , 为 vue 实例的 data
+                    // `event` is the native DOM event
+                alert(event.target.tagName)  // 出现 button，事件目标的 tag name
+            }
+        }
+    })
+
+    // you can invoke methods in JavaScript too
+    vm.greet() // -> 'Hello Vue.js!'  注：小凡，执行 vm实例的 greet() 函数
+    </script>
+</body>
+
+</html>

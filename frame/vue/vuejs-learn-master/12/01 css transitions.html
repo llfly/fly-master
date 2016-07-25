@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    /* 必需
+    transition="expand"  vue.js 过渡的API
+    CSS 这边，自动对于
+    expand-transition
+    expand-enter
+    expand-leave
+    进行相应的处理。
+     */
+
+    .expand-transition {
+        transition: all .3s ease; /* 所有设定，0.3秒*/
+        height: 30px;
+        padding: 10px;
+        background-color: #eee; /* 背景 灰色 */
+        overflow: hidden;
+    }
+    /* .expand-enter 定义进入的开始状态 */
+    /* .expand-leave 定义离开的结束状态 */
+
+    .expand-enter,
+    .expand-leave {
+        height: 0;
+        padding: 0 10px;
+        opacity: 0; /* 透明度 */
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+        <div v-if="show" transition="expand">hello</div>
+        <!--按一下，触发 过度效果-->
+        <button @click="show=!show">show:{{show}}</button>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            show:true
+        },
+
+    })
+    </script>
+</body>
+
+</html>

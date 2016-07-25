@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>08</title>
+    <script src="vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="anim" class="demo">
+        <p v-show="show" transition="fade">js 过渡</p>
+        <button @click="show=!show">Toggle</button>
+    </div>
+    <script>
+    Vue.transition('fade', {
+        css: false,
+        enter: function(el, done) {
+            // 元素已被插入 DOM
+            // 在动画结束后调用 done
+            $(el)
+                .css('opacity', 0)
+                .animate({
+                    opacity: 1
+                }, 1000, done)
+        },
+        enterCancelled: function(el) {
+            $(el).stop()
+        },
+        leave: function(el, done) {
+            // 与 enter 相同
+            $(el).animate({
+                opacity: 0
+            }, 1000, done)
+        },
+        leaveCancelled: function(el) {
+            $(el).stop()
+        }
+    })
+
+
+    new Vue({
+        el: '#anim',
+        data: {
+            show: true
+        }
+    })
+    </script>
+</body>
+
+</html>

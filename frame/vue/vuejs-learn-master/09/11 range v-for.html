@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example-1">
+        <div>
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example-1',
+
+    })
+    </script>
+</body>
+
+</html>

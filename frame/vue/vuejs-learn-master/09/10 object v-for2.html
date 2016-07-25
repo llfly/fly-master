@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example-1">
+        <ul id="repeat-object" class="demo">
+            <div v-for="(key, val) in object">
+                {{ key }} {{ val }}
+            </div>
+        </ul>
+
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#repeat-object',
+        data: {
+            object: {
+                FirstName: 'John',
+                LastName: 'Doe',
+                Age: 30
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

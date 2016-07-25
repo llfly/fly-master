@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    .blue {
+        color: blue;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .greed {
+        color: #ffffff;
+        background-color: #00cccc;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 最小的组件模板-->
+    <template id="ccc">
+        <br> ccc
+        <input v-model="msg" class="red">
+        <button @click="set_parent1"> $parent 设值上级资料</button>
+        <button @click="set_root1"> $root 设值根组件的资料</button>
+    </template>
+    <!-- 子组件模板 -->
+    <template id="bbb">
+        <hr> bbb
+        <input v-model="msg" class="blue">
+        <button v-on:click="set_parent1"> $parent 清空上级资料</button>
+        msg: {{ msg | json }}
+        <ccc></ccc>
+    </template>
+    <!-- 根组件模板 -->
+    <div id="aaa">
+        <hr>
+        <p class="greed">aaa Messages: {{ messages | json }}</p>
+        <button v-on:click="set_bbb0"> $children[0] 设值 子组件的资料 </button>
+        <button v-on:click="set_bbb1"> $children[1] 设值 子组件的资料 </button>
+        <button v-on:click="set_bbb2"> $children[2] 设值 子组件的资料 </button>
+        <bbb></bbb>
+        <bbb></bbb>
+        <bbb></bbb>
+    </div>
+    <div id="app">
+        <my-component></my-component>
+    </div>
+    <script>
+    Vue.component('ccc', {
+        template: '#ccc',
+        data: function() {
+            return {
+                msg: '台湾小凡',
+
+            }
+        },
+        methods: {
+            set_parent1: function() {
+                this.$parent.$set('msg', this.msg);
+            },
+            set_root1: function() {
+                this.$root.messages.push(this.msg);
+                this.msg = '';
+            }
+        }
+    });
+
+    // 注册子组件
+    // 将当前消息派发出去
+    Vue.component('bbb', {
+        template: '#bbb',
+        data: function() {
+            return {
+                msg: 'hello'
+            }
+        },
+        methods: {
+            set_parent1: function() {
+                this.$parent.messages = [];
+            }
+        }
+    });
+
+    // 初始化父组件
+    // 将收到消息时将事件推入一个数组
+    var Parent = new Vue({
+        el: '#aaa',
+        data: {
+            messages: []
+        },
+        methods: {
+            'set_bbb0': function() {
+                this.$children[0].msg = '子组件[0]设值';
+            },
+            'set_bbb1': function() {
+                this.$children[1].msg = '子组件[1]设值';
+            },
+            'set_bbb2': function() {
+                this.$children[2].msg = '子组件[2]设值';
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            'my-component': Parent
+        }
+    });
+    </script>
+</body>
+
+</html>

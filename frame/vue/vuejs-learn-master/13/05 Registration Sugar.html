@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>05</title>
+</head>
+
+<body>
+    <pre>
+        注册语法糖
+    </pre>
+    <div id="app">
+        <h3>vm</h3>
+        <my-component></my-component>
+    </div>
+    <hr>
+    <script>
+    // extend and register in one step
+    // 在单一的步骤，继承和注册，全局注册组件,  传入一个对象
+    // Vue.js 在背后自动调用 Vue.extend()
+    Vue.component('my-component', {
+        template: '<div>全局注册组件</div>'
+    })
+    var vm = new Vue({
+        el: '#app'
+    });
+    </script>
+    <div id="app1">
+        <h3>vm1</h3>
+        <my-component></my-component>
+        <p>
+            {{firstName}} {{lastName}} {{alias}}
+        </p>
+        <my-components2></my-components2>
+    </div>
+    <script>
+    var MyComponent2 = Vue.extend({
+        template: '<div><h1>{{msg1}}</h1>',
+        data: function() {
+            return {
+                msg1: '组件2号'
+            }
+        }
+    });
+    // also works for local registration
+    // 本地注册，也可以这样子工作，注册语法糖，重点在这段
+    // 构造器中使用 components, 分别对指定的 tag，撰写或传入对象，来构造 组件。
+    var Parent = Vue.extend({
+        components: {
+            'my-component': {
+                template: '<div>在构造器中，使用 componens 注册组件</div>'
+            },
+            'my-components2': MyComponent2
+        }
+    });
+
+    // 创建一个 Parent 实例
+    var p = new Parent({
+        el: '#app1',
+        data: {
+            firstName: 'Walter',
+            lastName: 'White',
+            alias: 'Heisenberg'
+        }
+    });
+    // 挂载到元素上
+    //p.$mount('#app1')
+    </script>
+</body>
+
+</html>

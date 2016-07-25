@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example-1">
+        <ul>
+            <template v-for="item in items" track-by="$index">
+                <li>{{$index}}.{{ item._uid }}</li>
+            </template>
+        </ul>
+
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+
+如果没有唯一的键供追踪，可以使用 track-by="$index"，它强制让 v-for 进入原位更新模式：片断不会被移动，而是简单地以对应索引的新值刷新。
+这种模式也能处理数据数组中重复的值。
+
+这让数据替换非常高效，但是也会付出一定的代价。因为这时 DOM 节点不再映射数组元素顺序的改变，不能同步临时状态
+（比如 <  input> 元素的值）
+以及组件的私有状态。因此，
+如果 v-for 块包含 <  input> 元素或子组件，
+要小心使用 track-by="$index"
+
+注：台湾小凡，
+  一、当我们的model 的键值，是不重复时，可以用 model 的键值当 track-by
+  二、使用 v-for 时我们会对组件产生很多的业务操作
+      vue.js，会依 不重值的键值，作组件更换第一优先的复用参考，以加速组件的更换。
+  三、如果你的 model ，不保证是否有重复值时，可以用 track-by="$index"
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                _uid: '88f869d',
+
+            }, {
+                _uid: '7496c10',
+            }]
+        }
+    })
+    </script>
+</body>
+
+</html>

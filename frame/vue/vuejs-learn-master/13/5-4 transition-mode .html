@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>5-4</title>
+    <style>
+        .fade-transition {
+            transition: opacity .3s ease;
+        }
+        .fade-enter, .fade-leave {
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <br>
+    <h3>组件动态切换的过渡 </h3>
+    <component
+    :is="currentView"
+    keep-alive
+    transition="fade"
+    transition-mode="out-in">
+    </component>
+    <script>
+    Vue.component('c1', {
+        template: `
+            <input v-model="a">{{a}}
+            <button @click="m('home')">home</button>
+            <button @click="m('posts')">posts</button>
+            <button @click="m('archive')">archive</button>
+            <button @click="m(str1)">{{str1}}</button>
+
+        `,
+        props: ['str1'],
+        methods: {
+            m: function(str1) {
+                this.$dispatch('parent-events1', str1)
+            }
+        },
+        data: function() {
+            return {
+                a: 1
+            }
+        }
+
+    });
+
+
+
+    new Vue({
+        el: 'body',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {
+                template: '<div>component is home <c1 str1="home"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('home activate called');
+                    setTimeout(function() {
+                        console.log('home activate done');
+                        done();
+                    }, 100);
+                },
+            },
+            posts: {
+                template: '<div>component is posts <c1 str1="posts"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('posts activate called');
+                    setTimeout(function() {
+                        console.log('posts activate done');
+                        done();
+                    }, 100);
+                },
+            },
+            archive: {
+                template: '<div>component is archive <c1 str1="archive"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('archive activate called');
+                    setTimeout(function() {
+                        console.log('archive activate done');
+                        done();
+                    }, 100);
+                },
+            }
+        },
+        events: {
+            'parent-events1': function(str1) {
+                this.currentView = str1;
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

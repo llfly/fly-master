@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <h4>input box lazy demo</h4>
+        <!-- 在 "change" 而不是 "input" 事件中更新 -->
+        <input v-model="msg" lazy> {{msg}}
+        <br>
+        <input v-model="msg1" > {{msg1}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            msg: '',
+            msg1: ''
+        }
+    })
+    </script>
+</body>
+
+</html>

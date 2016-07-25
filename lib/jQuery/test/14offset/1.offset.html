@@ -31,12 +31,18 @@
 <script type="text/javascript" src="../../jquery-2.0.3.js"></script>
 <script type="text/javascript">
 	$(function(){
-		console.log($('#div2').offset().left);//元素距离屏幕的距离,不考虑祖先节点定位
-		$('#div2').offset({left:100})
-		console.log($('#div2').position().left);//相对于父级
+		//console.log($('#div2').offset().left);//元素距离屏幕的距离,不考虑祖先节点定位
+		//$('#div2').offset({left:100})
+		//console.log($('#div2').position().left);//相对于父级
 
 		//margin:50;
-		console.log($('#div2').offset().left);//150
-		console.log($('#div2').position().left);//0 不会计算margin值
+		//console.log($('#div2').offset().left);//150
+		//console.log($('#div2').position().left);//0 不会计算margin值
+		
+
+		$('#div2').offset(function(i,opt){
+			console.log(opt);
+			return { left :100,top:100};
+		})
 	})
 </script>

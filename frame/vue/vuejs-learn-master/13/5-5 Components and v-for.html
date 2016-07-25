@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>5-5</title>
+    <style>
+    .fade-transition {
+        transition: opacity .3s ease;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <h3>组件和 v-for</h3>
+    <div id="app">
+        <!--在父的作用域使用data的 items-->
+        <my-component v-for="item in items" :str1="item" :index="$index"></my-component>
+    </div>
+    <br>
+    <script>
+    Vue.component('my-component', {
+        template: `
+            <div>
+               index:{{index}}, props:{{str1}} ,item:{{items.a}}{{items.b}}{{items.c}}
+            </div>
+        `,
+        props: ['str1','index'], // props 来自父组件的 tag 传值
+        data: function() {
+            return {
+                items: {
+                    a: '1', // 子组件的作用域跟父组件的作域是独立不连系
+                    b: '2',
+                    c: '3'
+                }
+            }
+        }
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: {
+                'a': '4',
+                'b': '5',
+                'c': '6'
+            }
+        }
+
+    });
+    </script>
+</body>
+
+</html>

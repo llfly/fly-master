@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        checkbox value bindings demo, 注： v-bind 后面的双引号，是 js 表达式，不是字串。
+        <br>
+        <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+        <br>
+        <pre>{{ toggle }}</pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            toggle: '',
+            a: '台湾',
+            b: '小凡'
+        }
+    })
+    </script>
+</body>
+
+</html>

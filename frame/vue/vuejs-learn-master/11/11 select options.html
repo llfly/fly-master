@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        select options value bindings demo
+        <br>
+        <select v-model="selected">
+            <!-- 对象字面量 -->
+            <option v-bind:value="{ number: 123 }">123</option>
+            <option v-bind:value="{ number: 456 }">456</option>
+            <option v-bind:value="{ number: 789 }">789</option>
+            <option v-bind:value="{ number: 'abc' }">abc</option>
+        </select>
+        <br>
+        <pre>{{$data | json}}</pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            selected: ''
+        }
+    })
+    </script>
+</body>
+
+</html>

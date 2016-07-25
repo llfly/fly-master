@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>VUE Component demo</title>
+</head>
+
+<body>
+    <div id="example">
+        你好，我是台湾小凡 {{a}}
+    </div>
+    <script>
+    var data = {
+        a:''
+    }
+    var vm = new Vue({
+        el: '#example',
+        data: data
+    })
+
+    // vm.$data === data // -> true
+    // vm.$el === document.getElementById('example') // -> true
+
+    // vm.$el
+
+    // $watch 是一个实例方法，监视着 vue data 的变化，一有变化，都会启动
+    vm.$watch('a', function(newVal, oldVal) {
+        // 这个回调将在 `vm.a`  改变后调用
+        console.log('a 原来的值:' + oldVal + ', 新的值:' + newVal);
+    })
+
+    // vm.a='感谢群友的支持'
+    </script>
+</body>
+
+</html>

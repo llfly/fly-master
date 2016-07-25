@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>04</title>
+</head>
+
+<body>
+    <pre>
+        Vue.extend 构造父子组件
+    </pre>
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+    <script>
+    //*********************************
+    //* Child
+    //*     定义：组件 span ，一点点的 data
+    //**********************************
+    var Child = Vue.extend({
+        template: '<span>ABC{{msg}}</span>',
+        data: function() {
+            return {
+                msg: 'EFG'
+            }
+        }
+    })
+
+    //*********************************
+    //* br
+    //*     定义：组件 html 常用的 <br>，在此
+    //*     小凡特意当做子组件来使用
+    //**********************************
+
+    var br = Vue.extend({
+        template:'<br>'
+    })
+
+    //**************************************************************
+    //* Parent
+    //*     定义：父组件，使用 br, child
+    //*          父组件，自已也可以使用 data
+    //*          跟子组件的data ，可以同名，因为这两个组件是独立的
+    //*          比如此例：msg，在 Parent, Chile, 都用到了，不互相影响
+    //**************************************************************
+
+    var Parent = Vue.extend({
+        template: '---Parent:{{msg}}<my-component></my-component>--- <br-component> </br-component>',
+        components: {
+            // <my-component> 只能用在父组件模板内
+            'my-component': Child,
+            'br-component' : br
+        },
+        data :function(){
+            return {
+                msg:'台湾小凡'
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el:'#app',
+        components:{
+            'my-component': Parent
+        }
+    })
+    </script>
+</body>
+
+</html>

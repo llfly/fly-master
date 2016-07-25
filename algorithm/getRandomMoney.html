@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	function getRandomMoney(){
+		var a = Math.random();
+		var b = Math.random();
+		var c = Math.random();
+		var d = a+b+c;
+
+		console.log(a/d*100);
+		console.log(b/d*100);
+		console.log(c/d*100);
+	}
+	getRandomMoney();
+
+	//123456789
+	//$123,456,789
+	function turn(data){
+		var data = data.toString();
+		var temp = '';
+		for(var i=data.length,j=0;i>=0;i--,j++){
+			temp = data.charAt(i) + temp;
+			if(j!=0&&j!=data.length&&j%3==0){
+				temp =',' + temp;
+			}
+		}
+		temp = "$" + temp;
+
+		//console.log(temp);
+	}
+
+	turn(111234567890000);
+	turn(23942841231);
+	turn(12312234523);
+
+	var sStr = "123456789987654321"
+	var reg=/(?=\d)(\d)(?=(\d\d\d)+(?!\d))/g;
+	var s=sStr.replace(reg,'$1,');
+	console.log(s);
+
+	//执行环境
+	//上下文
+	//逻辑题
+	//快排
+</script>

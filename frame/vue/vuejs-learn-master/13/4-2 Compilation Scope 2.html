@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--vue.js 013 组件 4-2 Compilation Scope 2-->
+
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>vue.js</title>
+    <style>
+    #vm {
+        margin-top: 100px;
+    }
+
+    .component1 {
+        margin: 10px 10px 10px 100px;
+        display: block;
+        background-color: #ffcc66;
+    }
+
+    .component2 {
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <app>
+        </app>
+    </div>
+    <template id="app-header">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app-footer">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app">
+        <div>
+            {{msg}}
+            <!--父组件中无法得知子组件的 data，此行结果是 false，app-header 隐藏-->
+            <app-header v-show="showapp"></app-header>
+            <app-footer></app-footer>
+        </div>
+    </template>
+    <script>
+    Vue.component('app-header', {
+        template: '#app-header',
+        data: function() {
+            return {
+                'msg': 'app-header 台湾小凡',
+                'someChildProperty': true // 子组件的data，父组件无法直接使用
+
+            }
+        },
+    });
+
+    Vue.component('app-footer', {
+        template: '#app-footer',
+        data: function() {
+            return {
+                msg: 'app-footer 感谢 群友',
+            }
+        },
+    });
+
+    Vue.component('app', {
+        template: '#app',
+        data: function() {
+            return {
+                msg: '-app-',
+                showapp:true
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+</body>
+
+</html>

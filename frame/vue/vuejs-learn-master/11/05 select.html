@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        select, 双向绑定 demo, 注：这个范例，依照小凡平时业务的写法，来写 示例
+        <br>
+        <select v-model="selected">
+            <option value="a">Apple</option>
+            <option value="b">Bule</option>
+            <option value="c">Chunk</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            selected: 'c'
+        },
+
+    })
+    </script>
+</body>
+
+</html>

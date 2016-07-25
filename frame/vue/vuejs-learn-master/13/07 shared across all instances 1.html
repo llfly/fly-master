@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>VUE Component demo</title>
+</head>
+
+<body>
+    <pre>组件关于data 选项，错误写法</pre>
+
+    <div id="app">
+        <cc></cc>
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        data: function() {
+            a: 1 // [Vue warn]: data functions should return an object.
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            'cc': MyComponent
+        }
+    })
+    </script>
+</body>
+
+</html>

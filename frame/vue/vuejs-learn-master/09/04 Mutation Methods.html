@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <!--
+    Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新。被包装的方法有：
+    -->
+    <div id="example-1">
+        <ul>
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>Í
+            </template>
+        </ul>
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+        Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新。被包装的方法有：
+          push()
+            向数组的末尾添加一个或更多元素，并返回新的长度。
+            example1.items.push({msg:'台湾小凡'})
+          pop()
+            用于删除并返回数组的最后一个元素。
+            example1.items.pop()
+          shift()
+            删除并返回数组的第一个元素
+            example1.items.shift()
+          unshift()
+            向数组的开头添加一个或更多元素，并返回新的长度。
+            example1.items.unshift({msg:'台湾小凡'})
+          splice()
+            从某个已有的数组返回选定的元素
+            example1.items.splice()
+          sort()
+            对数组的元素进行排序
+            example1.items.sort()
+          reverse
+            颠倒数组中元素的顺序。
+            example1.items.reverse()
+
+          你可以打开浏览器的控制台，用这些方法修改上例的 items 数组。
+          例如：example1.items.push({ message: 'Baz' })。
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                    msg: 'Foo'
+                }, {
+                    msg: 'Bar'
+                }, {
+                    msg: 'George'
+                }, {
+                    msg: 'John'
+                }, {
+                    msg: 'Thomas'
+                }, {
+                    msg: 'James'
+                }, {
+                    msg: 'Adrew'
+                }, {
+                    msg: 'Martin'
+                }
+            ]
+        }
+    })
+    </script>
+</body>
+
+</html>

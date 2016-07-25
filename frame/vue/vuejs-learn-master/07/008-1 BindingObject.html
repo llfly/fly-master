@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <style>
+  .static {
+    font-size: 120px;
+    width: 600px;
+    margin: 0 auto;
+    background-color: yellow;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+  }
+
+  .classA {
+    color: #FF0000;
+  }
+
+  .classB {
+    text-decoration: underline;
+  }
+
+  .classC {
+    text-shadow: 2px 2px 4px #000000;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div v-bind:style="ccgo">
+      台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      },
+      styleObject1: {
+        color: 'blue',
+        fontSize: '20px'
+      },
+      itemA: 100,
+      itemB: 2000
+    },
+    computed: {
+      ccgo: function() {
+        if (this.itemA < this.itemB) {
+          return this.styleObject
+        } else {
+          return this.styleObject1
+        }
+
+      }
+    }
+
+  });
+  </script>
+</body>
+
+</html>

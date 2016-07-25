@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Constructor demo</title>
+</head>
+
+<body>
+<!-- 参考网址 java script 物件导向 mdn
+    https://developer.mozilla.org/zh-TW/docs/JavaScript_%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E4%BB%8B%E7%B4%B9#The_Constructor
+-->
+
+
+    <script>
+    //-------- java script Constructor 构造器
+    function Person(gender) {
+        this.gender = gender; // Person 的 Property (object attribute)
+    }
+
+    Person.prototype.sayGender = function() {
+        //  Person class 增加了一個 sayHello() method
+        document.write("this.gender:"+ this.gender); // Person 的 Methods (object attribute)
+    };
+
+    var person1 = new Person('男性');  // person1 是 Person class 的实例
+
+    person1.sayGender(); // 使用 person1 实例中，的一个方法
+    </script>
+
+</body>
+
+</html>

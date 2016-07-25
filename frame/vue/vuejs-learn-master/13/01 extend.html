@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>01</title>
+</head>
+
+<body>
+    <div id="app">
+        <pre>
+        控制台中，可以看到.
+        vue 的组件实例
+
+        (1)$options
+        可以看到 template
+
+        (2) _data
+         可以看到 data msg
+
+        (3)执行 myComponentInstance.$mount('#app')
+        可以看到 这个 vue的组件实例，就挂载在 #app
+        </pre>
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        template: '<div><h1>{{msg1}}</h1>我是 vue 的组件实例，有看到吗？{{{msg}}}</div>',
+        data: function() {
+            return {
+                msg: '<font color="#ff0000">台湾小凡</font>',
+                msg1: '目前没有 vue component 的 规格文件…'
+            }
+        }
+    })
+
+    var myComponentInstance = new MyComponent()
+
+    console.log(myComponentInstance);
+    </script>
+</body>
+
+</html>

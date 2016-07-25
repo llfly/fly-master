@@ -159,8 +159,21 @@ console.log('quickSort',test.quickSort(0,test.length));
 
 //将两个有序数组归并成一个数组
 function merge1(arr1,arr2){
-	var i=0,j=0,k,len1 = arr1.length,len2 = arr2.length;
-	while(i<)
+	var i=0,j=0,k,len1 = arr1.length,len2 = arr2.length,arr;
+	while(i<len1&&j<len2){
+		if(arr1[i]<arr2[j]){
+			arr.push(arr1[i++]);
+		}else{
+			arr.push(arr2[j++]);
+		}
+	}
+	while(i<len1){
+		arr.push(arr1[i++]);
+	}
+	while(j<len2){
+		arr.push(arr2[j++]);
+	}
+	console.log(arr);
 }
 
 

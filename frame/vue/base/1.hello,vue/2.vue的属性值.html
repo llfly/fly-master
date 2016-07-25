@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{mess.name}}
+    {{mess.age}}
+</div>
+<script src="../../vue.js"></script>
+<script>
+    //http://cn.vuejs.org/api/#vm-data
+    var message = {name:1};
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            mess:message
+        }
+    });
+    //指向的是同一内存空间 当前实例上的数据和绑定的对象指向的是同一内存空间
+    //1. 修改message上的属性值
+    message.name = 5; //直接操作同一空间的值
+
+    //2. 修改vm.mess上的属性值
+    vm.mess.name = 6;
+    console.log(vm.mess === message);//true;
+
+    //3. 修改vm.$data
+    vm.$data = {mess:{name:'test'}};
+    console.log(vm.$data.mess === vm.mess );//true
+
+
+    //4. 使用实例的$set,$get,$delete 方法进行修改
+    console.log(vm.$get('mess'));//name = test
+    vm.$set('mess.name',3);//name = 3
+    console.log(vm.$get('mess'));//mess.name = 3
+
+    //5. 使用Vue.set方法
+    Vue.set(vm,vm.mess.name,'4');//这么做会设置mess.name属性
+    console.log(vm['mess.name']);
+    //question: 如何使用Vue.set进行mess.name的设置？
+
+
+    //6. 修改message
+    //message = {name:2} //把message的指向变了 但是mess的指向还是以前的
+    //这是开辟了一个新的空间
+
+
+    //7. 在message对象上加其它属性
+    //实例创建后原本不存在的属性，添加上不会生效
+    //message.age = 7; //不更新实体
+    //console.log(message.age);
+    //console.log(vm.mess.age);
+    //虽然对象上有值，但是并没有影响视图的修改
+
+
+    //vm.$set('mess.age',15);//当已经通过message.age = 7 做设置之后 view中没有数据显示出来  但是把上面的message.age 注释掉可以实现view改变
+    //console.log(vm.$get('mess'));
+
+    //Vue.set(vm.mess.age,18);
+    //console.log(vm.mess.age);
+
+    //8. vm.$watch
+    // vm.$watch('mess.age',function(newVal,oldVal){// vm.$watch返回一个取消观察函数，用来停止触发回调
+    //     console.log(newVal,oldVal);
+    // });
+
+    // vm.$set('mess.age',9);
+    //{deep: true}
+
+    //修改方法
+    //vm.$data.mess
+    //vm.$set('mess')
+    //Vue.set(vm,'mess')
+</script>
+</body>
+</html>

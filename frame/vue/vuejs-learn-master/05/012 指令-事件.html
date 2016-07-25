@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="vue.js"></script>
+    <meta charset="UTF-8">
+    <title>
+    </title>
+</head>
+
+<body>
+    <!--
+
+    指令-事件, 简单示例
+    -->
+    <div id="app">
+        <a v-on:click="doSomething1">将 a = 1</a>
+        <br>
+        <a v-on:click="doSomething2">将 a = 2</a>
+        <h1>{{a}}</h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            a: 100
+        },
+        methods: {
+            doSomething1: function() {
+                this.a = 1
+            },
+            doSomething2: function() {
+                this.a = 2
+            },
+
+        }
+    })
+    </script>
+</body>
+
+</html>

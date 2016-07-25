@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .blue {
+        color: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example-1">
+        <ul>
+            <template v-for="item in items">
+                <li>
+                    {{$index}}.{{ item.msg }}
+
+                    <button v-on:click="f5(item)">vm.items.splice(index, 1)</button>
+
+                    <button v-on:click="f6(item)">vm.remove</button>
+                </li>
+            </template>
+        </ul>
+        <ul>
+            <li>
+                <button v-on:click="f1">vm.items[0] = {} 失效</button>
+            </li>
+            <li>
+                <button v-on:click="f2">vm.items.$set(0, { childMsg: 'Changed!'}) </button>
+            </li>
+            <li>
+                <button v-on:click="f3">vm.items.length = 0 失效</button>
+            </li>
+            <li>
+                <button v-on:click="f4">vm.items={}</button>
+            </li>
+        </ul>
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+        因为 JavaScript 的限制，Vue.js 不能检测到下面数组变化：
+        直接用索引设置元素，如 vm.items[0] = {}；
+        修改数据的长度，如 vm.items.length = 0。
+        </pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }]
+        },
+        methods: {
+            f1: function() {
+                vm.items[0] = {}; // 失效
+            },
+            f2: function() {
+                vm.items.$set(0, {
+                    childMsg: 'Changed!'
+                })
+            },
+            f3: function() {
+                vm.items.length = 0; // 失效
+            },
+            f4: function() {
+                vm.items = {}
+            },
+            f5: function(item) {
+                var index = this.items.indexOf(item) //Search an array for the item
+                if (index !== -1) {
+                    this.items.splice(index, 1) //Selects a part of an array, and returns the new array
+                }
+            },
+            f6: function(item) {
+                this.items.$remove(item)
+            }
+        }
+
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+    .divider {
+        height: 1px;
+        margin: 9px 1px;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        border-bottom: 1px solid #ffffff;
+    }
+    </style>
+</head>
+
+<body>
+    <!--
+    类似于 template v-if，也可以将 v-for
+    用在 <template> 标签上，以渲染一个包含多个元素的块。例如：
+    -->
+    <div id="example-1">
+        <ul>
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>
+                <li class="divider"></li>
+            </template>
+        </ul>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }]
+        }
+    })
+    </script>
+</body>
+
+</html>

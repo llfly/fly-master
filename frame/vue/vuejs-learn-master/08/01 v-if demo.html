@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1 v-if="ok">Yes</h1>
+    <h1 v-else>No</h1>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      ok: false // 控制台 操作
+    }
+  })
+  </script>
+</body>
+
+</html>
